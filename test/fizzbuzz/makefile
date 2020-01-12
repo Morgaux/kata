@@ -44,7 +44,6 @@ test_file_is_executable:
 		else \
 			echo "$@ failed for $$FILE" ; \
 			echo "A FizzBuzz program MUST be executable" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -60,7 +59,6 @@ test_program_has_output:
 		else \
 			echo "$@ failed for $$FILE" ; \
 			echo "A FizzBuzz program MUST have output to stdout" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -78,7 +76,6 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 			echo "A FizzBuzz program MUST output only base ten " ; \
 			echo "numbers, OR the string 'Fizz', OR the string " ; \
 			echo "'Buzz', OR the string 'FizzBuzz'" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -94,7 +91,6 @@ test_numbers_are_positive:
 		else \
 			echo "TEST1 failed for $$FILE" ; \
 			echo "A FizzBuzz program MUST output positive numbers" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -111,7 +107,6 @@ test_numbers_are_in_order:
 			echo "$@ failed for $$FILE" ; \
 			echo "A FizzBuzz program MUST output numbers in" ; \
 			echo "accending order" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -126,7 +121,6 @@ test_every_third_output_is_fizz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -141,7 +135,6 @@ test_every_fifth_output_is_buzz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -156,7 +149,6 @@ test_every_fifteenth_output_is_fizzbuzz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
-			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
