@@ -25,7 +25,7 @@ TEST1:
 	@echo "Starting Test 1..."
 	@for FILE in ${FILES}; \
 	do \
-		if ./$$FILE | grep -Eq "^Fizz|Buzz|FizzBuzz|\d*$$" ;\
+		if ./$$FILE | grep -Eq "^Fizz|Buzz|FizzBuzz|\d*$$" ; \
 		then \
 			echo "TEST1 passed for $$FILE" ; \
 		else \
@@ -41,6 +41,21 @@ TEST1:
 
 TEST2:
 	@echo "Starting Test 2..."
+	@for FILE in ${FILES}; \
+	do \
+		if ./$$FILE | grep -Eq "\d*" ; \
+		then \
+			continue ; \
+		fi ; \
+		if ! ./$$FILE | grep -Eq "-\d*" ; \
+		then \
+			echo "TEST2 passed for $$FILE" ; \
+		else \
+			echo "TEST1 failed for $$FILE" ; \
+			echo "A FizzBuzz program MUST output positive numbers" ; \
+			exit 1 ; \
+		fi ; \
+	done
 	@echo "Finnished Test 2"
 	@echo " "
 
