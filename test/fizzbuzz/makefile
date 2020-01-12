@@ -59,6 +59,7 @@ test_program_has_output:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			echo "A FizzBuzz program MUST have output to stdout" ; \
 			exit 1 ; \
 		fi ; \
 	done
