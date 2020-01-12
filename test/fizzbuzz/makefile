@@ -11,7 +11,9 @@
 # - Every fifteenth output MUST be a "FizzBuzz"
 #
 
-TESTS = test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
+TESTS = test_file_is_executable                              \
+        test_program_has_output                              \
+        test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
         test_numbers_are_positive                            \
         test_numbers_are_in_order                            \
         test_every_third_output_is_fizz                      \
@@ -28,6 +30,16 @@ config:
 	@echo " "
 
 ${TESTS}: ${FILES}
+
+test_file_is_executable:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
+	@echo " "
+
+test_program_has_output:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
+	@echo " "
 
 test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 	@echo "Starting Test $@..."
