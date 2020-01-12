@@ -104,11 +104,13 @@ test_numbers_are_in_order:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if false ; \
+		if sort -n -c $$FILE 2>/dev/null ; \
 		then \
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			echo "A FizzBuzz program MUST output numbers in" ; \
+			echo "accending order" ; \
 			exit 1 ; \
 		fi ; \
 	done
