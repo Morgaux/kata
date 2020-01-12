@@ -54,7 +54,7 @@ test_program_has_output:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if false ; \
+		if [ "$$(wc -c < "$$FILE" | awk '{print $$1}')" -gt 0 ] ; \
 		then \
 			echo "$@ passed for $$FILE" ; \
 		else \
