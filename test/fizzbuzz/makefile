@@ -88,11 +88,7 @@ test_numbers_are_positive:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if ./$$FILE | grep -Eq "\d*" ; \
-		then \
-			continue ; \
-		fi ; \
-		if ! ./$$FILE | grep -Eq "-\d*" ; \
+		if ! ./$$FILE | grep -Eq "^-\d*" ; \
 		then \
 			echo "TEST2 passed for $$FILE" ; \
 		else \
