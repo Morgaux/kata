@@ -53,7 +53,7 @@ test_program_has_output:
 
 test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 	@echo "Starting Test $@..."
-	@for FILE in ${FILES}; \
+	@for FILE in ${FILES} ; \
 	do \
 		if ./$$FILE | grep -Eq "^Fizz|Buzz|FizzBuzz|\d*$$" ; \
 		then \
@@ -71,7 +71,7 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 
 test_numbers_are_positive:
 	@echo "Starting Test $@..."
-	@for FILE in ${FILES}; \
+	@for FILE in ${FILES} ; \
 	do \
 		if ./$$FILE | grep -Eq "\d*" ; \
 		then \
