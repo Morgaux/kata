@@ -25,8 +25,9 @@ FILES = ../../src/fizzbuzz/*
 all: config ${TESTS}
 
 config:
-	@echo "config:"
+	@echo "config for FizzBuzz tests:"
 	@echo "FILES:	" ${FILES}
+	@echo "TESTS:	" ${TESTS}
 	@echo " "
 
 ${TESTS}: ${FILES}
