@@ -2,6 +2,8 @@
 # Tests for a fizz buzz implementation
 #
 # Implementation is tested for the following features:
+# - A FizzBuzz program MUST be executable
+# - A FizzBuzz program MUST have output to stdout
 # - A FizzBuzz program MUST output only base ten numbers, OR the string "Fizz",
 #   OR the string "Buzz", OR the string "FizzBuzz"
 # - A FizzBuzz program MUST output positive numbers
@@ -36,8 +38,13 @@ test_file_is_executable:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if [ -x $$FILE ] ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+			echo "A FizzBuzz program MUST be executable" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
@@ -46,8 +53,12 @@ test_program_has_output:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if false ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
@@ -94,8 +105,12 @@ test_numbers_are_in_order:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if false ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
@@ -104,8 +119,12 @@ test_every_third_output_is_fizz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if false ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
@@ -114,8 +133,12 @@ test_every_fifth_output_is_buzz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if false ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
@@ -124,8 +147,12 @@ test_every_fifteenth_output_is_fizzbuzz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		echo "FAIL" ; \
-		exit 1 ; \
+		if false ; \
+		then \
+			echo "$@ passed for $$FILE" ; \
+		else \
+			echo "$@ failed for $$FILE" ; \
+		fi ; \
 	done
 	@echo "Finnished Test $@"
 	@echo " "
