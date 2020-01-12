@@ -33,11 +33,21 @@ ${TESTS}: ${FILES}
 
 test_file_is_executable:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
 test_program_has_output:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
@@ -81,21 +91,41 @@ test_numbers_are_positive:
 
 test_numbers_are_in_order:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
 test_every_third_output_is_fizz:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
 test_every_fifth_output_is_buzz:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
 test_every_fifteenth_output_is_fizzbuzz:
 	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		echo "FAIL" ; \
+		exit 1 ; \
+	done
 	@echo "Finnished Test $@"
 	@echo " "
 
