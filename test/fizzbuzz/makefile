@@ -2,16 +2,22 @@
 # Tests for a fizz buzz implementation
 #
 # Implementation is tested for the following features:
-# TEST1 - A FizzBuzz program MUST output only base ten numbers, OR the string
-#         "Fizz", OR the string "Buzz", OR the string "FizzBuzz"
-# TEST2 - A FizzBuzz program MUST output positive numbers
-# TEST3 _ A FizzBuzz program MUST output numbers in order
-# TEST4 - Every third output MUST be a "Fizz", except if "FizzBuzz"
-# TEST5 - Every fifth output MUST be a "Buzz", except if "FizzBuzz"
-# TEST6 - Every fifteenth output MUST be a "FizzBuzz"
+# - A FizzBuzz program MUST output only base ten numbers, OR the string "Fizz",
+#   OR the string "Buzz", OR the string "FizzBuzz"
+# - A FizzBuzz program MUST output positive numbers
+# - A FizzBuzz program MUST output numbers in order
+# - Every third output MUST be a "Fizz", except if "FizzBuzz"
+# - Every fifth output MUST be a "Buzz", except if "FizzBuzz"
+# - Every fifteenth output MUST be a "FizzBuzz"
 #
 
-TESTS = TEST1 TEST2 TEST3 TEST4 TEST5 TEST6
+TESTS = test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
+        test_numbers_are_positive                            \
+        test_numbers_are_in_order                            \
+        test_every_third_output_is_fizz                      \
+        test_every_fifth_output_is_buzz                      \
+        test_every_fifteenth_output_is_fizzbuzz
+
 FILES = ../../src/fizzbuzz/*
 
 all: config ${TESTS}
@@ -23,8 +29,8 @@ config:
 
 ${TESTS}: ${FILES}
 
-TEST1:
-	@echo "Starting Test 1..."
+test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
+	@echo "Starting Test $@..."
 	@for FILE in ${FILES}; \
 	do \
 		if ./$$FILE | grep -Eq "^Fizz|Buzz|FizzBuzz|\d*$$" ; \
@@ -38,11 +44,11 @@ TEST1:
 			exit 1 ; \
 		fi ; \
 	done
-	@echo "Finnished Test 1"
+	@echo "Finnished Test $@"
 	@echo " "
 
-TEST2:
-	@echo "Starting Test 2..."
+test_numbers_are_positive:
+	@echo "Starting Test $@..."
 	@for FILE in ${FILES}; \
 	do \
 		if ./$$FILE | grep -Eq "\d*" ; \
@@ -58,27 +64,27 @@ TEST2:
 			exit 1 ; \
 		fi ; \
 	done
-	@echo "Finnished Test 2"
+	@echo "Finnished Test $@"
 	@echo " "
 
-TEST3:
-	@echo "Starting Test 3..."
-	@echo "Finnished Test 3"
+test_numbers_are_in_order:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
 	@echo " "
 
-TEST4:
-	@echo "Starting Test 4..."
-	@echo "Finnished Test 4"
+test_every_third_output_is_fizz:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
 	@echo " "
 
-TEST5:
-	@echo "Starting Test 5..."
-	@echo "Finnished Test 5"
+test_every_fifth_output_is_buzz:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
 	@echo " "
 
-TEST6:
-	@echo "Starting Test 6..."
-	@echo "Finnished Test 6"
+test_every_fifteenth_output_is_fizzbuzz:
+	@echo "Starting Test $@..."
+	@echo "Finnished Test $@"
 	@echo " "
 
 .PHONY: all config ${TESTS}
