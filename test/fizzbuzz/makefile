@@ -21,6 +21,8 @@ config:
 	@echo "FILES:	" ${FILES}
 	@echo " "
 
+${TESTS}: ${FILES}
+
 TEST1:
 	@echo "Starting Test 1..."
 	@for FILE in ${FILES}; \
