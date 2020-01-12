@@ -44,6 +44,7 @@ test_file_is_executable:
 		else \
 			echo "$@ failed for $$FILE" ; \
 			echo "A FizzBuzz program MUST be executable" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -58,6 +59,7 @@ test_program_has_output:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -110,6 +112,7 @@ test_numbers_are_in_order:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -124,6 +127,7 @@ test_every_third_output_is_fizz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -138,6 +142,7 @@ test_every_fifth_output_is_buzz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
@@ -152,6 +157,7 @@ test_every_fifteenth_output_is_fizzbuzz:
 			echo "$@ passed for $$FILE" ; \
 		else \
 			echo "$@ failed for $$FILE" ; \
+			exit 1 ; \
 		fi ; \
 	done
 	@echo "Finnished Test $@"
