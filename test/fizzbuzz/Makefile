@@ -21,6 +21,10 @@ config:
 	@echo "TESTS:	" ${TESTS}
 	@echo " "
 
+test: ${TESTS}
+	@echo "All tests completed..."
+	@echo " "
+
 ${TESTS}: ${FILES}
 
 test_file_is_executable:
@@ -127,4 +131,4 @@ test_every_fifteenth_output_is_fizzbuzz:
 	done
 	@echo " "
 
-.PHONY: all config ${TESTS}
+.PHONY: all config test ${TESTS}
