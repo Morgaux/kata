@@ -113,7 +113,7 @@ test_every_fifth_output_is_buzz:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "$@ failed for $$FILE" ; \
+			echo "Failed for $$FILE" ; \
 		fi ; \
 	done
 	@echo " "
@@ -126,7 +126,7 @@ test_every_fifteenth_output_is_fizzbuzz:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "$@ failed for $$FILE" ; \
+			echo "Failed for $$FILE" ; \
 		fi ; \
 	done
 	@echo " "
