@@ -83,7 +83,7 @@ test_numbers_are_in_order:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if sort -n -c $$FILE 2>/dev/null ; \
+		if $$FILE | sort -n -c - 2>/dev/null ; \
 		then \
 			echo "PASS" ; \
 		else \
