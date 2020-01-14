@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
-for i in range(100):
-	print(i)
+for i in range(1, 101):
+	if i % 3 == 0:
+		print("Fizz")
+	else:
+		print(i)
 
