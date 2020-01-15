@@ -7,7 +7,10 @@ TESTS = ${KATAS:src/%=test/%}
 
 DIRS = bin/fizzbuzz
 
-all: ${DIRS} config test
+all: ${DIRS} clean config test
+
+clean:
+	@rm -rf bin/*/*
 
 config:
 	@echo "config for katas:"
@@ -30,5 +33,5 @@ test:
 ${DIRS}:
 	@mkdir -p $@
 
-.PHONY: all config test
+.PHONY: all clean config test
 
