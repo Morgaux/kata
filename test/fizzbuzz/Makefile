@@ -9,7 +9,8 @@ TESTS = test_file_is_executable                              \
         test_numbers_are_in_order                            \
         test_every_third_output_is_fizz                      \
         test_every_fifth_output_is_buzz                      \
-        test_every_fifteenth_output_is_fizzbuzz
+        test_every_fifteenth_output_is_fizzbuzz              \
+        test_output_is_at_least_100_lines
 
 FILES = ../../src/fizzbuzz/*
 
@@ -123,6 +124,19 @@ test_every_fifteenth_output_is_fizzbuzz:
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ] ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for $$FILE" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_output_is_at_least_100_lines:
+	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		if [ "$$("$$FILE" | wc -l)" -gt 99 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
