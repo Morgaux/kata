@@ -36,7 +36,7 @@ test_file_is_executable:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -49,7 +49,7 @@ test_program_has_output:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -62,7 +62,7 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -75,7 +75,7 @@ test_numbers_are_positive:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -88,7 +88,7 @@ test_numbers_are_in_order:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -101,7 +101,7 @@ test_every_third_output_is_fizz:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -114,7 +114,7 @@ test_every_fifth_output_is_buzz:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -127,7 +127,7 @@ test_every_fifteenth_output_is_fizzbuzz:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
@@ -140,7 +140,7 @@ test_output_is_at_least_100_lines:
 		then \
 			echo "PASS" ; \
 		else \
-			echo "FAIL for $$FILE" ; \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
 		fi ; \
 	done
 	@echo " "
