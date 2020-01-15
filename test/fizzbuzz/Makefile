@@ -30,7 +30,7 @@ test: ${TESTS}
 ${TESTS}: ${FILES}
 
 test_file_is_executable:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ -x $$FILE ] ; \
@@ -43,7 +43,7 @@ test_file_is_executable:
 	@echo " "
 
 test_program_has_output:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -c | awk '{print $$1}')" -gt 0 ] ; \
@@ -56,7 +56,7 @@ test_program_has_output:
 	@echo " "
 
 test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if ./$$FILE | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^\d*$$" ; \
@@ -69,7 +69,7 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 	@echo " "
 
 test_numbers_are_positive:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "\d" && \
@@ -83,7 +83,7 @@ test_numbers_are_positive:
 	@echo " "
 
 test_numbers_are_in_order:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "\d" && \
@@ -97,7 +97,7 @@ test_numbers_are_in_order:
 	@echo " "
 
 test_every_third_output_is_fizz:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -l)" -gt 2 ]  && \
@@ -111,7 +111,7 @@ test_every_third_output_is_fizz:
 	@echo " "
 
 test_every_fifth_output_is_buzz:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -l)" -gt 4 ]  && \
@@ -125,7 +125,7 @@ test_every_fifth_output_is_buzz:
 	@echo " "
 
 test_every_fifteenth_output_is_fizzbuzz:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -l)" -gt 14 ]  && \
@@ -139,7 +139,7 @@ test_every_fifteenth_output_is_fizzbuzz:
 	@echo " "
 
 test_output_is_at_least_100_lines:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -l)" -gt 99 ] ; \
@@ -152,7 +152,7 @@ test_output_is_at_least_100_lines:
 	@echo " "
 
 test_output_has_numbers:
-	@echo "Starting Test $@..."
+	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "\d" ; \
