@@ -4,14 +4,14 @@
 
 TESTS = test_file_is_executable                              \
         test_program_has_output                              \
-        test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
+        test_output_is_at_least_100_lines                    \
+        test_output_has_numbers                              \
         test_numbers_are_positive                            \
         test_numbers_are_in_order                            \
+        test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
         test_every_third_output_is_fizz                      \
         test_every_fifth_output_is_buzz                      \
-        test_every_fifteenth_output_is_fizzbuzz              \
-        test_output_is_at_least_100_lines                    \
-        test_output_has_numbers
+        test_every_fifteenth_output_is_fizzbuzz
 
 FILES = ../../src/fizzbuzz/*
 
