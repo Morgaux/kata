@@ -17,6 +17,7 @@ test:
 	@echo "Starting tests for all katas..."
 	@for TEST in ${TESTS}        ;  \
 	do                              \
+		echo " "             ;  \
 		_CWD_="$$(pwd)"      ;  \
 		cd "$$TEST"          && \
 			make         && \

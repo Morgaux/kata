@@ -14,12 +14,14 @@ TESTS = test_file_is_executable                              \
         test_every_fifteenth_output_is_fizzbuzz
 
 FILES = ../../src/fizzbuzz/*
+PROGS = ${FILES:../../src/fizzbuzz/%=../../bin/fizzbuzz/%}
 
 all: config ${TESTS}
 
 config:
 	@echo "config for FizzBuzz tests:"
 	@echo "FILES:	" ${FILES}
+	@echo "PROGS:	" ${PROGS}
 	@echo "TESTS:	" ${TESTS}
 	@echo " "
 
