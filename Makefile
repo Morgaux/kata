@@ -22,7 +22,7 @@ test:
 		echo " "             ;  \
 		_CWD_="$$(pwd)"      ;  \
 		cd "$$TEST"          && \
-			make         && \
+			make -s      && \
 			cd "$$_CWD_" ;  \
 	done
 	@echo ""
