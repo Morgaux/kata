@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in $(seq 1 100)
+for i in $(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}')
 do
 	echo "$i"
 done
