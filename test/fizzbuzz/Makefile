@@ -10,7 +10,8 @@ TESTS = test_file_is_executable                              \
         test_every_third_output_is_fizz                      \
         test_every_fifth_output_is_buzz                      \
         test_every_fifteenth_output_is_fizzbuzz              \
-        test_output_is_at_least_100_lines
+        test_output_is_at_least_100_lines                    \
+        test_output_has_numbers
 
 FILES = ../../src/fizzbuzz/*
 
@@ -137,6 +138,19 @@ test_output_is_at_least_100_lines:
 	@for FILE in ${FILES} ; \
 	do \
 		if [ "$$("$$FILE" | wc -l)" -gt 99 ] ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_output_has_numbers:
+	@echo "Starting Test $@..."
+	@for FILE in ${FILES} ; \
+	do \
+		if "$$FILE" | grep -Eq "\d" ; \
 		then \
 			echo "PASS" ; \
 		else \
