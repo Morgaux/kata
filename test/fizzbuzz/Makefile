@@ -13,15 +13,15 @@ TESTS = test_file_is_executable                              \
         test_every_fifth_output_is_buzz                      \
         test_every_fifteenth_output_is_fizzbuzz
 
-FILES = ../../src/fizzbuzz/*
-PROGS = ${FILES:../../src/fizzbuzz/%=../../bin/fizzbuzz/%}
+FILES = ../../bin/fizzbuzz/python-implementation  \
+        ../../bin/fizzbuzz/shell-implementation   \
+        ../../bin/fizzbuzz/haskell-implementation
 
 all: config ${TESTS}
 
 config:
 	@echo "config for FizzBuzz tests:"
 	@echo "FILES:	" ${FILES}
-	@echo "PROGS:	" ${PROGS}
 	@echo "TESTS:	" ${TESTS}
 	@echo " "
 
@@ -30,6 +30,11 @@ test: ${TESTS}
 	@echo " "
 
 ${TESTS}: ${FILES}
+
+${FILES}:
+	@echo "Building $@..."
+	@cd ../../src/fizzbuzz && make $@
+	@echo " "
 
 test_file_is_executable:
 	@echo "Starting: $@..."

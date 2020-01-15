@@ -5,7 +5,9 @@
 KATAS = src/fizzbuzz
 TESTS = ${KATAS:src/%=test/%}
 
-all: config test
+DIRS = bin/fizzbuzz
+
+all: ${DIRS} config test
 
 config:
 	@echo "config for katas:"
@@ -24,6 +26,9 @@ test:
 			cd "$$_CWD_" ;  \
 	done
 	@echo ""
+
+${DIRS}:
+	@mkdir -p $@
 
 .PHONY: all config test
 
