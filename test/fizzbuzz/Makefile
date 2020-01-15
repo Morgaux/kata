@@ -100,7 +100,8 @@ test_every_third_output_is_fizz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if [ "$$("$$FILE" | awk 'NR % 3 == 0' | grep -v "Fizz" | wc -l)" -eq 0 ] ; \
+		if [ "$$("$$FILE" | wc -l)" -gt 2 ]  && \
+			[ "$$("$$FILE" | awk 'NR % 3 == 0' | grep -v "Fizz" | wc -l)" -eq 0 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -113,7 +114,8 @@ test_every_fifth_output_is_buzz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if [ "$$("$$FILE" | awk 'NR % 5 == 0' | grep -v "Buzz" | wc -l)" -eq 0 ] ; \
+		if [ "$$("$$FILE" | wc -l)" -gt 4 ]  && \
+			[ "$$("$$FILE" | awk 'NR % 5 == 0' | grep -v "Buzz" | wc -l)" -eq 0 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -126,7 +128,8 @@ test_every_fifteenth_output_is_fizzbuzz:
 	@echo "Starting Test $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if [ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ] ; \
+		if [ "$$("$$FILE" | wc -l)" -gt 14 ]  && \
+			[ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
