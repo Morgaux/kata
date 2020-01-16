@@ -21,8 +21,8 @@ all: config ${TESTS}
 
 config:
 	@echo "config for FizzBuzz tests:"
-	@echo "FILES:	" ${FILES}
-	@echo "TESTS:	" ${TESTS}
+	@echo "FILES:	" ${FILES} | sed 's/ /\n\t/g'
+	@echo "TESTS:	" ${TESTS} | sed 's/ /\n\t/g'
 	@echo " "
 
 test: ${TESTS}
