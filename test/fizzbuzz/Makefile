@@ -80,7 +80,7 @@ test_numbers_are_positive:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if ! "$$FILE" | grep -E "[0123456789]*" | grep -Eq "^-.*" ; \
+		if ! "$$FILE" | grep -E "\-[0123456789]" ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -93,8 +93,7 @@ test_numbers_are_in_order:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if "$$FILE" | grep -Eq "\d" && \
-			"$$FILE" | grep "\d" | sort -n -c - 2>/dev/null ; \
+		if "$$FILE" | grep -E "[0123456789]" | sort -n -c - 2>/dev/null ; \
 		then \
 			echo "PASS" ; \
 		else \
