@@ -40,7 +40,7 @@ test_file_is_executable:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if [ -x $$FILE ] ; \
+		if [ -x "$$FILE" ] ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -66,7 +66,7 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if ./$$FILE | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^\d*$$" && \
+		if "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^\d*$$" && \
 			! "$$FILE" | grep -Eq "^$$"; \
 		then \
 			echo "PASS" ; \
@@ -81,7 +81,7 @@ test_numbers_are_positive:
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "\d" && \
-			! ./$$FILE | grep -Eq "^-\d*" ; \
+			! "$$FILE" | grep -Eq "^-\d*" ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -95,7 +95,7 @@ test_numbers_are_in_order:
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "\d" && \
-			$$FILE | grep "\d" | sort -n -c - 2>/dev/null ; \
+			"$$FILE" | grep "\d" | sort -n -c - 2>/dev/null ; \
 		then \
 			echo "PASS" ; \
 		else \
