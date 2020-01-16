@@ -80,8 +80,7 @@ test_numbers_are_positive:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if "$$FILE" | grep -Eq "\d" && \
-			! "$$FILE" | grep -Eq "^-\d*" ; \
+		if ! "$$FILE" | grep -E "[0123456789]*" | grep -Eq "^-.*" ; \
 		then \
 			echo "PASS" ; \
 		else \
