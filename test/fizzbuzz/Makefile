@@ -163,7 +163,7 @@ test_output_has_numbers:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if "$$FILE" | grep -Eq "\d" ; \
+		if "$$FILE" | grep -Eq "^[0123456789]*$$" ; \
 		then \
 			echo "PASS" ; \
 		else \
