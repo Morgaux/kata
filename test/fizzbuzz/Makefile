@@ -66,7 +66,8 @@ test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes:
 	@echo "Starting: $@..."
 	@for FILE in ${FILES} ; \
 	do \
-		if ./$$FILE | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^\d*$$" ; \
+		if ./$$FILE | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^\d*$$" && \
+			! "$$FILE" | grep -Eq "^$$"; \
 		then \
 			echo "PASS" ; \
 		else \
