@@ -10,8 +10,11 @@ TESTS = test_file_is_executable                              \
         test_numbers_are_in_order                            \
         test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
         test_every_third_output_is_fizz                      \
+        test_fizzes_are_only_at_every_third_position         \
         test_every_fifth_output_is_buzz                      \
-        test_every_fifteenth_output_is_fizzbuzz
+        test_buzzes_are_only_at_every_fifth_position         \
+        test_every_fifteenth_output_is_fizzbuzz              \
+        test_fizzbuzzes_are_only_at_every_fifteenth_position
 
 FILES = ../../bin/fizzbuzz/python-implementation  \
         ../../bin/fizzbuzz/shell-implementation   \
@@ -176,6 +179,45 @@ test_output_has_numbers:
 	@for FILE in ${FILES} ; \
 	do \
 		if "$$FILE" | grep -Eq "[0123456789]*" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_fizzes_are_only_at_every_third_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_buzzes_are_only_at_every_fifth_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_fizzbuzzes_are_only_at_every_fifteenth_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz" ; \
 		then \
 			echo "PASS" ; \
 		else \
