@@ -2,16 +2,20 @@
 # Tests for a fizz buzz implementation
 #
 
-TESTS = test_file_is_executable                              \
-        test_program_has_output                              \
-        test_output_is_at_least_100_lines                    \
-        test_output_has_numbers                              \
-        test_numbers_are_positive                            \
-        test_numbers_are_in_order                            \
-        test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes \
-        test_every_third_output_is_fizz                      \
-        test_every_fifth_output_is_buzz                      \
-        test_every_fifteenth_output_is_fizzbuzz
+TESTS = test_file_is_executable                                    \
+        test_program_has_output                                    \
+        test_output_has_numbers                                    \
+        test_numbers_are_positive                                  \
+        test_numbers_are_in_order                                  \
+        test_numbers_corespond_to_ordinal_position_counting_from_1 \
+        test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes       \
+        test_every_third_output_is_fizz                            \
+        test_fizzes_are_only_at_every_third_position               \
+        test_every_fifth_output_is_buzz                            \
+        test_buzzes_are_only_at_every_fifth_position               \
+        test_every_fifteenth_output_is_fizzbuzz                    \
+        test_fizzbuzzes_are_only_at_every_fifteenth_position       \
+        test_output_is_at_least_100_lines
 
 FILES = ../../bin/fizzbuzz/python-implementation  \
         ../../bin/fizzbuzz/shell-implementation   \
@@ -34,6 +38,20 @@ ${TESTS}: ${FILES}
 ${FILES}:
 	@echo "Building $@..." | tr '_' ' '
 	@cd ../../src/fizzbuzz && make $@
+	@echo " "
+
+# don't put this target in the TESTS, it's just a template, copy for new tests
+test_template:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if false ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
 	@echo " "
 
 test_file_is_executable:
@@ -170,4 +188,56 @@ test_output_has_numbers:
 	done
 	@echo " "
 
-.PHONY: all config test ${TESTS}
+test_fizzes_are_only_at_every_third_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_buzzes_are_only_at_every_fifth_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_fizzbuzzes_are_only_at_every_fifteenth_position:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz" ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_numbers_corespond_to_ordinal_position_counting_from_1:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if "$$FILE" | awk '/\d/ {if (NR != $$0) exit 1}' ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+.PHONY: all config test test_template ${TESTS}

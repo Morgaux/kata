@@ -4,8 +4,7 @@
 
 KATAS = src/fizzbuzz
 TESTS = ${KATAS:src/%=test/%}
-
-DIRS = bin/fizzbuzz
+DIRS  = ${KATAS:src/%=bin/%}
 
 all: ${DIRS} clean config test
 
