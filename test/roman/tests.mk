@@ -45,7 +45,7 @@ test_roman_file_exits_success_with_stdin:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if echo "" | "$$FILE" ; \
+		if echo "" | "$$FILE" >/dev/null ; \
 		then \
 			echo "PASS" ; \
 		else \
