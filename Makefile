@@ -3,36 +3,55 @@
 #
 
 KATAS = fizzbuzz roman
-TESTS = ${KATAS:%=test/%}
+TESTS = ${KATAS:%=test/%/tests.mk}
 SRC   = ${KATAS:%=src/%}
 BIN   = ${KATAS:%=bin/%}
-DIRS  = ${BIN}
 
-all: ${DIRS} clean config test-all
+all: config clean test_all
 
-clean:
-	@rm -rf bin/*/*
+include ${TESTS}
 
 config:
 	@echo "config for katas:"
 	@echo "KATAS =	${KATAS}"
 	@echo "TESTS =	${TESTS}"
 	@echo " "
+	@echo "SRC =	${SRC}"
+	@echo "BIN =	${BIN}"
+	@echo " "
 
-test-all:
-	@echo "Starting tests for all katas..."
-	@for TEST in ${TESTS}        ;  \
-	do                              \
-		echo " "             ;  \
-		_CWD_="$$(pwd)"      ;  \
-		cd "$$TEST"          && \
-			make -s      && \
-			cd "$$_CWD_" ;  \
+clean:
+	@rm -rf ${BIN} src/*/*.o src/*/*.hi
+
+test_all: test_fizzbuzz test_roman
+
+# don't put this target in the tests, it's just a template, copy for new tests
+test_template:
+	@echo "Starting: $@..." | tr '_' ' '
+	@for FILE in ${FILES} ; \
+	do \
+		if false ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
 	done
-	@echo ""
+	@echo " "
 
-${DIRS}:
+${BIN}:
 	@mkdir -p $@
+
+bin/%/python_implementation: src/%/python_implementation.py bin/%
+	@cp $< $@
+	@chmod 755 $@
+
+bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
+	@cp $< $@
+	@chmod 755 $@
+
+bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
+	@ghc -o $@ $<
 
 .PHONY: all clean config test-all
 
