@@ -2,11 +2,13 @@
 # main makefile for kata
 #
 
-KATAS = src/fizzbuzz src/roman
-TESTS = ${KATAS:src/%=test/%}
-DIRS  = ${KATAS:src/%=bin/%}
+KATAS = fizzbuzz roman
+TESTS = ${KATAS:%=test/%}
+SRC   = ${KATAS:%=src/%}
+BIN   = ${KATAS:%=bin/%}
+DIRS  = ${BIN}
 
-all: ${DIRS} clean config test
+all: ${DIRS} clean config test-all
 
 clean:
 	@rm -rf bin/*/*
@@ -17,7 +19,7 @@ config:
 	@echo "TESTS =	${TESTS}"
 	@echo " "
 
-test:
+test-all:
 	@echo "Starting tests for all katas..."
 	@for TEST in ${TESTS}        ;  \
 	do                              \
@@ -32,5 +34,5 @@ test:
 ${DIRS}:
 	@mkdir -p $@
 
-.PHONY: all clean config test
+.PHONY: all clean config test-all
 
