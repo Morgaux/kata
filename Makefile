@@ -2,7 +2,7 @@
 # main makefile for kata
 #
 
-KATAS = src/fizzbuzz
+KATAS = src/fizzbuzz src/roman
 TESTS = ${KATAS:src/%=test/%}
 DIRS  = ${KATAS:src/%=bin/%}
 
