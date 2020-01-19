@@ -2,6 +2,6 @@
 
 import sys
 
-if sys.stdinisatty():
+if sys.stdin.isatty():
 	exit(1) # there's no input
 
