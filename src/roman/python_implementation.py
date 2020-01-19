@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
 
-echo "Hello world!"
+import sys
+
+if sys.stdinisatty():
+	exit(1) # there's no input
 
