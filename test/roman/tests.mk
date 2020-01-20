@@ -7,7 +7,7 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_file_exits_success_with_stdin              \
                test_roman_input_line_count_matches_output_line_count \
                test_roman_output_consists_of_only_IVXLCDM            \
-               test_roman_powers_of_10
+               test_roman_powers_of_10_are_correct
 
 _ROMAN_FILES = bin/roman/python_implementation
 
@@ -83,7 +83,7 @@ test_roman_output_consists_of_only_IVXLCDM:
 	done
 	@echo " "
 
-test_roman_powers_of_10:
+test_roman_powers_of_10_are_correct:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
