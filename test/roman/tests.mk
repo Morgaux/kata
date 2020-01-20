@@ -6,7 +6,8 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_file_exits_failure_without_stdin           \
                test_roman_file_exits_success_with_stdin              \
                test_roman_input_line_count_matches_output_line_count \
-               test_roman_output_consists_of_only_IVXLCDM
+               test_roman_output_consists_of_only_IVXLCDM            \
+               test_roman_powers_of_10
 
 _ROMAN_FILES = bin/roman/python_implementation
 
@@ -74,6 +75,24 @@ test_roman_output_consists_of_only_IVXLCDM:
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
 		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]*$$" | wc -l)" -eq 0 ] ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_roman_powers_of_10:
+	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
+	@for FILE in ${_ROMAN_FILES} ; \
+	do \
+		if [ "$$(echo ''      | "$$FILE")" = ""           ] && \
+		   [ "$$(echo '1'     | "$$FILE")" = "I"          ] && \
+		   [ "$$(echo '10'    | "$$FILE")" = "X"          ] && \
+		   [ "$$(echo '100'   | "$$FILE")" = "C"          ] && \
+		   [ "$$(echo '1000'  | "$$FILE")" = "M"          ] && \
+		   [ "$$(echo '10000' | "$$FILE")" = "MMMMMMMMMM" ] ;  \
 		then \
 			echo "PASS" ; \
 		else \
