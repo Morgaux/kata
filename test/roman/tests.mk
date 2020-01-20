@@ -8,7 +8,8 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_input_line_count_matches_output_line_count \
                test_roman_output_consists_of_only_IVXLCDM            \
                test_roman_powers_of_10_are_correct                   \
-               test_roman_1_to_20_are_correct
+               test_roman_1_to_20_are_correct                        \
+               test_roman_100_random_values_are_correct
 
 _ROMAN_FILES = bin/roman/python_implementation
 
@@ -126,6 +127,38 @@ test_roman_1_to_20_are_correct:
 		   [ "$$(echo '18' | "$$FILE")" = "XIIX" ] && \
 		   [ "$$(echo '19' | "$$FILE")" = "XIX" ] && \
 		   [ "$$(echo '20' | "$$FILE")" = "XX" ];  \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_roman_100_random_values_are_correct:
+	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
+	@for FILE in ${_ROMAN_FILES} ; \
+	do \
+		_RESULT="PASS" ; \
+		for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
+		do \
+			_NUM="$$RANDOM" ; \
+			if [ "$$(echo "$$(($$_NUM - 1))" | \
+				"$$FILE" | \
+				sed 's/CCCCM/DC/g; s/CCCM/DCC/g; s/CCM/DCCC/g; s/CM/DCCCC/g; s/M/DD/g;' | \
+				sed 's/CCCCD/C/g; s/CCCD/CC/g; s/CCD/CCC/g; s/CD/CCCC/g; s/D/CCCCC/g;' | \
+				sed 's/XXXXC/LX/g; s/XXXC/LXX/g; s/XXC/LXXX/g; s/XC/LXXXX/g; s/C/LL/g;' | \
+				sed 's/XXXXL/X/g; s/XXXL/XX/g; s/XXL/XXX/g; s/XL/XXXX/g; s/L/XXXXX/g;' | \
+				sed 's/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;' | \
+				sed 's/IIIIV/I/g; s/IIIV/II/g; s/IIV/III/g; s/IV/IIII/g; s/V/IIIII/g;' | \
+				wc -c)" = "$$_NUM" ] ; \
+			then \
+				_RESULT="PASS" ; \
+			else \
+				_RESULT="FAIL" ; \
+			fi ; \
+		done ; \
+		if [ "$$_RESULT" = "PASS" ] ; \
 		then \
 			echo "PASS" ; \
 		else \
