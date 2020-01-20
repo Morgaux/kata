@@ -6,6 +6,7 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_file_exits_failure_without_stdin           \
                test_roman_file_exits_success_with_stdin              \
                test_roman_input_line_count_matches_output_line_count \
+               test_roman_output_consists_of_only_IVXLCDM
 
 _ROMAN_FILES = bin/roman/python_implementation
 
@@ -60,6 +61,19 @@ test_roman_input_line_count_matches_output_line_count:
 	do \
 		_COUNT="$$RANDOM" ; \
 		if [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" = "$$_COUNT" ] ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_roman_output_consists_of_only_IVXLCDM:
+	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
+	@for FILE in ${_ROMAN_FILES} ; \
+	do \
+		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]$$" | wc -l)" -eq 0 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
