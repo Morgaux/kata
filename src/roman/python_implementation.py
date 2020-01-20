@@ -11,16 +11,12 @@ def convert(number):
 	else:
 		return number
 
-	result = []
-
-	# thousands
-	result.append("M" * ((number // 1000) % 10))
-
-	result.append(["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM"][(number //  100) % 10])
-	result.append(["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC"][(number //   10) % 10])
-	result.append(["", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX"][(number //    1) % 10])
-
-	return "".join(result)
+	return "".join([
+		"M" * (number // 1000),
+		["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM"][(number //  100) % 10],
+		["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC"][(number //   10) % 10],
+		["", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX"][(number //    1) % 10],
+	])
 
 for line in sys.stdin:
 	print(convert(line.strip()))
