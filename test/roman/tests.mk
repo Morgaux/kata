@@ -145,12 +145,12 @@ test_roman_100_random_values_are_correct:
 			_NUM="$$RANDOM" ; \
 			if [ "$$(echo "$$(($$_NUM - 1))" | \
 				"$$FILE" | \
-				sed 's/CCCCM/DC/g; s/CCCM/DCC/g; s/CCM/DCCC/g; s/CM/DCCCC/g; s/M/DD/g;' | \
-				sed 's/CCCCD/C/g; s/CCCD/CC/g; s/CCD/CCC/g; s/CD/CCCC/g; s/D/CCCCC/g;' | \
-				sed 's/XXXXC/LX/g; s/XXXC/LXX/g; s/XXC/LXXX/g; s/XC/LXXXX/g; s/C/LL/g;' | \
-				sed 's/XXXXL/X/g; s/XXXL/XX/g; s/XXL/XXX/g; s/XL/XXXX/g; s/L/XXXXX/g;' | \
-				sed 's/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;' | \
-				sed 's/IIIIV/I/g; s/IIIV/II/g; s/IIV/III/g; s/IV/IIII/g; s/V/IIIII/g;' | \
+				sed 's/CCCCM/DC/g; s/CCCM/DCC/g; s/CCM/DCCC/g; s/CM/DCCCC/g; s/M/DD/g;'    | \
+				sed 's/CCCCD/C/g;  s/CCCD/CC/g;  s/CCD/CCC/g;  s/CD/CCCC/g;  s/D/CCCCC/g;' | \
+				sed 's/XXXXC/LX/g; s/XXXC/LXX/g; s/XXC/LXXX/g; s/XC/LXXXX/g; s/C/LL/g;'    | \
+				sed 's/XXXXL/X/g;  s/XXXL/XX/g;  s/XXL/XXX/g;  s/XL/XXXX/g;  s/L/XXXXX/g;' | \
+				sed 's/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;'    | \
+				sed 's/IIIIV/I/g;  s/IIIV/II/g;  s/IIV/III/g;  s/IV/IIII/g;  s/V/IIIII/g;' | \
 				wc -c)" = "$$_NUM" ] ; \
 			then \
 				_RESULT="PASS" ; \
