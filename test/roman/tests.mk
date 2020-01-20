@@ -46,7 +46,7 @@ test_roman_file_exits_success_with_stdin:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if echo "" | "$$FILE" >/dev/null ; \
+		if echo "$$RANDOM" | "$$FILE" >/dev/null ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -73,7 +73,7 @@ test_roman_output_consists_of_only_IVXLCDM:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]$$" | wc -l)" -eq 0 ] ; \
+		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]*$$" | wc -l)" -eq 0 ] ; \
 		then \
 			echo "PASS" ; \
 		else \
