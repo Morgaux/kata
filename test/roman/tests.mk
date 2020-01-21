@@ -93,11 +93,11 @@ test_roman_powers_of_10_are_correct:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo '0'     | "$$FILE")" = ""           ]                 && \
-		   [ "$$(echo '1'     | "$$FILE")" = "I"          ]                 && \
-		   [ "$$(echo '10'    | "$$FILE")" = "X"          ]                 && \
-		   [ "$$(echo '100'   | "$$FILE")" = "C"          ]                 && \
-		   [ "$$(echo '1000'  | "$$FILE")" = "M"          ]                 && \
+		if [ "$$(echo '0'     | "$$FILE")" = ""           ] >/dev/null 2>&1 && \
+		   [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
+		   [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \
+		   [ "$$(echo '100'   | "$$FILE")" = "C"          ] >/dev/null 2>&1 && \
+		   [ "$$(echo '1000'  | "$$FILE")" = "M"          ] >/dev/null 2>&1 && \
 		   [ "$$(echo '10000' | "$$FILE")" = "MMMMMMMMMM" ] >/dev/null 2>&1 ;  \
 		then \
 			echo "PASS" ; \
@@ -111,25 +111,25 @@ test_roman_1_to_20_are_correct:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo '1'  | "$$FILE")" = "I"    ]                 && \
-		   [ "$$(echo '2'  | "$$FILE")" = "II"   ]                 && \
-		   [ "$$(echo '3'  | "$$FILE")" = "III"  ]                 && \
-		   [ "$$(echo '4'  | "$$FILE")" = "IV"   ]                 && \
-		   [ "$$(echo '5'  | "$$FILE")" = "V"    ]                 && \
-		   [ "$$(echo '6'  | "$$FILE")" = "VI"   ]                 && \
-		   [ "$$(echo '7'  | "$$FILE")" = "VII"  ]                 && \
-		   [ "$$(echo '8'  | "$$FILE")" = "IIX"  ]                 && \
-		   [ "$$(echo '9'  | "$$FILE")" = "IX"   ]                 && \
-		   [ "$$(echo '10' | "$$FILE")" = "X"    ]                 && \
-		   [ "$$(echo '11' | "$$FILE")" = "XI"   ]                 && \
-		   [ "$$(echo '12' | "$$FILE")" = "XII"  ]                 && \
-		   [ "$$(echo '13' | "$$FILE")" = "XIII" ]                 && \
-		   [ "$$(echo '14' | "$$FILE")" = "XIV"  ]                 && \
-		   [ "$$(echo '15' | "$$FILE")" = "XV"   ]                 && \
-		   [ "$$(echo '16' | "$$FILE")" = "XVI"  ]                 && \
-		   [ "$$(echo '17' | "$$FILE")" = "XVII" ]                 && \
-		   [ "$$(echo '18' | "$$FILE")" = "XIIX" ]                 && \
-		   [ "$$(echo '19' | "$$FILE")" = "XIX"  ]                 && \
+		if [ "$$(echo '1'  | "$$FILE")" = "I"    ] >/dev/null 2>&1 && \
+		   [ "$$(echo '2'  | "$$FILE")" = "II"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '3'  | "$$FILE")" = "III"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '4'  | "$$FILE")" = "IV"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '5'  | "$$FILE")" = "V"    ] >/dev/null 2>&1 && \
+		   [ "$$(echo '6'  | "$$FILE")" = "VI"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '7'  | "$$FILE")" = "VII"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '8'  | "$$FILE")" = "IIX"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '9'  | "$$FILE")" = "IX"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '10' | "$$FILE")" = "X"    ] >/dev/null 2>&1 && \
+		   [ "$$(echo '11' | "$$FILE")" = "XI"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '12' | "$$FILE")" = "XII"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '13' | "$$FILE")" = "XIII" ] >/dev/null 2>&1 && \
+		   [ "$$(echo '14' | "$$FILE")" = "XIV"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '15' | "$$FILE")" = "XV"   ] >/dev/null 2>&1 && \
+		   [ "$$(echo '16' | "$$FILE")" = "XVI"  ] >/dev/null 2>&1 && \
+		   [ "$$(echo '17' | "$$FILE")" = "XVII" ] >/dev/null 2>&1 && \
+		   [ "$$(echo '18' | "$$FILE")" = "XIIX" ] >/dev/null 2>&1 && \
+		   [ "$$(echo '19' | "$$FILE")" = "XIX"  ] >/dev/null 2>&1 && \
 		   [ "$$(echo '20' | "$$FILE")" = "XX"   ] >/dev/null 2>&1 ;  \
 		then \
 			echo "PASS" ; \
