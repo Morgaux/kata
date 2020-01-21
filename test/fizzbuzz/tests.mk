@@ -19,6 +19,7 @@ _FIZZBUZZ_TESTS = test_fizzbuzz_file_is_executable                              
 
 _FIZZBUZZ_FILES = bin/fizzbuzz/python_implementation  \
                   bin/fizzbuzz/shell_implementation   \
+                  bin/fizzbuzz/sed_implementation     \
                   bin/fizzbuzz/haskell_implementation
 
 test_fizzbuzz: ${_FIZZBUZZ_TESTS}
