@@ -3,11 +3,7 @@
 #
 
 _ROMAN_TESTS = test_roman_file_is_executable                         \
-               test_roman_file_exits_failure_without_stdin           \
-               test_roman_file_exits_success_with_stdin              \
-               test_roman_returns_error_on_non_numerical_input       \
                test_roman_input_line_count_matches_output_line_count \
-               test_roman_output_consists_of_only_IVXLCDM            \
                test_roman_powers_of_10_are_correct                   \
                test_roman_1_to_20_are_correct                        \
                test_roman_100_random_values_are_correct              \
@@ -35,52 +31,12 @@ test_roman_file_is_executable:
 	done
 	@echo " "
 
-test_roman_file_exits_failure_without_stdin:
-	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
-	@for FILE in ${_ROMAN_FILES} ; \
-	do \
-		if ! "$$FILE" >/dev/null 2>&1 ; \
-		then \
-			echo "PASS" ; \
-		else \
-			echo "FAIL for "$$(basename "$$FILE")"" ; \
-		fi ; \
-	done
-	@echo " "
-
-test_roman_file_exits_success_with_stdin:
-	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
-	@for FILE in ${_ROMAN_FILES} ; \
-	do \
-		if echo "$$RANDOM" | "$$FILE" >/dev/null 2>&1 ; \
-		then \
-			echo "PASS" ; \
-		else \
-			echo "FAIL for "$$(basename "$$FILE")"" ; \
-		fi ; \
-	done
-	@echo " "
-
 test_roman_input_line_count_matches_output_line_count:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
 		_COUNT="$$((RANDOM / 100))" ; \
 		if [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" -eq "$$_COUNT" ] >/dev/null 2>&1 ; \
-		then \
-			echo "PASS" ; \
-		else \
-			echo "FAIL for "$$(basename "$$FILE")"" ; \
-		fi ; \
-	done
-	@echo " "
-
-test_roman_output_consists_of_only_IVXLCDM:
-	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
-	@for FILE in ${_ROMAN_FILES} ; \
-	do \
-		if [ "$$(echo "$$RANDOM" | "$$FILE" | wc -l)" -gt 0 ] && \
-		   [ "$$(echo "$$RANDOM" | "$$FILE" | grep -Ev "^[IVXLCDM]*$$" | wc -l)" -eq 0 ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -163,19 +119,6 @@ test_roman_100_random_values_are_correct:
 			fi ; \
 		done ; \
 		if [ "$$_RESULT" = "PASS" ] ; \
-		then \
-			echo "PASS" ; \
-		else \
-			echo "FAIL for "$$(basename "$$FILE")"" ; \
-		fi ; \
-	done
-	@echo " "
-
-test_roman_returns_error_on_non_numerical_input:
-	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
-	@for FILE in ${_ROMAN_FILES} ; \
-	do \
-		if ! echo "foo" | "$$FILE" >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
