@@ -147,7 +147,7 @@ test_roman_100_random_values_are_correct:
 		for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
 		do \
 			_NUM="$$RANDOM" ; \
-			if [ "$$(echo "$$(($$_NUM - 1))" | \
+			if [ "$$(echo "$$_NUM" | \
 				"$$FILE" | \
 				sed 's/CCCCM/DC/g; s/CCCM/DCC/g; s/CCM/DCCC/g; s/CM/DCCCC/g; s/M/DD/g;       \
 				     s/CCCCD/C/g;  s/CCCD/CC/g;  s/CCD/CCC/g;  s/CD/CCCC/g;  s/D/CCCCC/g;    \
@@ -155,7 +155,7 @@ test_roman_100_random_values_are_correct:
 				     s/XXXXL/X/g;  s/XXXL/XX/g;  s/XXL/XXX/g;  s/XL/XXXX/g;  s/L/XXXXX/g;    \
 				     s/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;       \
 				     s/IIIIV/I/g;  s/IIIV/II/g;  s/IIV/III/g;  s/IV/IIII/g;  s/V/IIIII/g;' | \
-				wc -c)" = "$$_NUM" ] >/dev/null 2>&1 ; \
+				wc -c)" -eq "$$(($$_NUM + 1))" ] >/dev/null 2>&1 ; \
 			then \
 				_RESULT="PASS" ; \
 			else \
