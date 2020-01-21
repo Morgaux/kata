@@ -8,11 +8,11 @@ BEGIN {
 	if (r != "not a tty") exit 1
 }
 
-/[0-9]+/ {
-	print $0
-}
-
 !/[0-9]+/ {
 	exit 1
+}
+
+/[0-9]+/ {
+	print $0
 }
 
