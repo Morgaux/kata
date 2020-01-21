@@ -9,12 +9,11 @@ x
 }
 
 i\
-f true ; then exec sed -f "$0"  "$@" ; fi
+f true ; then exec sed -f "$0" "$@" ; fi
 
 :()
 
 # pure sed from here
 
-s/./hello world/
 q
 
