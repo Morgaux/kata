@@ -24,7 +24,7 @@ test_roman_file_is_executable:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ -x "$$FILE" ] ; \
+		if [ -x "$$FILE" ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -37,7 +37,7 @@ test_roman_file_exits_failure_without_stdin:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if ! "$$FILE" ; \
+		if ! "$$FILE" >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -50,7 +50,7 @@ test_roman_file_exits_success_with_stdin:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if echo "$$RANDOM" | "$$FILE" >/dev/null ; \
+		if echo "$$RANDOM" | "$$FILE" >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -64,7 +64,7 @@ test_roman_input_line_count_matches_output_line_count:
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
 		_COUNT="$$RANDOM" ; \
-		if [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" = "$$_COUNT" ] ; \
+		if [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" = "$$_COUNT" ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -77,7 +77,7 @@ test_roman_output_consists_of_only_IVXLCDM:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]*$$" | wc -l)" -eq 0 ] ; \
+		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]*$$" | wc -l)" -eq 0 ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -95,7 +95,7 @@ test_roman_powers_of_10_are_correct:
 		   [ "$$(echo '10'    | "$$FILE")" = "X"          ] && \
 		   [ "$$(echo '100'   | "$$FILE")" = "C"          ] && \
 		   [ "$$(echo '1000'  | "$$FILE")" = "M"          ] && \
-		   [ "$$(echo '10000' | "$$FILE")" = "MMMMMMMMMM" ] ;  \
+		   [ "$$(echo '10000' | "$$FILE")" = "MMMMMMMMMM" ] >/dev/null 2>&1 ;  \
 		then \
 			echo "PASS" ; \
 		else \
@@ -127,7 +127,7 @@ test_roman_1_to_20_are_correct:
 		   [ "$$(echo '17' | "$$FILE")" = "XVII" ] && \
 		   [ "$$(echo '18' | "$$FILE")" = "XIIX" ] && \
 		   [ "$$(echo '19' | "$$FILE")" = "XIX" ] && \
-		   [ "$$(echo '20' | "$$FILE")" = "XX" ];  \
+		   [ "$$(echo '20' | "$$FILE")" = "XX" ] >/dev/null 2>&1 ;  \
 		then \
 			echo "PASS" ; \
 		else \
@@ -152,7 +152,7 @@ test_roman_100_random_values_are_correct:
 				     s/XXXXL/X/g;  s/XXXL/XX/g;  s/XXL/XXX/g;  s/XL/XXXX/g;  s/L/XXXXX/g;    \
 				     s/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;       \
 				     s/IIIIV/I/g;  s/IIIV/II/g;  s/IIV/III/g;  s/IV/IIII/g;  s/V/IIIII/g;' | \
-				wc -c)" = "$$_NUM" ] ; \
+				wc -c)" = "$$_NUM" ] >/dev/null 2>&1 ; \
 			then \
 				_RESULT="PASS" ; \
 			else \
@@ -172,7 +172,7 @@ test_roman_returns_error_on_non_numerical_input:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if ! echo "foo" | "$$FILE" >/dev/null ; \
+		if ! echo "foo" | "$$FILE" >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
@@ -185,7 +185,7 @@ test_roman_template:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if false ; \
+		if false >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
