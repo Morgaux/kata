@@ -9,7 +9,7 @@ def convert(number):
 	if number.isdigit():
 		number = int(number)
 	else:
-		return number
+		exit(1) # invalid input
 
 	return "".join([
 		"M" * (number // 1000),
