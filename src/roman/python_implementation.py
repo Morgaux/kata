@@ -2,14 +2,11 @@
 
 import sys
 
-if sys.stdin.isatty():
-	exit(1) # there's no input
-
 def convert(number):
 	if number.isdigit():
 		number = int(number)
 	else:
-		exit(1) # invalid input
+		return number
 
 	return "".join([
 		"M" * (number // 1000),
