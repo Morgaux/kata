@@ -11,7 +11,7 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
 
 _ROMAN_FILES = bin/roman/python_implementation \
                bin/roman/shell_implementation  \
-               bin/fizzbuzz/sed_implementation
+               bin/roman/sed_implementation
 
 test_roman: ${_ROMAN_TESTS}
 	@echo "All roman tests completed..."
