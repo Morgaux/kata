@@ -11,6 +11,6 @@ while IFS='$\n' read -r LINE; do
 		exit 1
 	fi
 
-	echo "$LINE"
+	echo "$(yes "I" | head -n "${LINE}" | tr '\n' ' ' | sed 's/ //g')"
 done
 
