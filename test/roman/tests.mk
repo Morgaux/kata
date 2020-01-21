@@ -78,7 +78,8 @@ test_roman_output_consists_of_only_IVXLCDM:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo "$$RANDOM" | "$$FILE" | tr '[:upper:]' '[:lower:]' | grep -Ev "^[ivxlcdm]*$$" | wc -l)" -eq 0 ] >/dev/null 2>&1 ; \
+		if [ "$$(echo "$$RANDOM" | "$$FILE" | wc -l)" -gt 0 ] && \
+		   [ "$$(echo "$$RANDOM" | "$$FILE" | grep -Ev "^[IVXLCDM]*$$" | wc -l)" -eq 0 ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
