@@ -5,12 +5,12 @@
 _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_file_exits_failure_without_stdin           \
                test_roman_file_exits_success_with_stdin              \
+               test_roman_returns_error_on_non_numerical_input       \
                test_roman_input_line_count_matches_output_line_count \
                test_roman_output_consists_of_only_IVXLCDM            \
                test_roman_powers_of_10_are_correct                   \
                test_roman_1_to_20_are_correct                        \
                test_roman_100_random_values_are_correct              \
-               test_roman_returns_error_on_non_numerical_input       \
                test_roman_correctly_converts_multiple_inputs
 
 _ROMAN_FILES = bin/roman/python_implementation
