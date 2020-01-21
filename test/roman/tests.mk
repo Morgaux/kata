@@ -10,7 +10,8 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_correctly_converts_multiple_inputs
 
 _ROMAN_FILES = bin/roman/python_implementation \
-               bin/roman/shell_implementation
+               bin/roman/shell_implementation  \
+               bin/fizzbuzz/sed_implementation
 
 test_roman: ${_ROMAN_TESTS}
 	@echo "All roman tests completed..."
