@@ -10,7 +10,8 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_powers_of_10_are_correct                   \
                test_roman_1_to_20_are_correct                        \
                test_roman_100_random_values_are_correct              \
-               test_roman_returns_error_on_non_numerical_input
+               test_roman_returns_error_on_non_numerical_input       \
+               test_roman_correctly_converts_multiple_inputs
 
 _ROMAN_FILES = bin/roman/python_implementation
 
@@ -173,6 +174,25 @@ test_roman_returns_error_on_non_numerical_input:
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
 		if ! echo "foo" | "$$FILE" >/dev/null 2>&1 ; \
+		then \
+			echo "PASS" ; \
+		else \
+			echo "FAIL for "$$(basename "$$FILE")"" ; \
+		fi ; \
+	done
+	@echo " "
+
+test_roman_correctly_converts_multiple_inputs:
+	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
+	@for FILE in ${_ROMAN_FILES} ; \
+	do \
+		if [ "$$({ \
+			echo "0" ; \
+			echo "1" ; \
+			echo "2" ; \
+			echo "3" ; \
+			echo "4" ; \
+		} | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1 ; \
 		then \
 			echo "PASS" ; \
 		else \
