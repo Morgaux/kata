@@ -51,8 +51,7 @@ test_roman_powers_of_10_are_correct:
 	@echo "Starting: $@..." | sed 's/test_roman/test_that/g' | tr '_' ' '
 	@for FILE in ${_ROMAN_FILES} ; \
 	do \
-		if [ "$$(echo '0'     | "$$FILE")" = ""           ] >/dev/null 2>&1 && \
-		   [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
+		if [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
 		   [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \
 		   [ "$$(echo '100'   | "$$FILE")" = "C"          ] >/dev/null 2>&1 && \
 		   [ "$$(echo '1000'  | "$$FILE")" = "M"          ] >/dev/null 2>&1 && \
