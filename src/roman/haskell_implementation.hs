@@ -5,11 +5,20 @@ import Text.Read
 roman :: Maybe Int -> [Char]
 roman number
     | x >= 1000 = "M" ++ roman (Just (x - 1000))
-    | x >=  100 = ([ "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" ] !! (mod (div x 100) 10)) ++ roman (Just (x `mod` 100))
-    | x >=   10 = ([ "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" ] !! (mod (div x  10) 10)) ++ roman (Just (x `mod`  10))
-    | x >=    1 = ([ "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" ] !! (mod (div x   1) 10)) ++ roman (Just (x `mod`   1))
+    | x >     0 = (
+                      (
+                               if base == 100 then [ "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" ]
+                          else if base ==  10 then [ "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" ]
+                          else                     [ "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" ]
+                      ) !! (
+                          (x `div` base) `mod` 10  -- index to search for
+                      )
+                  ) ++ roman (Just (x `mod` base)) -- recurs on remainder
     | otherwise = ""
-    where x = fromMaybe 0 number
+    where x    = fromMaybe 0 number
+          base =      if x >= 100 then 100
+                 else if x >=  10 then  10
+                 else                    1
 
 main :: IO ()
 main = do
