@@ -25,25 +25,29 @@ s/\(\d*\)7$/\1VII/g
 s/\(\d*\)8$/\1IIX/g
 s/\(\d*\)9$/\1IX/g
 
-s/\(\d*\)1*.$/\1X/g
-s/\(\d*\)2*.$/\1XX/g
-s/\(\d*\)3*.$/\1XXX/g
-s/\(\d*\)4*.$/\1XL/g
-s/\(\d*\)5*.$/\1L/g
-s/\(\d*\)6*.$/\1LX/g
-s/\(\d*\)7*.$/\1LXX/g
-s/\(\d*\)8*.$/\1XXC/g
-s/\(\d*\)9*.$/\1XC/g
+s/^\(\d*\)1\([IVXLCDM0]\)/MAGIC\1X\2/g
+s/^\(\d*\)2\([IVXLCDM0]\)/MAGIC\1XX\2/g
+s/^\(\d*\)3\([IVXLCDM0]\)/MAGIC\1XXX\2/g
+s/^\(\d*\)4\([IVXLCDM0]\)/MAGIC\1XL\2/g
+s/^\(\d*\)5\([IVXLCDM0]\)/MAGIC\1L\2/g
+s/^\(\d*\)6\([IVXLCDM0]\)/MAGIC\1LX\2/g
+s/^\(\d*\)7\([IVXLCDM0]\)/MAGIC\1LXX\2/g
+s/^\(\d*\)8\([IVXLCDM0]\)/MAGIC\1XXC\2/g
+s/^\(\d*\)9\([IVXLCDM0]\)/MAGIC\1XC\2/g
 
-s/\(\d*\)1*.$/\1C/g
-s/\(\d*\)2*.$/\1CC/g
-s/\(\d*\)3*.$/\1CCC/g
-s/\(\d*\)4*.$/\1CD/g
-s/\(\d*\)5*.$/\1D/g
-s/\(\d*\)6*.$/\1DC/g
-s/\(\d*\)7*.$/\1DCC/g
-s/\(\d*\)8*.$/\1CCD/g
-s/\(\d*\)9*.$/\1CM/g
+s/MAGIC//g
+
+s/^\(\d*\)1\([IVXLCDM0]\)/MAGIC\1C\2/g
+s/^\(\d*\)2\([IVXLCDM0]\)/MAGIC\1CC\2/g
+s/^\(\d*\)3\([IVXLCDM0]\)/MAGIC\1CCC\2/g
+s/^\(\d*\)4\([IVXLCDM0]\)/MAGIC\1CD\2/g
+s/^\(\d*\)5\([IVXLCDM0]\)/MAGIC\1D\2/g
+s/^\(\d*\)6\([IVXLCDM0]\)/MAGIC\1DC\2/g
+s/^\(\d*\)7\([IVXLCDM0]\)/MAGIC\1DCC\2/g
+s/^\(\d*\)8\([IVXLCDM0]\)/MAGIC\1CCM\2/g
+s/^\(\d*\)9\([IVXLCDM0]\)/MAGIC\1CM\2/g
+
+s/MAGIC//g
 
 s/0//g
 
