@@ -6,10 +6,10 @@ roman :: Maybe Int -> [Char]
 roman number
     | x >= 1000 = "M" ++ roman (Just (x - 1000))
     | x >     0 = (
-                      (
-                               if base == 100 then [ "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" ]
-                          else if base ==  10 then [ "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" ]
-                          else                     [ "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" ]
+                      (case base of
+                          100 -> [ "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" ]
+                          10  -> [ "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" ]
+                          _   -> [ "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" ]
                       ) !! (
                           (x `div` base) `mod` 10  -- index to search for
                       )
