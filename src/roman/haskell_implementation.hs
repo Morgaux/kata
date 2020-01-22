@@ -12,7 +12,7 @@ roman number
                   ) !!
                   ((x `div` base) `mod` 10)) ++ -- index to search for
                   roman (Just (x `mod` base))   -- recurs on remainder
-    | otherwise = ""                            -- catch negatives and nothing
+    | otherwise = ""                            -- catch negatives, zeros, and nothings
     where x    = fromMaybe 0 number
           base = 10 ^ ((length $ show x) - 1)
 
