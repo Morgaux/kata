@@ -19,6 +19,26 @@ roman x
                         7 -> "DCC"
                         8 -> "CCM"
                         9 -> "CM") ++ roman (x `mod` 100)
+    | x >=   10 = (case (x `div` 10) `mod` 10 of
+                        1 -> "X"
+                        2 -> "XX"
+                        3 -> "XXX"
+                        4 -> "XL"
+                        5 -> "L"
+                        6 -> "LX"
+                        7 -> "LXX"
+                        8 -> "XXC"
+                        9 -> "XC") ++ roman (x `mod` 10)
+    | x >=    1 = (case x of
+                        1 -> "I"
+                        2 -> "II"
+                        3 -> "III"
+                        4 -> "IV"
+                        5 -> "V"
+                        6 -> "VI"
+                        7 -> "VII"
+                        8 -> "IIX"
+                        9 -> "IX")
     | otherwise = ""
 
 main :: IO ()
