@@ -1,4 +1,12 @@
+import Text.Read
+
+zeroAsDefault :: Maybe Int -> Int
+zeroAsDefault mx = case mx of
+                        Nothing -> 0
+                        Just x -> x
 
 main :: IO ()
-main = putStrLn "Hello World!"
+main = do
+       line <- getLine
+       putStrLn $ show $ zeroAsDefault $ (readMaybe line :: Maybe Int)
 
