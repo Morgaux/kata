@@ -15,14 +15,15 @@ f true ; then exec sed -f "$0" "$@" ; fi
 
 # pure sed from here
 
-s/^1$/I/g;
-s/^2$/II/g;
-s/^3$/III/g;
-s/^4$/IV/g;
-s/^5$/V/g;
-s/^6$/VI/g;
-s/^7$/VI/g;
-s/^8$/IIX/g;
-s/^9$/IX/g;
-s/^10$/X/g;
+s/\(\d*\)1$/\1I/g
+s/\(\d*\)2$/\1II/g
+s/\(\d*\)3$/\1III/g
+s/\(\d*\)4$/\1IV/g
+s/\(\d*\)5$/\1V/g
+s/\(\d*\)6$/\1VI/g
+s/\(\d*\)7$/\1VII/g
+s/\(\d*\)8$/\1IIX/g
+s/\(\d*\)9$/\1IX/g
+
+s/0//g
 
