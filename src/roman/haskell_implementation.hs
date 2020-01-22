@@ -1,4 +1,5 @@
 import Text.Read
+import Control.Monad
 
 zeroAsDefault :: Maybe Int -> Int
 zeroAsDefault mx = case mx of
@@ -7,6 +8,9 @@ zeroAsDefault mx = case mx of
 
 main :: IO ()
 main = do
-       line <- getLine
-       putStrLn $ show $ zeroAsDefault $ (readMaybe line :: Maybe Int)
+       contents <- getContents
+       forM_ (lines contents) $ \ line -> do
+             putStrLn $ case zeroAsDefault $ (readMaybe line :: Maybe Int) of
+                             0 -> line
+                             x -> show x
 
