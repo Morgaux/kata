@@ -14,9 +14,7 @@ roman number
                   roman (Just (x `mod` base))   -- recurs on remainder
     | otherwise = ""                            -- catch negatives and nothing
     where x    = fromMaybe 0 number
-          base =      if x >= 100 then 100
-                 else if x >=  10 then  10
-                 else                    1
+          base = 10 ^ ((length $ show x) - 1)
 
 main :: IO ()
 main = do
