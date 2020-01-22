@@ -9,17 +9,17 @@ zeroAsDefault mx = case mx of
 roman :: Int -> [Char]
 roman x
     | x >= 1000 = "M" ++ roman (x - 1000)
-    | x >=  100 = case (x `div` 100) `mod` 10 of
-                       1 -> "C"
-                       2 -> "CC"
-                       3 -> "CCC"
-                       4 -> "CD"
-                       5 -> "D"
-                       6 -> "DC"
-                       7 -> "DCC"
-                       8 -> "CCM"
-                       9 -> "CM"
-    | otherwise = show x
+    | x >=  100 = (case (x `div` 100) `mod` 10 of
+                        1 -> "C"
+                        2 -> "CC"
+                        3 -> "CCC"
+                        4 -> "CD"
+                        5 -> "D"
+                        6 -> "DC"
+                        7 -> "DCC"
+                        8 -> "CCM"
+                        9 -> "CM") ++ roman (x `mod` 100)
+    | otherwise = ""
 
 main :: IO ()
 main = do
