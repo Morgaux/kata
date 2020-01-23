@@ -1,7 +1,7 @@
 
 fizzes              = cycle [ "", "", "Fizz"         ]
 buzzes              = cycle [ "", "", "", "", "Buzz" ]
-fizzes_and_buzzes   = [ f ++ b | (f, b) <- zip fizzes buzzes ]
+fizzes_and_buzzes   = zipWith (++) fizzes buzzes
 fizzbuzz            = [ max s $ show n | (n, s) <- zip [1..] fizzes_and_buzzes ]
 
 main :: IO ()
