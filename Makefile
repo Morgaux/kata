@@ -33,7 +33,7 @@ ${TEST_CASES}: ${TEST_FILES}
 	@_RESULT="" ; \
 	for FILE in $^ ; \
 	do \
-		if echo "$@" | grep -q "$$(echo "$$FILE" | sed 's/bin\/\(.*\)\/.*/\1/g')" ; \
+		if ! echo "$@" | grep -q "$$(echo "$$FILE" | sed 's/bin\/\(.*\)\/.*/\1/g')" ; \
 		then \
 			continue ; \
 		fi ; \
