@@ -11,8 +11,8 @@ all: config clean test_all
 
 include ${TESTS}
 
-TEST_CASES = ${_FIZZBUZZ_TESTS}
-TEST_FILES = ${_FIZZBUZZ_FILES}
+TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS}
+TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES}
 
 config:
 	@echo "config for katas:"
@@ -33,6 +33,10 @@ ${TEST_CASES}: ${TEST_FILES}
 	@_RESULT="" ; \
 	for FILE in $^ ; \
 	do \
+		if echo "$@" | grep -q "$$(echo "$$FILE" | sed 's/bin\/\(.*\)\/.*/\1/g')" ; \
+		then \
+			continue ; \
+		fi ; \
 		if ${predicate_${@}} ; \
 		then \
 			continue ; \
