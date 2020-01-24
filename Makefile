@@ -11,6 +11,9 @@ all: config clean test_all
 
 include ${TESTS}
 
+TEST_CASES = ${_FIZZBUZZ_TESTS}
+TEST_FILES = ${_FIZZBUZZ_FILES}
+
 config:
 	@echo "config for katas:"
 	@echo "KATAS =	${KATAS}"
@@ -25,18 +28,27 @@ clean:
 
 test_all: test_fizzbuzz test_roman
 
-# don't put this target in the tests, it's just a template, copy for new tests
-test_template:
+${TEST_CASES}: ${TEST_FILES}
 	@echo "Starting: $@..." | tr '_' ' '
-	@for FILE in ${FILES} ; \
+	@_RESULT="" ; \
+	for FILE in $^ ; \
 	do \
-		if false ; \
+		if ${predicate_${@}} ; \
 		then \
-			echo "PASS" ; \
+			continue ; \
 		else \
-			echo "FAIL for "$$(basename "$$FILE")"" ; \
+			_RESULT="$${_RESULT} $${FILE}" ; \
 		fi ; \
-	done
+	done ; \
+	if [ -z "$$_RESULT" ] ; \
+	then \
+		echo "PASS" ; \
+	else \
+		for FILE in $$_RESULT ; \
+		do \
+			echo "FAIL: $$FILE" ; \
+		done ; \
+	fi
 	@echo " "
 
 ${BIN}:

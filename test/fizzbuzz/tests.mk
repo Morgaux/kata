@@ -40,28 +40,5 @@ test_fizzbuzz: ${_FIZZBUZZ_TESTS}
 	@echo "All fizzbuzz tests completed..."
 	@echo " "
 
-${_FIZZBUZZ_TESTS}: ${_FIZZBUZZ_FILES}
-	@echo "Starting: $@..." | tr '_' ' '
-	@_RESULT="" ; \
-	for FILE in ${_FIZZBUZZ_FILES} ; \
-	do \
-		if ${predicate_${@}} ; \
-		then \
-			continue ; \
-		else \
-			_RESULT="$${_RESULT} $${FILE}" ; \
-		fi ; \
-	done ; \
-	if [ -z "$$_RESULT" ] ; \
-	then \
-		echo "PASS" ; \
-	else \
-		for FILE in $$_RESULT ; \
-		do \
-			echo "FAIL: $$FILE" ; \
-		done ; \
-	fi
-	@echo " "
-
 .PHONY: test_fizzbuzz ${_FIZZBUZZ_TESTS}
 
