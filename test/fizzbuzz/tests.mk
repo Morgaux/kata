@@ -34,7 +34,7 @@ predicate_test_fizzbuzz_output_has_numbers = "$$FILE" | grep -Eq "[0123456789]*"
 predicate_test_fizzbuzz_fizzes_are_only_at_every_third_position = ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz" 
 predicate_test_fizzbuzz_buzzes_are_only_at_every_fifth_position = ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz" 
 predicate_test_fizzbuzz_fizzbuzzes_are_only_at_every_fifteenth_position = ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz" 
-predicate_test_fizzbuzz_numbers_corespond_to_ordinal_position_counting_from_1 = "$$FILE" | awk '/\d/ {if (NR != $$0) exit 1}' 
+predicate_test_fizzbuzz_numbers_corespond_to_ordinal_position_counting_from_1 = "$$FILE" | awk '/^[0-9]*$$/ {if (NR != $$0) exit 1}'
 
 test_fizzbuzz: ${_FIZZBUZZ_TESTS}
 	@echo "All fizzbuzz tests completed..."
