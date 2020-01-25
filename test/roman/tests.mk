@@ -41,7 +41,7 @@ predicate_test_roman_1_to_20_are_correct = [ "$$(echo '1'  | "$$FILE")" = "I"   
                                  [ "$$(echo '18' | "$$FILE")" = "XIIX" ] >/dev/null 2>&1 && \
                                  [ "$$(echo '19' | "$$FILE")" = "XIX"  ] >/dev/null 2>&1 && \
                                  [ "$$(echo '20' | "$$FILE")" = "XX"   ] >/dev/null 2>&1
-predicate_test_roman_100_random_values_are_correct = [ "$$(for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
+predicate_test_roman_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
 		do \
 			_NUM="$$RANDOM" ; \
 			if [ "$$(echo "$$_NUM" | \
@@ -52,10 +52,10 @@ predicate_test_roman_100_random_values_are_correct = [ "$$(for i in $$(awk 'BEGI
 				     s/XXXXL/X/g;  s/XXXL/XX/g;  s/XXL/XXX/g;  s/XL/XXXX/g;  s/L/XXXXX/g;    \
 				     s/IIIIX/VI/g; s/IIIX/VII/g; s/IIX/VIII/g; s/IX/VIIII/g; s/X/VV/g;       \
 				     s/IIIIV/I/g;  s/IIIV/II/g;  s/IIV/III/g;  s/IV/IIII/g;  s/V/IIIII/g;' | wc -c)" -eq "$$(($$_NUM + 1))" ] >/dev/null 2>&1 ; \
-			then echo "PASS" ; \
+			then echo "" ; \
 			else echo "FAIL" ; \
 			fi ; \
-		done)" = "PASS" ] 
+		done)" ]
 predicate_test_roman_correctly_converts_multiple_inputs = [ "$$({ echo "1" ; echo "2" ; echo "3" ; echo "4" ; } | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1 
 
 test_roman: ${_ROMAN_TESTS}
