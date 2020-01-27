@@ -22,7 +22,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 		echo "predicate_test_kata_file_is_executable = [ -x  "\$$\$$FILE" ]" ; \
 		echo "" ; \
 		echo "test_kata:\$${_KATA_TESTS}" ; \
-		echo "	@echo "All  tests completed..."" ; \
+		echo "	@echo "All kata tests completed..."" ; \
 		echo "	@echo " "" ; \
 		echo "" ; \
 		echo ".PHONY: test_kata $${_KATA_TESTS}" ; \
