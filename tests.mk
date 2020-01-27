@@ -32,7 +32,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	sed 's/kata/$</g' | \
 	sed "s/KATA/$$(echo "$<" | tr '[:lower:]' '[:upper:]')/g" > $@
 	# update the master tests.mk file
-	@sed "s/\\\$$\\{_KATA_\\(.\*\\}\\)\$$/\\$${$$(echo "$<" | tr '[:lower:]' '[:upper:]')}_\\1/g" < tests.mk > tests.mk.tmp
+	@sed "s/KATA_\(.*}\)\$$/$$(echo "$<" | tr [:lower:] [:upper:])_\1 \$${_KATA_\1/g" < tests.mk > tests.mk.tmp
 	@rm tests.mk
 	@mv tests.mk.tmp tests.mk
 
