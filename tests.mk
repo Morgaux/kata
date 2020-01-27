@@ -35,6 +35,10 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	} | \
 	sed 's/kata/$</g' | \
 	sed "s/KATA/$$(echo "$<" | tr '[:lower:]' '[:upper:]')/g" > $@
+	@[ -f "$@" ] || { \
+		git add tests.mk $@ ; \
+		git commit -m "Added $< to framework" tests.mk $@ ; \
+	}
 
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "Starting: $@..." | tr '_' ' '
