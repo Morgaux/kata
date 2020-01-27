@@ -1,20 +1,3 @@
-#!/bin/sh
-# vi:syntax=sed
-
-# gloriously ugly exec hack (portable sh/sed)
-
-b ()
-{
-x
-}
-
-i\
-f true ; then exec sed -f "$0" "$@" ; fi
-
-:()
-
-# pure sed from here
-
 # roman numerals up to 9,999,999
 
 :millions
