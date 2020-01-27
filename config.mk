@@ -2,7 +2,7 @@
 # Makefile rules and variables for configuration of builds and tests
 #
 
-KATAS = fizzbuzz roman_numerals
+KATAS = fizzbuzz roman_numerals alphabet_cipher
 TESTS = ${KATAS:%=test/%/tests.mk}
 SRC   = ${KATAS:%=src/%}
 BIN   = ${KATAS:%=bin/%}
