@@ -4,8 +4,8 @@
 
 include ${TESTS}
 
-TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS} ${_KATA_TESTS}
-TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES} ${_KATA_FILES}
+TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS} ${_ALPHABET_CIPHER_TESTS} ${_KATA_TESTS}
+TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES} ${_ALPHABET_CIPHER_FILES} ${_KATA_FILES}
 
 test_all: ${KATAS:%=test_%}
 
@@ -22,7 +22,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 		echo "" ; \
 		echo "_KATA_TESTS = test_kata_file_is_executable" ; \
 		echo "" ; \
-		echo "_KATA_FILES = bin/kata/python_implementation" ; \
+		echo "_KATA_FILES = " ; \
 		echo "" ; \
 		echo "predicate_test_kata_file_is_executable = [ -x  "\$$\$$FILE" ]" ; \
 		echo "" ; \
