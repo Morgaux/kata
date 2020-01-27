@@ -3,7 +3,7 @@
 #
 
 clean:
-	@rm -rf ${BIN} src/*/*.o src/*/*.hi
+	@rm -rf bin src/*/*.o src/*/*.hi
 
 bin/%/python_implementation: src/%/python_implementation.py bin/%
 	@cp $< $@
