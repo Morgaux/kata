@@ -10,6 +10,7 @@ BIN   = ${KATAS:%=bin/%}
 all: config clean test_all
 
 include ${TESTS}
+include builds.mk
 
 TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS}
 TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES}
@@ -57,25 +58,6 @@ ${TEST_CASES}: ${TEST_FILES}
 
 ${BIN}:
 	@mkdir -p $@
-
-bin/%/python_implementation: src/%/python_implementation.py bin/%
-	@cp $< $@
-	@chmod 755 $@
-
-bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
-	@cp $< $@
-	@chmod 755 $@
-
-bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
-	@cp $< $@
-	@chmod 755 $@
-
-bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
-	@cp $< $@
-	@chmod 755 $@
-
-bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
-	@ghc -o $@ $<
 
 .PHONY: all clean config test-all
 
