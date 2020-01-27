@@ -16,8 +16,12 @@ config:
 	@echo "BIN =	${BIN}"
 	@echo " "
 
-${BIN}:
+${BIN} ${SRC} ${KATAS:%=test/%}:
 	@mkdir -p $@
 
-.PHONY: config
+${KATAS}:
+	@echo "Creating new kata: $@..."
+	@echo " "
+
+.PHONY: config ${KATAS}
 
