@@ -9,10 +9,10 @@ _ROMAN_TESTS = test_roman_file_is_executable                         \
                test_roman_100_random_values_are_correct              \
                test_roman_correctly_converts_multiple_inputs
 
-_ROMAN_FILES = bin/roman/python_implementation  \
-               bin/roman/shell_implementation   \
-               bin/roman/haskell_implementation \
-               bin/roman/sed_implementation
+_ROMAN_FILES = bin/roman_numerals/python_implementation  \
+               bin/roman_numerals/shell_implementation   \
+               bin/roman_numerals/haskell_implementation \
+               bin/roman_numerals/sed_implementation
 
 predicate_test_roman_file_is_executable = [ -x "$$FILE" ] >/dev/null 2>&1 
 predicate_test_roman_input_line_count_matches_output_line_count = _COUNT="$$((RANDOM / 100))" ; [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" -eq "$$_COUNT" ] >/dev/null 2>&1 
@@ -58,9 +58,9 @@ predicate_test_roman_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'B
 		done)" ]
 predicate_test_roman_correctly_converts_multiple_inputs = [ "$$({ echo "1" ; echo "2" ; echo "3" ; echo "4" ; } | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1 
 
-test_roman: ${_ROMAN_TESTS}
+test_roman_numerals: ${_ROMAN_TESTS}
 	@echo "All roman tests completed..."
 	@echo " "
 
-.PHONY: test_roman ${_ROMAN_TESTS}
+.PHONY: test_roman_numerals ${_ROMAN_TESTS}
 
