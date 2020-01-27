@@ -2,6 +2,9 @@
 # Makefile rules to build executables
 #
 
+clean:
+	@rm -rf ${BIN} src/*/*.o src/*/*.hi
+
 bin/%/python_implementation: src/%/python_implementation.py bin/%
 	@cp $< $@
 	@chmod 755 $@
@@ -20,4 +23,6 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
 	@ghc -o $@ $<
+
+.PHONY: clean
 

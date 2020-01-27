@@ -2,13 +2,12 @@
 # Makefile rules and targets for tests
 #
 
-include config.mk
 include ${TESTS}
 
 TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS}
 TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES}
 
-test_all: test_fizzbuzz test_roman
+test_all: ${KATAS:%=test_%}
 
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "Starting: $@..." | tr '_' ' '
@@ -36,4 +35,6 @@ ${TEST_CASES}: ${TEST_FILES}
 		done ; \
 	fi
 	@echo " "
+
+.PHONY: test_all
 
