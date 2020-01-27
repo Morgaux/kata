@@ -20,8 +20,10 @@ ${BIN} ${SRC} ${KATAS:%=test/%}:
 	@mkdir -p $@
 
 ${KATAS}:
-	@echo "Creating new kata: $@..."
-	@echo " "
+	@[ -f "test/$@/tests.mk" ] || { \
+		echo "Creating new kata: $@..." ; \
+		echo "" ; \
+	}
 
 .PHONY: config ${KATAS}
 
