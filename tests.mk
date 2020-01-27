@@ -10,6 +10,12 @@ TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES} ${_KATA_FILES}
 test_all: ${KATAS:%=test_%}
 
 ${TESTS}: test/%/tests.mk : % test/% src/%
+	# update the master tests.mk file
+	@[ -f "$@" ] || { \
+		sed "s/KATA_\(.*}\)\$$/$$(echo "$<" | tr [:lower:] [:upper:])_\1 \$${_KATA_\1/g" < tests.mk > tests.mk.tmp ; \
+		rm tests.mk ; \
+		mv tests.mk.tmp tests.mk ; \
+	}
 	# create a kata specific tests.mk file
 	@[ -f "$@" ] || { \
 		echo "#" ; \
@@ -31,12 +37,6 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	} | \
 	sed 's/kata/$</g' | \
 	sed "s/KATA/$$(echo "$<" | tr '[:lower:]' '[:upper:]')/g" > $@
-	# update the master tests.mk file
-	@[ -f "$@" ] || { \
-		sed "s/KATA_\(.*}\)\$$/$$(echo "$<" | tr [:lower:] [:upper:])_\1 \$${_KATA_\1/g" < tests.mk > tests.mk.tmp ; \
-		rm tests.mk ; \
-		mv tests.mk.tmp tests.mk ; \
-	}
 
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "Starting: $@..." | tr '_' ' '
