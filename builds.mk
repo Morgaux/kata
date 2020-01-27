@@ -17,8 +17,7 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 	@{ \
 		echo "#!/bin/sh" ; \
 		echo "# vi:syntax=sed" ; \
-		echo "" ; \
-		echo "# gloriously ugly exec hack (portable sh/sed)" ; \
+		echo "# POSIX sh / sed polyglot wrapper" ; \
 		echo "" ; \
 		echo "b ()" ; \
 		echo "{" ; \
@@ -31,12 +30,23 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 		echo ":()" ; \
 		echo "" ; \
 		echo "# pure sed from here" ; \
+		echo "" ; \
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
 
 bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
-	@cp $< $@
+	@{ \
+		echo "#!/bin/sh" ; \
+		echo "# vi: syntax=awk" ; \
+		echo "# POSIX sh / awk polyglot wrapper" ; \
+		echo "" ; \
+		echo "true + /; exec awk -f "$0" -- "$@"; exit; / {}" ; \
+		echo "" ; \
+		echo "# pure awk from here" ; \
+		echo "" ; \
+	} > $@
+	@cat $< >> $@
 	@chmod 755 $@
 
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
