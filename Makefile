@@ -2,13 +2,9 @@
 # main makefile for kata
 #
 
-KATAS = fizzbuzz roman
-TESTS = ${KATAS:%=test/%/tests.mk}
-SRC   = ${KATAS:%=src/%}
-BIN   = ${KATAS:%=bin/%}
-
 all: config clean test_all
 
+include config.mk
 include ${TESTS}
 include builds.mk
 
