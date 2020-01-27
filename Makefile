@@ -5,11 +5,8 @@
 all: config clean test_all
 
 include config.mk
-include ${TESTS}
 include builds.mk
-
-TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS}
-TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES}
+include tests.mk
 
 config:
 	@echo "config for katas:"
