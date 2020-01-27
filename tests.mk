@@ -13,7 +13,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	@[ -f "$@" ] || { \
 		sed "s/KATA_\(.*}\)\$$/$$(echo "$<" | tr [:lower:] [:upper:])_\1 \$${_KATA_\1/g" < tests.mk > tests.mk.tmp ; \
 		rm tests.mk ; \
-		mv tests.mk.tmp tests.mk ; \
+		cp tests.mk.tmp tests.mk ; \
 	}
 	@[ -f "$@" ] || { \
 		echo "#" ; \
@@ -35,9 +35,10 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	} | \
 	sed 's/kata/$</g' | \
 	sed "s/KATA/$$(echo "$<" | tr '[:lower:]' '[:upper:]')/g" > $@
-	@[ -f "$@" ] || { \
+	@[ -f "tests.mk.tmp" ] && { \
 		git add tests.mk $@ ; \
 		git commit -m "Added $< to framework" tests.mk $@ ; \
+		rm tests.mk.tmp ; \
 	}
 
 ${TEST_CASES}: ${TEST_FILES}
