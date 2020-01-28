@@ -2,11 +2,18 @@
 
 import sys
 
-lines = []
+numbers = []
+words = []
+
 for line in sys.stdin:
-	lines.append(line.strip())
+	line = line.strip()
+	try:
+		numbers.append(float(line))
+	except ValueError:
+		words.append(line)
 
-lines.sort()
+words.sort()
+numbers.sort()
 
-print("\n".join(lines))
+print("\n".join([str(item) for item in words + numbers]))
 
