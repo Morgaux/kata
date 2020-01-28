@@ -9,12 +9,11 @@ BIN   = ${KATAS:%=bin/%}
 
 config:
 	@echo "config for katas:"
-	@echo "KATAS =	${KATAS}"
-	@echo "TESTS =	${TESTS}"
-	@echo " "
-	@echo "SRC =	${SRC}"
-	@echo "BIN =	${BIN}"
-	@echo " "
+	@echo "KATAS =	${KATAS}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "TESTS =	${TESTS}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "SRC =	${SRC}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "BIN =	${BIN}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo ""
 
 ${BIN} ${SRC} ${KATAS:%=test/%}:
 	@mkdir -p $@
