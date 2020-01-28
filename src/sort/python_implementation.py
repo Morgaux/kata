@@ -16,5 +16,5 @@ for line in sys.stdin:
 words.sort()
 numbers.sort()
 
-print("\n".join([str(item) for item in words + numbers]))
+print("\n".join([str(item) for item in numbers + words]))
 
