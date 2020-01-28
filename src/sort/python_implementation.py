@@ -8,7 +8,8 @@ words = []
 for line in sys.stdin:
 	line = line.strip()
 	try:
-		numbers.append(float(line))
+		num = float(line)
+		numbers.append(int(num) if num.is_integer() else num)
 	except ValueError:
 		words.append(line)
 
