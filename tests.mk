@@ -36,7 +36,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 	sed 's/kata/$</g' | \
 	sed "s/KATA/$$(echo "$<" | tr '[:lower:]' '[:upper:]')/g" > $@
 	@[ ! -f "tests.mk.tmp" ] || { \
-		touch src/%/.gitkeep
+		touch src/%/.gitkeep ; \
 		git add tests.mk config.mk "$@" "src/$<" ; \
 		git commit -m "Added $< to framework" tests.mk config.mk "$@" "src/$<" ; \
 		rm tests.mk.tmp ; \
