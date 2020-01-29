@@ -10,7 +10,8 @@ _SORT_TESTS = test_sort_file_is_executable                         \
               test_sort_multidigit                                 \
               test_sort_uppercase_first                            \
               test_sort_zeros_correct                              \
-              test_sort_digits_before_letters
+              test_sort_digits_before_letters                      \
+              test_sort_natural_sort_order
 
 _SORT_FILES = bin/sort/python_implementation
 
@@ -23,7 +24,7 @@ predicate_test_sort_multidigit = [ "$$({ echo "123" ; echo "45" ; echo "6" ; ech
 predicate_test_sort_uppercase_first = [ "$$({ echo "B" ; echo "a" ; echo "A" ; echo "C" ; echo "b" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "AaBbC" ]
 predicate_test_sort_zeros_correct = [ "$$({ echo "1" ; echo "3" ; echo "0" ; echo "2" ; echo "0" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "00123" ]
 predicate_test_sort_digits_before_letters = [ "$$({ echo "b" ; echo "5" ; echo "a" ; echo "0" ; echo "d" ; echo "c" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "05abcd" ]
-
+predicate_test_sort_natural_sort_order = [ "$$({ echo "a4" ; echo "a0" ; echo "a40" ; echo "a4" ; echo "a11" ; } | $$FILE | tr '\n' '_' | sed 's/_//g')" = "a0a4a4a11a40" ]
 
 test_sort: ${_SORT_TESTS}
 	@echo All sort tests completed...
