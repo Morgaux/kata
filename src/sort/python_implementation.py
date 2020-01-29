@@ -32,8 +32,8 @@ words = [
 	], key=lambda s:s[1])
 ]
 
-#sort numbers
-numbers.sort()
+# sort numbers
+numbers = sorted(numbers)
 
 # combine and print
 print("\n".join([str(item) for item in numbers + words]))
