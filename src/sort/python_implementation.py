@@ -20,14 +20,13 @@ for line in sys.stdin:
 
 # sort words
 words.sort()
-words.sort(key=lambda s:s.lower())
 words = [
 	pair[0] if pair[1] < 0
 	else pair[0] + str(pair[1])
 	for pair in
 	sorted([
 		splitWordsAndInts(word)
-		for word in words
+		for word in sorted(words, key=lambda s:s.lower())
 	], key=lambda s:s[1])
 ]
 
