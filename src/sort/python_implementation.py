@@ -14,6 +14,7 @@ for line in sys.stdin:
 		words.append(line)
 
 words.sort()
+words.sort(key=lambda s:s.lower())
 numbers.sort()
 
 print("\n".join([str(item) for item in numbers + words]))
