@@ -19,14 +19,16 @@ for line in sys.stdin:
 		words.append(line)
 
 # sort words
-words.sort()
 words = [
 	pair[0] if pair[1] < 0
 	else pair[0] + str(pair[1])
 	for pair in
 	sorted([
 		splitWordsAndInts(word)
-		for word in sorted(words, key=lambda s:s.lower())
+		for word in sorted(
+			sorted(words),
+			key=lambda s:s.lower()
+		)
 	], key=lambda s:s[1])
 ]
 
