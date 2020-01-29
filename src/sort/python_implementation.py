@@ -2,6 +2,11 @@
 
 import sys
 
+def splitWordsAndInts(s):
+	head = s.rstrip("0123456789")
+	tail = s[len(head):]
+	return head, int(tail) if len(tail) > 0 else -1
+
 numbers = []
 words = []
 
@@ -13,9 +18,22 @@ for line in sys.stdin:
 	except ValueError:
 		words.append(line)
 
+# sort words
 words.sort()
 words.sort(key=lambda s:s.lower())
+words = [
+	pair[0] if pair[1] < 0
+	else pair[0] + str(pair[1])
+	for pair in
+	sorted([
+		splitWordsAndInts(word)
+		for word in words
+	])
+]
+
+#sort numbers
 numbers.sort()
 
+# combine and print
 print("\n".join([str(item) for item in numbers + words]))
 
