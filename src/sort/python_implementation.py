@@ -28,7 +28,7 @@ words = [
 	sorted([
 		splitWordsAndInts(word)
 		for word in words
-	])
+	], key=lambda s:s[1])
 ]
 
 #sort numbers
