@@ -2,6 +2,13 @@
 # _UTC_TO_UNIX_TIMESTAMP_TESTS for a utc_to_unix_timestamp implementation
 #
 
+#
+# Converter from UTC to UNIX timestamp
+#
+# Takes input in the form "yyyy-mm-dd" + "T" + "hh-mm-ss" + "Z"
+# Returns a 64 bit unsigned integer
+#
+
 _UTC_TO_UNIX_TIMESTAMP_TESTS = test_utc_to_unix_timestamp_file_is_executable
 
 _UTC_TO_UNIX_TIMESTAMP_FILES = 
