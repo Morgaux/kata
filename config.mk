@@ -2,7 +2,11 @@
 # Makefile rules and variables for configuration of builds and tests
 #
 
-KATAS = fizzbuzz roman_numerals alphabet_cipher sort
+KATAS = fizzbuzz              \
+        roman_numerals        \
+        alphabet_cipher       \
+        sort                  \
+        utc_to_unix_timestamp
 TESTS = ${KATAS:%=test/%/tests.mk}
 SRC   = ${KATAS:%=src/%}
 BIN   = ${KATAS:%=bin/%}
