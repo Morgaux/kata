@@ -1,6 +1,16 @@
 #
 # _ALPHABET_CIPHER_TESTS for a alphabet_cipher implementation
 #
+# the interface is as follows:
+# - STDIN is read
+# - each line must contain on of the following patterns:
+#   - encode key=[a-zA-Z] message=[a-zA-Z]
+#   - decode key=[a-zA-Z] message=[a-zA-Z]
+#   - decipher plaintext=[a-zA-Z] ciphertext=[a-zA-Z]
+# - the encode keyword will return the ciphertext of the message given
+# - the decode keyword will return the plaintext of the message given
+# - the decipher keyword will return the key used to encrypt the message
+#
 
 _ALPHABET_CIPHER_TESTS = test_alphabet_cipher_file_is_executable                                                     \
                          test_alphabet_cipher_can_encode_message_with_secret_keyword                                 \
