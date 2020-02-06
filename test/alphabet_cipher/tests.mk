@@ -7,7 +7,7 @@ _ALPHABET_CIPHER_TESTS = test_alphabet_cipher_file_is_executable                
                          test_alphabet_cipher_can_decode_message_with_secret_keyword                                 \
                          test_alphabet_cipher_can_extract_secret_keyword_from_encrypted_message_and_original_message
 
-_ALPHABET_CIPHER_FILES = 
+_ALPHABET_CIPHER_FILES = bin/alphabet_cipher/haskell_implementation
 
 predicate_test_alphabet_cipher_file_is_executable = [ -x  $$FILE ]
 predicate_test_alphabet_cipher_can_encode_message_with_secret_keyword = false
