@@ -31,7 +31,7 @@ keyMap = Map.fromList [('a', Map.fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), (
                        ('y', Map.fromList [('a', 'y'), ('b', 'z'), ('c', 'a'), ('d', 'b'), ('e', 'c'), ('f', 'd'), ('g', 'e'), ('h', 'f'), ('i', 'g'), ('j', 'h'), ('k', 'i'), ('l', 'j'), ('m', 'k'), ('n', 'l'), ('o', 'm'), ('p', 'n'), ('q', 'o'), ('r', 'p'), ('s', 'q'), ('t', 'r'), ('u', 's'), ('v', 't'), ('w', 'u'), ('x', 'v'), ('y', 'w'), ('z', 'x')]),
                        ('z', Map.fromList [('a', 'z'), ('b', 'a'), ('c', 'b'), ('d', 'c'), ('e', 'd'), ('f', 'e'), ('g', 'f'), ('h', 'g'), ('i', 'h'), ('j', 'i'), ('k', 'j'), ('l', 'k'), ('m', 'l'), ('n', 'm'), ('o', 'n'), ('p', 'o'), ('q', 'p'), ('r', 'q'), ('s', 'r'), ('t', 's'), ('u', 't'), ('v', 'u'), ('w', 'v'), ('x', 'w'), ('y', 'x'), ('z', 'y')])]
 
-encode key msg = msg
+encode key msg = [ msgLetter | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
 decode key msg = msg
 
