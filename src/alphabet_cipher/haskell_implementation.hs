@@ -3,7 +3,8 @@
 --
 
 import Control.Monad
-import Data.Map
+import Data.List hiding (lookup)
+import Data.Map hiding (drop)
 import Data.Maybe
 import Text.Read
 import Prelude hiding (lookup)
@@ -58,7 +59,10 @@ getActionFromOptions (x:xs) = x
 getActionFromOptions []     = ""
 
 getKeyFromOptions :: [[Char]] -> [Char]
-getKeyFromOptions options = ""
+getKeyFromOptions (x:xs) = if "key=" `isPrefixOf` x
+                           then drop 4 x
+                           else getKeyFromOptions xs
+getKeyFromOptions []     = ""
 
 getMessageFromOptions :: [[Char]] -> [Char]
 getMessageFromOptions options = ""
@@ -73,13 +77,13 @@ main :: IO ()
 main = do
        contents <- getContents
        forM_ (lines contents) $ \ line -> do
-             putStrLn $ let options = words $ fromMaybe "" (readMaybe line :: Maybe [Char])
+             putStrLn $ let options  = words line
                             action   = getActionFromOptions options
                             key      = getKeyFromOptions options
                             message  = getMessageFromOptions options
                             plain    = getPlainTextFromOptions options
                             cipher   = getCipherTextFromOptions options
-                            result   = case action of
+                            result   = "action: " ++ action ++ ", key: " ++ key ++ ", message: " ++ message ++ ", plain: " ++ plain ++ ", cipher: " ++ cipher ++ case action of
                                             "encode"   -> encode key message
                                             "decode"   -> decode key message
                                             "decipher" -> decipher plain cipher
