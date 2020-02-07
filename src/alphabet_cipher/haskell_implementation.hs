@@ -32,17 +32,28 @@ keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'
                    ('y', fromList [('a', 'y'), ('b', 'z'), ('c', 'a'), ('d', 'b'), ('e', 'c'), ('f', 'd'), ('g', 'e'), ('h', 'f'), ('i', 'g'), ('j', 'h'), ('k', 'i'), ('l', 'j'), ('m', 'k'), ('n', 'l'), ('o', 'm'), ('p', 'n'), ('q', 'o'), ('r', 'p'), ('s', 'q'), ('t', 'r'), ('u', 's'), ('v', 't'), ('w', 'u'), ('x', 'v'), ('y', 'w'), ('z', 'x')]),
                    ('z', fromList [('a', 'z'), ('b', 'a'), ('c', 'b'), ('d', 'c'), ('e', 'd'), ('f', 'e'), ('g', 'f'), ('h', 'g'), ('i', 'h'), ('j', 'i'), ('k', 'j'), ('l', 'k'), ('m', 'l'), ('n', 'm'), ('o', 'n'), ('p', 'o'), ('q', 'p'), ('r', 'q'), ('s', 'r'), ('t', 's'), ('u', 't'), ('v', 'u'), ('w', 'v'), ('x', 'w'), ('y', 'x'), ('z', 'y')])]
 
-twoDimensional :: Char -> Char -> Map Char (Map Char Char) -> Char
-twoDimensional xKey yKey map = case lookup xKey map of
-                                    Nothing     -> '_'
-                                    Just newMap -> case lookup yKey newMap of
-                                                        Just value -> value
-                                                        Nothing    -> '_'
+twoDimensionalLookup :: Char -> Char -> Map Char (Map Char Char) -> Char
+twoDimensionalLookup xKey yKey map = case lookup xKey map of
+                                          Nothing     -> '_'
+                                          Just newMap -> case lookup yKey newMap of
+                                                              Nothing    -> '_'
+                                                              Just value -> value
 
-encode key msg = [ twoDimensional keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
+findKeysByValue :: Char -> Map Char Char -> [Char]
+findKeysByValue key map = [ k | k <- keys map, k == key ]
 
-decode key msg = msg
+findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
+findInnerKeysByValue xKey yKey map = case lookup xKey map of
+                                          Nothing     -> ""
+                                          Just newMap -> findKeysByValue yKey newMap
 
+encode :: [Char] -> [Char] -> [Char]
+encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
+
+decode :: [Char] -> [Char] -> [Char]
+decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
+
+decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher = "key"
 
 main :: IO ()
