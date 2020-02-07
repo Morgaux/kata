@@ -86,7 +86,7 @@ main = do
                             message  = getMessageFromOptions options
                             plain    = getPlainTextFromOptions options
                             cipher   = getCipherTextFromOptions options
-                            result   = "action: " ++ action ++ ", key: " ++ key ++ ", message: " ++ message ++ ", plain: " ++ plain ++ ", cipher: " ++ cipher ++ case action of
+                            result   = case action of
                                             "encode"   -> encode key message
                                             "decode"   -> decode key message
                                             "decipher" -> decipher plain cipher
