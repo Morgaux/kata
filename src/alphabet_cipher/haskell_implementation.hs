@@ -36,9 +36,7 @@ keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'
 twoDimensionalLookup :: Char -> Char -> Map Char (Map Char Char) -> Char
 twoDimensionalLookup xKey yKey map = case lookup xKey map of
                                           Nothing     -> '_'
-                                          Just newMap -> case lookup yKey newMap of
-                                                              Nothing    -> '_'
-                                                              Just value -> value
+                                          Just newMap -> fromMaybe '_' $ lookup yKey newMap
 
 findKeysByValue :: Char -> Map Char Char -> [Char]
 findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ lookup key map) ]
