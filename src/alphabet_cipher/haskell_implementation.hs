@@ -2,8 +2,10 @@
 -- haskell implementation of an alphabet cipher
 --
 
+import Control.Monad
 import Data.Map
 import Data.Maybe
+import Text.Read
 import Prelude hiding (lookup)
 
 keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'), ('e', 'e'), ('f', 'f'), ('g', 'g'), ('h', 'h'), ('i', 'i'), ('j', 'j'), ('k', 'k'), ('l', 'l'), ('m', 'm'), ('n', 'n'), ('o', 'o'), ('p', 'p'), ('q', 'q'), ('r', 'r'), ('s', 's'), ('t', 't'), ('u', 'u'), ('v', 'v'), ('w', 'w'), ('x', 'x'), ('y', 'y'), ('z', 'z')]),
@@ -51,6 +53,30 @@ decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (key
 decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher = "key"
 
+getActionFromOptions options = ""
+
+getKeyFromOptions options = ""
+
+getMessageFromOptions options = ""
+
+getPlainTextFromOptions options = ""
+
+getCipherTextFromOptions options = ""
+
 main :: IO ()
-main = putStrLn $ decode "vigilance" "hmkbxebpxpmyllyrxiiqtoltfgzzv"
+main = do
+       contents <- getContents
+       forM_ (lines contents) $ \ line -> do
+             putStrLn $ let options = words $ fromMaybe "" (readMaybe line :: Maybe [Char])
+                            action   = getActionFromOptions options
+                            key      = getKeyFromOptions options
+                            message  = getMessageFromOptions options
+                            plain    = getPlainTextFromOptions options
+                            cipher   = getCipherTextFromOptions options
+                            result   = case action of
+                                            "encode"   -> encode key message
+                                            "decode"   -> decode key message
+                                            "decipher" -> decipher plain cipher
+                                            _          -> line
+                        in  result
 
