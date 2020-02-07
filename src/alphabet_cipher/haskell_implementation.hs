@@ -4,7 +4,7 @@
 
 import Control.Monad
 import Data.List hiding (lookup)
-import Data.Map hiding (drop)
+import Data.Map hiding (drop, take)
 import Data.Maybe
 import Text.Read
 import Prelude hiding (lookup)
@@ -46,7 +46,7 @@ findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
 findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList [('_', '_')]) $ lookup key map
 
 uncycle :: [a] -> [a]
-uncycle x = x
+uncycle x = take 100 x
 
 encode :: [Char] -> [Char] -> [Char]
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
@@ -55,7 +55,7 @@ decode :: [Char] -> [Char] -> [Char]
 decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
 decipher :: [Char] -> [Char] -> [Char]
-decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip plain cipher ]
+decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
 
 getActionFromOptions :: [[Char]] -> [Char]
 getActionFromOptions (x:xs) = x
