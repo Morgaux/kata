@@ -40,9 +40,7 @@ findKeysByValue :: Char -> Map Char Char -> [Char]
 findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ lookup key map) ]
 
 findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
-findInnerKeysByValue key value map = case lookup key map of
-                                          Nothing     -> ""
-                                          Just newMap -> findKeysByValue value newMap
+findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList [('_', '_')]) $ lookup key map
 
 encode :: [Char] -> [Char] -> [Char]
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
@@ -54,5 +52,5 @@ decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher = "key"
 
 main :: IO ()
-main = putStrLn $ encode "vigilance" "meetmeontuesdayeveningatseven"
+main = putStrLn $ decode "vigilance" "hmkbxebpxpmyllyrxiiqtoltfgzzv"
 
