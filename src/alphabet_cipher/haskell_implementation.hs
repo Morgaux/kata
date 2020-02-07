@@ -52,7 +52,7 @@ decode :: [Char] -> [Char] -> [Char]
 decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
 decipher :: [Char] -> [Char] -> [Char]
-decipher plain cipher = "key"
+decipher plain cipher = [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip plain cipher ]
 
 getActionFromOptions :: [[Char]] -> [Char]
 getActionFromOptions (x:xs) = x
