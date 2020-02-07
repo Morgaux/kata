@@ -3,6 +3,7 @@
 --
 
 import Data.Map
+import Data.Maybe
 import Prelude hiding (lookup)
 
 keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'), ('e', 'e'), ('f', 'f'), ('g', 'g'), ('h', 'h'), ('i', 'i'), ('j', 'j'), ('k', 'k'), ('l', 'l'), ('m', 'm'), ('n', 'n'), ('o', 'o'), ('p', 'p'), ('q', 'q'), ('r', 'r'), ('s', 's'), ('t', 't'), ('u', 'u'), ('v', 'v'), ('w', 'w'), ('x', 'x'), ('y', 'y'), ('z', 'z')]),
@@ -40,12 +41,12 @@ twoDimensionalLookup xKey yKey map = case lookup xKey map of
                                                               Just value -> value
 
 findKeysByValue :: Char -> Map Char Char -> [Char]
-findKeysByValue key map = [ k | k <- keys map, k == key ]
+findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ lookup key map) ]
 
 findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
-findInnerKeysByValue xKey yKey map = case lookup xKey map of
+findInnerKeysByValue key value map = case lookup key map of
                                           Nothing     -> ""
-                                          Just newMap -> findKeysByValue yKey newMap
+                                          Just newMap -> findKeysByValue value newMap
 
 encode :: [Char] -> [Char] -> [Char]
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
@@ -57,5 +58,5 @@ decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher = "key"
 
 main :: IO ()
-main = putStrLn $ encode "vigilance" "meetmeontuesdayeveningatseven"
+main = putStrLn $ decode "vigilance" "hmkbxebpxpmyllyrxiiqtoltfgzzv"
 
