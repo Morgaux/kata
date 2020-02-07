@@ -71,10 +71,16 @@ getMessageFromOptions (x:xs) = if "message=" `isPrefixOf` x
 getMessageFromOptions []     = ""
 
 getPlainTextFromOptions :: [[Char]] -> [Char]
-getPlainTextFromOptions options = ""
+getPlainTextFromOptions (x:xs) = if "plaintext=" `isPrefixOf` x
+                                 then drop 10 x
+                                 else getPlainTextFromOptions xs
+getPlainTextFromOptions []     = ""
 
 getCipherTextFromOptions :: [[Char]] -> [Char]
-getCipherTextFromOptions options = ""
+getCipherTextFromOptions (x:xs) = if "ciphertext=" `isPrefixOf` x
+                                  then drop 11 x
+                                  else getCipherTextFromOptions xs
+getCipherTextFromOptions []     = ""
 
 main :: IO ()
 main = do
