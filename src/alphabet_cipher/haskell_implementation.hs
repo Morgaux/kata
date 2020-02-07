@@ -45,8 +45,16 @@ findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ l
 findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
 findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList [('_', '_')]) $ lookup key map
 
-uncycle :: [a] -> [a]
-uncycle x = take 100 x
+uncycle' :: (Eq a) => Int -> [a] -> [a]
+uncycle' n x
+       | n > 0     = if (take n x) == (take n $ drop n x) &&
+                        (drop 1 $ take (n + 1) x) == (drop 1 $ take (n + 1) $ drop n x)
+                     then take n x
+                     else uncycle' (n + 1) x
+       | otherwise = uncycle' 1 x
+
+uncycle :: (Eq a) => [a] -> [a]
+uncycle x  = uncycle' 1 x
 
 encode :: [Char] -> [Char] -> [Char]
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
