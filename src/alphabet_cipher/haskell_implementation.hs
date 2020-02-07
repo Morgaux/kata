@@ -53,14 +53,20 @@ decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (key
 decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher = "key"
 
-getActionFromOptions options = ""
+getActionFromOptions :: [[Char]] -> [Char]
+getActionFromOptions (x:xs) = x
+getActionFromOptions []     = ""
 
+getKeyFromOptions :: [[Char]] -> [Char]
 getKeyFromOptions options = ""
 
+getMessageFromOptions :: [[Char]] -> [Char]
 getMessageFromOptions options = ""
 
+getPlainTextFromOptions :: [[Char]] -> [Char]
 getPlainTextFromOptions options = ""
 
+getCipherTextFromOptions :: [[Char]] -> [Char]
 getCipherTextFromOptions options = ""
 
 main :: IO ()
