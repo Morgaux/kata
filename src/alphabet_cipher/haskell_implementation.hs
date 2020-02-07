@@ -46,5 +46,5 @@ decode key msg = msg
 decipher plain cipher = "key"
 
 main :: IO ()
-main = putStrLn "Hello World!"
+main = putStrLn $ encode "vigilance" "meetmeontuesdayeveningatseven"
 
