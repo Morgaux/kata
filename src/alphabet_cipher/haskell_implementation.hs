@@ -65,7 +65,10 @@ getKeyFromOptions (x:xs) = if "key=" `isPrefixOf` x
 getKeyFromOptions []     = ""
 
 getMessageFromOptions :: [[Char]] -> [Char]
-getMessageFromOptions options = ""
+getMessageFromOptions (x:xs) = if "message=" `isPrefixOf` x
+                               then drop 8 x
+                               else getMessageFromOptions xs
+getMessageFromOptions []     = ""
 
 getPlainTextFromOptions :: [[Char]] -> [Char]
 getPlainTextFromOptions options = ""
