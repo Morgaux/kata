@@ -3,11 +3,14 @@
 --
 
 import Control.Monad
+import Data.Char
 import Data.List hiding (lookup)
 import Data.Map hiding (drop, take)
 import Data.Maybe
 import Text.Read
 import Prelude hiding (lookup)
+
+letters = ['a' .. 'z']
 
 keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'), ('e', 'e'), ('f', 'f'), ('g', 'g'), ('h', 'h'), ('i', 'i'), ('j', 'j'), ('k', 'k'), ('l', 'l'), ('m', 'm'), ('n', 'n'), ('o', 'o'), ('p', 'p'), ('q', 'q'), ('r', 'r'), ('s', 's'), ('t', 't'), ('u', 'u'), ('v', 'v'), ('w', 'w'), ('x', 'x'), ('y', 'y'), ('z', 'z')]),
                    ('b', fromList [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('f', 'g'), ('g', 'h'), ('h', 'i'), ('i', 'j'), ('j', 'k'), ('k', 'l'), ('l', 'm'), ('m', 'n'), ('n', 'o'), ('o', 'p'), ('p', 'q'), ('q', 'r'), ('r', 's'), ('s', 't'), ('t', 'u'), ('u', 'v'), ('v', 'w'), ('w', 'x'), ('x', 'y'), ('y', 'z'), ('z', 'a')]),
@@ -99,11 +102,11 @@ main = do
        contents <- getContents
        forM_ (lines contents) $ \ line -> do
              putStrLn $ let options  = words line
-                            action   = getActionFromOptions options
-                            key      = getArgByNameFromOptions "key" options
-                            message  = getArgByNameFromOptions "message" options
-                            plain    = getArgByNameFromOptions "plaintext" options
-                            cipher   = getArgByNameFromOptions "ciphertext" options
+                            action   = [ toLower c | c <- getActionFromOptions                 options ]
+                            key      = [ toLower c | c <- getArgByNameFromOptions "key"        options ]
+                            message  = [ toLower c | c <- getArgByNameFromOptions "message"    options ]
+                            plain    = [ toLower c | c <- getArgByNameFromOptions "plaintext"  options ]
+                            cipher   = [ toLower c | c <- getArgByNameFromOptions "ciphertext" options ]
                         in case action of
                                 "encode"   -> encode key message
                                 "decode"   -> decode key message
