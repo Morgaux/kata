@@ -79,6 +79,11 @@ decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter ciphe
 -- Main IO and helper functions
 --
 
+usage = "usage: enter lines to stdin in any of the following formats\n" ++
+        "\tencode key=<keystring> message=<msgstring>\n" ++
+        "\tdecode key=<keystring> message=<msgstring>\n" ++
+        "\tdeciph plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>"
+
 getActionFromOptions :: [[Char]] -> [Char]
 getActionFromOptions (x:xs) = x
 getActionFromOptions []     = ""
@@ -103,5 +108,5 @@ main = do
                                 "encode"   -> encode key message
                                 "decode"   -> decode key message
                                 "decipher" -> decipher plain cipher
-                                _          -> line
+                                _          -> error $ "invalid input\n" ++ usage
 
