@@ -10,8 +10,12 @@ import Data.Maybe
 import Text.Read
 import Prelude hiding (lookup)
 
-letters = ['a' .. 'z']
 
+--
+-- Data look up table for cipher
+--
+
+letters = ['a' .. 'z']
 keyMap = fromList [ (letter, fromList [ (key, value) | (key, value) <- zip letters $ take (length letters) $ dropWhile (/= letter) $ cycle letters ]) | letter <- letters ]
 
 
