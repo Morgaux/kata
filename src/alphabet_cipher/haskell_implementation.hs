@@ -26,10 +26,10 @@ keyMap = fromList [ (letter, fromList [ (key, value) | (key, value) <- zip lette
 twoDimensionalLookup :: Char -> Char -> Map Char (Map Char Char) -> Char
 twoDimensionalLookup xKey yKey map = fromMaybe '_' $ lookup yKey $ fromMaybe (fromList [('_', '_')]) $ lookup xKey map
 
-findKeysByValue :: Char -> Map Char Char -> [Char]
+findKeysByValue :: Char -> Map Char Char -> String
 findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ lookup key map) ]
 
-findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> [Char]
+findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> String
 findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList [('_', '_')]) $ lookup key map
 
 uncycle' :: (Eq a) => Int -> [a] -> [a]
@@ -47,13 +47,13 @@ uncycle x  = uncycle' 1 x
 -- Actual cipher logic (encode, decode, decipher)
 --
 
-encode :: [Char] -> [Char] -> [Char]
+encode :: String -> String -> String
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
-decode :: [Char] -> [Char] -> [Char]
+decode :: String -> String -> String
 decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
-decipher :: [Char] -> [Char] -> [Char]
+decipher :: String -> String -> String
 decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
 
 
@@ -66,11 +66,11 @@ usage = "usage: enter lines to stdin in any of the following formats\n" ++
         "\tdecode key=<keystring> message=<msgstring>\n" ++
         "\tdeciph plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>"
 
-getActionFromOptions :: [[Char]] -> [Char]
+getActionFromOptions :: [String] -> String
 getActionFromOptions (x:xs) = x
 getActionFromOptions []     = ""
 
-getArgByNameFromOptions :: [Char] -> [[Char]] -> [Char]
+getArgByNameFromOptions :: String -> [String] -> String
 getArgByNameFromOptions name (x:xs) = if (name ++ "=") `isPrefixOf` x
                                       then drop ((length name) + 1) x
                                       else getArgByNameFromOptions name xs
