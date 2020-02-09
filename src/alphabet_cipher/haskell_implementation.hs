@@ -52,10 +52,10 @@ findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList
 
 uncycle' :: (Eq a) => Int -> [a] -> [a]
 uncycle' n x
-       | n > 0     = if all (== True) $ [ (take n x) == (take n $ drop n x) ] ++ [ ((drop i $ take (n + i) x) == (drop i $ take (n + i) $ drop n x)) | i <- [1]]
+       | n <= 0    = uncycle' 1 x
+       | otherwise = if all (== True) $ [ (take n x) == (take n $ drop n x) ] ++ [ ((drop i $ take (n + i) x) == (drop i $ take (n + i) $ drop n x)) | i <- [1]]
                      then take n x
                      else uncycle' (n + 1) x
-       | otherwise = uncycle' 1 x
 
 uncycle :: (Eq a) => [a] -> [a]
 uncycle x  = uncycle' 1 x
