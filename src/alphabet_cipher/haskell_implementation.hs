@@ -36,6 +36,11 @@ keyMap = fromList [('a', fromList [('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd'
                    ('y', fromList [('a', 'y'), ('b', 'z'), ('c', 'a'), ('d', 'b'), ('e', 'c'), ('f', 'd'), ('g', 'e'), ('h', 'f'), ('i', 'g'), ('j', 'h'), ('k', 'i'), ('l', 'j'), ('m', 'k'), ('n', 'l'), ('o', 'm'), ('p', 'n'), ('q', 'o'), ('r', 'p'), ('s', 'q'), ('t', 'r'), ('u', 's'), ('v', 't'), ('w', 'u'), ('x', 'v'), ('y', 'w'), ('z', 'x')]),
                    ('z', fromList [('a', 'z'), ('b', 'a'), ('c', 'b'), ('d', 'c'), ('e', 'd'), ('f', 'e'), ('g', 'f'), ('h', 'g'), ('i', 'h'), ('j', 'i'), ('k', 'j'), ('l', 'k'), ('m', 'l'), ('n', 'm'), ('o', 'n'), ('p', 'o'), ('q', 'p'), ('r', 'q'), ('s', 'r'), ('t', 's'), ('u', 't'), ('v', 'u'), ('w', 'v'), ('x', 'w'), ('y', 'x'), ('z', 'y')])]
 
+
+--
+-- Helper functions for data look up and formatting
+--
+
 twoDimensionalLookup :: Char -> Char -> Map Char (Map Char Char) -> Char
 twoDimensionalLookup xKey yKey map = fromMaybe '_' $ lookup yKey $ fromMaybe (fromList [('_', '_')]) $ lookup xKey map
 
@@ -55,6 +60,11 @@ uncycle' n x
 uncycle :: (Eq a) => [a] -> [a]
 uncycle x  = uncycle' 1 x
 
+
+--
+-- Actual cipher logic (encode, decode, decipher)
+--
+
 encode :: [Char] -> [Char] -> [Char]
 encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
 
@@ -63,6 +73,11 @@ decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (key
 
 decipher :: [Char] -> [Char] -> [Char]
 decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
+
+
+--
+-- Main IO and helper functions
+--
 
 getActionFromOptions :: [[Char]] -> [Char]
 getActionFromOptions (x:xs) = x
