@@ -68,29 +68,11 @@ getActionFromOptions :: [[Char]] -> [Char]
 getActionFromOptions (x:xs) = x
 getActionFromOptions []     = ""
 
-getKeyFromOptions :: [[Char]] -> [Char]
-getKeyFromOptions (x:xs) = if "key=" `isPrefixOf` x
-                           then drop 4 x
-                           else getKeyFromOptions xs
-getKeyFromOptions []     = ""
-
-getMessageFromOptions :: [[Char]] -> [Char]
-getMessageFromOptions (x:xs) = if "message=" `isPrefixOf` x
-                               then drop 8 x
-                               else getMessageFromOptions xs
-getMessageFromOptions []     = ""
-
-getPlainTextFromOptions :: [[Char]] -> [Char]
-getPlainTextFromOptions (x:xs) = if "plaintext=" `isPrefixOf` x
-                                 then drop 10 x
-                                 else getPlainTextFromOptions xs
-getPlainTextFromOptions []     = ""
-
-getCipherTextFromOptions :: [[Char]] -> [Char]
-getCipherTextFromOptions (x:xs) = if "ciphertext=" `isPrefixOf` x
-                                  then drop 11 x
-                                  else getCipherTextFromOptions xs
-getCipherTextFromOptions []     = ""
+getArgByNameFromOptions :: [Char] -> [[Char]] -> [Char]
+getArgByNameFromOptions name (x:xs) = if (name ++ "=") `isPrefixOf` x
+                                      then drop ((length name) + 1) x
+                                      else getArgByNameFromOptions name xs
+getArgByNameFromOptions name _ = ""
 
 main :: IO ()
 main = do
@@ -98,10 +80,10 @@ main = do
        forM_ (lines contents) $ \ line -> do
              putStrLn $ let options  = words line
                             action   = getActionFromOptions options
-                            key      = getKeyFromOptions options
-                            message  = getMessageFromOptions options
-                            plain    = getPlainTextFromOptions options
-                            cipher   = getCipherTextFromOptions options
+                            key      = getArgByNameFromOptions "key" options
+                            message  = getArgByNameFromOptions "message" options
+                            plain    = getArgByNameFromOptions "plaintext" options
+                            cipher   = getArgByNameFromOptions "ciphertext" options
                         in case action of
                                 "encode"   -> encode key message
                                 "decode"   -> decode key message
