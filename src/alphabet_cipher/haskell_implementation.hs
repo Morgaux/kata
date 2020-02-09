@@ -101,7 +101,7 @@ main :: IO ()
 main = do
        contents <- getContents
        forM_ (lines contents) $ \ line -> do
-             putStrLn $ let options  = [ [ toLower letter | letter <- word ] | word <- words line ]
+             putStrLn $ let options  = words [ toLower letter | letter <- line ]
                             action   = getActionFromOptions                 options
                             key      = getArgByNameFromOptions "key"        options
                             message  = getArgByNameFromOptions "message"    options
