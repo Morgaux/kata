@@ -101,12 +101,12 @@ main :: IO ()
 main = do
        contents <- getContents
        forM_ (lines contents) $ \ line -> do
-             putStrLn $ let options  = words line
-                            action   = [ toLower c | c <- getActionFromOptions                 options ]
-                            key      = [ toLower c | c <- getArgByNameFromOptions "key"        options ]
-                            message  = [ toLower c | c <- getArgByNameFromOptions "message"    options ]
-                            plain    = [ toLower c | c <- getArgByNameFromOptions "plaintext"  options ]
-                            cipher   = [ toLower c | c <- getArgByNameFromOptions "ciphertext" options ]
+             putStrLn $ let options  = [ [ toLower letter | letter <- word ] | word <- words line ]
+                            action   = getActionFromOptions                 options
+                            key      = getArgByNameFromOptions "key"        options
+                            message  = getArgByNameFromOptions "message"    options
+                            plain    = getArgByNameFromOptions "plaintext"  options
+                            cipher   = getArgByNameFromOptions "ciphertext" options
                         in case action of
                                 "encode"   -> encode key message
                                 "decode"   -> decode key message
