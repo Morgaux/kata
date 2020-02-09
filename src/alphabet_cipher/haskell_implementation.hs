@@ -103,10 +103,9 @@ main = do
                             message  = getMessageFromOptions options
                             plain    = getPlainTextFromOptions options
                             cipher   = getCipherTextFromOptions options
-                            result   = case action of
-                                            "encode"   -> encode key message
-                                            "decode"   -> decode key message
-                                            "decipher" -> decipher plain cipher
-                                            _          -> line
-                        in  result
+                        in case action of
+                                "encode"   -> encode key message
+                                "decode"   -> decode key message
+                                "decipher" -> decipher plain cipher
+                                _          -> line
 
