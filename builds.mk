@@ -50,7 +50,7 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 	@chmod 755 $@
 
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
-	@ghc -o $@ $<
+	@ghc -o $@ $< >/dev/null
 
 .PHONY: clean
 
