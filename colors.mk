@@ -2,7 +2,7 @@
 # Color declarations for colourful output (if supported)
 #
 
-RESET_OUTPUT = $$([ -x "$$(command -v tput)" ] && tput sgr0)
+RESET = $$([ -x "$$(command -v tput)" ] && tput sgr0)
 BLACK        = $$([ -x "$$(command -v tput)" ] && tput setaf 0)
 RED          = $$([ -x "$$(command -v tput)" ] && tput setaf 1)
 GREEN        = $$([ -x "$$(command -v tput)" ] && tput setaf 2)

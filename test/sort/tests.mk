@@ -27,7 +27,7 @@ predicate_test_sort_digits_before_letters = [ "$$({ echo "b" ; echo "5" ; echo "
 predicate_test_sort_natural_sort_order = [ "$$({ echo "a4" ; echo "a0" ; echo "a40" ; echo "a4" ; echo "a11" ; } | $$FILE | tr '\n' '_' | sed 's/_//g')" = "a0a4a4a11a40" ]
 
 test_sort: ${_SORT_TESTS}
-	@echo "${YELLOW}All sort tests completed...${RESET_OUTPUT}"
+	@echo "${YELLOW}All sort tests completed...${RESET}"
 	@echo  " "
 
 .PHONY: test_sort 

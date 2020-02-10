@@ -14,11 +14,11 @@ SRC   = ${KATAS:%=src/%}
 BIN   = ${KATAS:%=bin/%}
 
 config:
-	@echo "${BOLD}config for katas:${RESET_OUTPUT}"
-	@echo "${BOLD}KATAS${RESET_OUTPUT} =	${KATAS}" | sed 's/ \([^=]\)/\n\t\1/g'
-	@echo "${BOLD}TESTS${RESET_OUTPUT} =	${TESTS}" | sed 's/ \([^=]\)/\n\t\1/g'
-	@echo "${BOLD}SRC${RESET_OUTPUT} =	${SRC}" | sed 's/ \([^=]\)/\n\t\1/g'
-	@echo "${BOLD}BIN${RESET_OUTPUT} =	${BIN}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "${BOLD}config for katas:${RESET}"
+	@echo "${BOLD}KATAS${RESET} =	${KATAS}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "${BOLD}TESTS${RESET} =	${TESTS}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "${BOLD}SRC${RESET} =	${SRC}" | sed 's/ \([^=]\)/\n\t\1/g'
+	@echo "${BOLD}BIN${RESET} =	${BIN}" | sed 's/ \([^=]\)/\n\t\1/g'
 	@echo " "
 
 ${BIN} ${SRC} ${KATAS:%=test/%}:
@@ -26,7 +26,7 @@ ${BIN} ${SRC} ${KATAS:%=test/%}:
 
 ${KATAS}:
 	@[ -f "test/$@/tests.mk" ] || { \
-		echo "${GREEN}Creating new kata: $@...${RESET_OUTPUT}" ; \
+		echo "${GREEN}Creating new kata: $@...${RESET}" ; \
 		echo "" ; \
 	}
 

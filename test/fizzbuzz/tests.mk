@@ -37,7 +37,7 @@ predicate_test_fizzbuzz_fizzbuzzes_are_only_at_every_fifteenth_position = ! "$$F
 predicate_test_fizzbuzz_numbers_corespond_to_ordinal_position_counting_from_1 = "$$FILE" | awk '/^[0-9]*$$/ {if (NR != $$0) exit 1}'
 
 test_fizzbuzz: ${_FIZZBUZZ_TESTS}
-	@echo "${YELLOW}All fizzbuzz tests completed...${RESET_OUTPUT}"
+	@echo "${YELLOW}All fizzbuzz tests completed...${RESET}"
 	@echo " "
 
 .PHONY: test_fizzbuzz ${_FIZZBUZZ_TESTS}

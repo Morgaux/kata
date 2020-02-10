@@ -31,7 +31,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 		echo "predicate_test_kata_file_is_executable = [ -x  "\$$\$$FILE" ]" ; \
 		echo "" ; \
 		echo "test_kata: \$${_KATA_TESTS}" ; \
-		echo "	@echo \"\$${YELLOW}All kata tests completed...\$${RESET_OUTPUT}\"" ; \
+		echo "	@echo \"\$${YELLOW}All kata tests completed...\$${RESET}\"" ; \
 		echo "	@echo \" \"" ; \
 		echo "" ; \
 		echo ".PHONY: test_kata $${_KATA_TESTS}" ; \
@@ -50,7 +50,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 # This target runs the test predicates defined in the kata's tests.mk file
 #
 ${TEST_CASES}: ${TEST_FILES}
-	@echo "${BOLD}Starting:${RESET_OUTPUT} $@..." | tr '_' ' '
+	@echo "${BOLD}Starting:${RESET} $@..." | tr '_' ' '
 	@_RESULT="" ; \
 	for FILE in $^ ; \
 	do \
@@ -67,11 +67,11 @@ ${TEST_CASES}: ${TEST_FILES}
 	done ; \
 	if [ -z "$$_RESULT" ] ; \
 	then \
-		echo "${BOLD}${GREEN}PASS${RESET_OUTPUT}" ; \
+		echo "${BOLD}${GREEN}PASS${RESET}" ; \
 	else \
 		for FILE in $$_RESULT ; \
 		do \
-			echo "${BOLD}${RED}FAIL${RESET_OUTPUT}: ${BOLD}$$FILE${RESET_OUTPUT}" ; \
+			echo "${BOLD}${RED}FAIL${RESET}: ${BOLD}$$FILE${RESET}" ; \
 		done ; \
 	fi
 	@echo " "
