@@ -37,8 +37,8 @@ predicate_test_alphabet_cipher_can_extract_secret_keyword_from_encrypted_message
                                                                                                         [ "$$(echo 'decipher plaintext=hellofromrussia                   ciphertext=hfnlphoontutufa'                   | $$FILE)" = "abcabcx"   ]
 
 test_alphabet_cipher: ${_ALPHABET_CIPHER_TESTS}
-	@echo All alphabet_cipher tests completed...
-	@echo  
+	@echo "${YELLOW}All alphabet_cipher tests completed...${RESET_OUTPUT}"
+	@echo  " "
 
 .PHONY: test_alphabet_cipher 
 

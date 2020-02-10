@@ -2,6 +2,7 @@
 # Makefile rules and targets for tests
 #
 
+include colors.mk
 include ${TESTS}
 
 TEST_CASES = ${_FIZZBUZZ_TESTS} ${_ROMAN_TESTS} ${_ALPHABET_CIPHER_TESTS} ${_SORT_TESTS} ${_UTC_TO_UNIX_TIMESTAMP_TESTS} ${_KATA_TESTS}
@@ -30,8 +31,8 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 		echo "predicate_test_kata_file_is_executable = [ -x  "\$$\$$FILE" ]" ; \
 		echo "" ; \
 		echo "test_kata: \$${_KATA_TESTS}" ; \
-		echo "	@echo "All kata tests completed..."" ; \
-		echo "	@echo " "" ; \
+		echo "	@echo \"\$${YELLOW}All kata tests completed...\$${RESET_OUTPUT}\"" ; \
+		echo "	@echo \" \"" ; \
 		echo "" ; \
 		echo ".PHONY: test_kata $${_KATA_TESTS}" ; \
 		echo "" ; \
@@ -49,7 +50,7 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 # This target runs the test predicates defined in the kata's tests.mk file
 #
 ${TEST_CASES}: ${TEST_FILES}
-	@echo "Starting: $@..." | tr '_' ' '
+	@echo "${BOLD}Starting:${RESET_OUTPUT} $@..." | tr '_' ' '
 	@_RESULT="" ; \
 	for FILE in $^ ; \
 	do \
@@ -66,11 +67,11 @@ ${TEST_CASES}: ${TEST_FILES}
 	done ; \
 	if [ -z "$$_RESULT" ] ; \
 	then \
-		echo "PASS" ; \
+		echo "${BOLD}${GREEN}PASS${RESET_OUTPUT}" ; \
 	else \
 		for FILE in $$_RESULT ; \
 		do \
-			echo "FAIL: $$FILE" ; \
+			echo "${BOLD}${RED}FAIL${RESET_OUTPUT}: ${BOLD}$$FILE${RESET_OUTPUT}" ; \
 		done ; \
 	fi
 	@echo " "

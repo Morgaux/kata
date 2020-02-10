@@ -2,25 +2,27 @@
 # Makefile rules to build executables
 #
 
+include colors.mk
+
 clean:
 	@rm -rf bin src/*/*.o src/*/*.hi
 
 bin/%/python_implementation: src/%/python_implementation.py bin/%
-	@echo "Building $@..."
+	@echo "${BOLD}Building:${RESET_OUTPUT} $@..."
 	@cp $< $@
 	@chmod 755 $@
-	@echo "DONE"
+	@echo "${GREEN}DONE${RESET_OUTPUT}"
 	@echo " "
 
 bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
-	@echo "Building $@..."
+	@echo "${BOLD}Building:${RESET_OUTPUT} $@..."
 	@cp $< $@
 	@chmod 755 $@
-	@echo "DONE"
+	@echo "${GREEN}DONE${RESET_OUTPUT}"
 	@echo " "
 
 bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
-	@echo "Building $@..."
+	@echo "${BOLD}Building:${RESET_OUTPUT} $@..."
 	@{ \
 		echo "#!/bin/sh" ; \
 		echo "# vi:syntax=sed" ; \
@@ -41,11 +43,11 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
-	@echo "DONE"
+	@echo "${GREEN}DONE${RESET_OUTPUT}"
 	@echo " "
 
 bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
-	@echo "Building $@..."
+	@echo "${BOLD}Building:${RESET_OUTPUT} $@..."
 	@{ \
 		echo "#!/bin/sh" ; \
 		echo "# vi: syntax=awk" ; \
@@ -58,13 +60,13 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
-	@echo "DONE"
+	@echo "${GREEN}DONE${RESET_OUTPUT}"
 	@echo " "
 
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
-	@echo "Building $@..."
+	@echo "${BOLD}Building:${RESET_OUTPUT} $@..."
 	@ghc -o $@ $< >/dev/null
-	@echo "DONE"
+	@echo "${GREEN}DONE${RESET_OUTPUT}"
 	@echo " "
 
 .PHONY: clean

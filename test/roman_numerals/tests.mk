@@ -59,7 +59,7 @@ predicate_test_roman_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'B
 predicate_test_roman_correctly_converts_multiple_inputs = [ "$$({ echo "1" ; echo "2" ; echo "3" ; echo "4" ; } | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1 
 
 test_roman_numerals: ${_ROMAN_TESTS}
-	@echo "All roman tests completed..."
+	@echo "${YELLOW}All roman tests completed...${RESET_OUTPUT}"
 	@echo " "
 
 .PHONY: test_roman_numerals ${_ROMAN_TESTS}
