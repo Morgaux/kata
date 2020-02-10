@@ -9,6 +9,9 @@ TEST_FILES = ${_FIZZBUZZ_FILES} ${_ROMAN_FILES} ${_ALPHABET_CIPHER_FILES} ${_SOR
 
 test_all: ${KATAS:%=test_%}
 
+#
+# This target auto generates kata tests.mk files if they don't yet exist
+#
 ${TESTS}: test/%/tests.mk : % test/% src/%
 	@[ -f "$@" ] || { \
 		sed "s/KATA_\(.*}\)\$$/$$(echo "$<" | tr [:lower:] [:upper:])_\1 \$${_KATA_\1/g" < tests.mk > tests.mk.tmp ; \
@@ -42,6 +45,9 @@ ${TESTS}: test/%/tests.mk : % test/% src/%
 		rm tests.mk.tmp ; \
 	}
 
+#
+# This target runs the test predicates defined in the kata's tests.mk file
+#
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "Starting: $@..." | tr '_' ' '
 	@_RESULT="" ; \
