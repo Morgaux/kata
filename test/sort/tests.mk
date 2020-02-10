@@ -16,7 +16,7 @@ _SORT_TESTS = test_sort_file_is_executable                         \
 _SORT_FILES = bin/sort/python_implementation
 
 predicate_test_sort_file_is_executable = [ -x  $$FILE ]
-predicate_test_sort_input_line_count_matches_output_line_count = _COUNT="$$((RANDOM / 100))" ; [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" -eq "$$_COUNT" ]
+predicate_test_sort_input_line_count_matches_output_line_count = [ "$$(awk "BEGIN {for (j = 1; j <= 10; j++) print j}" | "$$FILE" | wc -l)" -eq "10" ]
 predicate_test_sort_single_letters = [ "$$({ echo "c" ; echo "d" ; echo "b" ; echo "e" ; echo "a" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "abcde" ]
 predicate_test_sort_single_digits = [ "$$({ echo "3" ; echo "4" ; echo "2" ; echo "5" ; echo "1" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "12345" ]
 predicate_test_sort_multiletter = [ "$$({ echo "abc" ; echo "d" ; echo "aef" ; echo "gh" ; echo "lm" ; } | "$$FILE" | tr '\n' '_' | sed 's/_//g')" = "abcaefdghlm" ]
