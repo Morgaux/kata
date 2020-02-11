@@ -1,12 +1,17 @@
 #
-# main makefile for kata
+# Main Makefile for kata unit tests and builds
 #
 
-all: config clean test_all
-
 include config.mk
-include builds.mk
-include tests.mk
 
-.PHONY: all
+all: clean ${TESTS}
+
+include builds.mk
+
+${TESTS}:
+	@make -s -f ${@:test_%=test/%/tests.mk} all
+
+.SILENT:
+
+.PHONY: all ${TESTS}
 
