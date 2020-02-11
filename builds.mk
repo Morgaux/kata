@@ -8,21 +8,14 @@ clean:
 	@rm -rf bin src/*/*.o src/*/*.hi
 
 bin/%/python_implementation: src/%/python_implementation.py bin/%
-	@echo "${BOLD}Building:${RESET} $@..."
 	@cp $< $@
 	@chmod 755 $@
-	@echo "${GREEN}DONE${RESET}"
-	@echo " "
 
 bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
-	@echo "${BOLD}Building:${RESET} $@..."
 	@cp $< $@
 	@chmod 755 $@
-	@echo "${GREEN}DONE${RESET}"
-	@echo " "
 
 bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
-	@echo "${BOLD}Building:${RESET} $@..."
 	@{ \
 		echo "#!/bin/sh" ; \
 		echo "# vi:syntax=sed" ; \
@@ -43,11 +36,8 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
-	@echo "${GREEN}DONE${RESET}"
-	@echo " "
 
 bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
-	@echo "${BOLD}Building:${RESET} $@..."
 	@{ \
 		echo "#!/bin/sh" ; \
 		echo "# vi: syntax=awk" ; \
@@ -60,14 +50,9 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
-	@echo "${GREEN}DONE${RESET}"
-	@echo " "
 
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
-	@echo "${BOLD}Building:${RESET} $@..."
 	@ghc -o $@ $< >/dev/null
-	@echo "${GREEN}DONE${RESET}"
-	@echo " "
 
 .PHONY: clean
 
