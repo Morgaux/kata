@@ -31,13 +31,21 @@ letterMap = {
     "z" : { "a" : "z", "b" : "a", "c" : "b", "d" : "c", "e" : "d", "f" : "e", "g" : "f", "h" : "g", "i" : "h", "j" : "i", "k" : "j", "l" : "k", "m" : "l", "n" : "m", "o" : "n", "p" : "o", "q" : "p", "r" : "q", "s" : "r", "t" : "s", "u" : "t", "v" : "u", "w" : "v", "x" : "w", "y" : "x", "z" : "y" }
 }
 
+def reverseLookup(key, value, mapper):
+    for k in mapper[key].keys():
+        if mapper[key][k] == value:
+            return k
+    return None
+
 def encode(key, msg):
     for i in range(len(msg)):
         print(letterMap[(key * (int(len(msg) / len(key)) + 1))[i]][msg[i]], end="")
     print("\n", end="")
 
 def decode(key, msg):
-    print()
+    for i in range(len(msg)):
+        print(reverseLookup((key * (int(len(msg) / len(key)) + 1))[i], msg[i], letterMap), end="")
+    print("\n", end="")
 
 def decipher(plain, cipher):
     print()
