@@ -37,6 +37,16 @@ def reverseLookup(key, value, mapper):
             return k
     return None
 
+"""
+drop 1 $ take (n + 1) x) == (drop 1 $ take (n + 1) $ drop n x
+"""
+
+def uncycle(string, n = 1):
+    if string.startswith(string[n:]): # and string[1:n + 1] == string[n:][1:n + 1]:
+        return string[:n]
+    else:
+        return uncycle(string, n + 1)
+
 def encode(key, msg):
     for i in range(len(msg)):
         print(letterMap[(key * (int(len(msg) / len(key)) + 1))[i]][msg[i]], end="")
@@ -48,9 +58,10 @@ def decode(key, msg):
     print("\n", end="")
 
 def decipher(plain, cipher):
+    key=[]
     for i in range(len(cipher)):
-        print(reverseLookup(plain[i], cipher[i], letterMap), end="")
-    print("\n", end="")
+        key.append(reverseLookup(plain[i], cipher[i], letterMap))
+    print(uncycle("".join(key)))
 
 def usage():
     print("usage: " + __file__ + ": enter lines to stdin in any of the following formats")
