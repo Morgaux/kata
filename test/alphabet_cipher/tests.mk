@@ -19,7 +19,8 @@ TEST_CASES = test_alphabet_cipher_file_is_executable                            
              test_alphabet_cipher_can_decode_message_with_secret_keyword                                 \
              test_alphabet_cipher_can_extract_secret_keyword_from_encrypted_message_and_original_message
 
-TEST_FILES = bin/alphabet_cipher/haskell_implementation
+TEST_FILES = bin/alphabet_cipher/haskell_implementation \
+             bin/alphabet_cipher/python_implementation
 
 all: ${TEST_CASES}
 
