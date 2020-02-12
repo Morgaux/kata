@@ -8,22 +8,30 @@ def encode(key, msg):
 def decode(key, msg):
     pass
 
-def decipher(plain, crypt):
+def decipher(plain, cipher):
     pass
 
 def usage():
     pass
 
+def getArgByNameFromOptions(name, options):
+    if len(options) > 0:
+        return ""
+    elif options[0].startsWith(name + "="):
+        return options[0][:len(name) + 1]
+    else:
+        return getArgByNameFromOptions(name, options[1:])
+
 for line in sys.stdin:
     line = line.strip()
     options = line.split()
-    action = options[0]
+    action = options[0] if len(options) > 0 else ""
     if action == "encode":
-        encode("", "")
+        encode(getArgByNameFromOptions("key"), getArgByNameFromOptions("message"))
     elif action == "decode":
-        decode("", "")
+        decode(getArgByNameFromOptions("key"), getArgByNameFromOptions("message"))
     elif action == "":
-        decipher("", "")
+        decipher(getArgByNameFromOptions("plaintext"), getArgByNameFromOptions("ciphertext"))
     else:
         usage()
         exit(1)
