@@ -29,8 +29,8 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 		echo 'x' ; \
 		echo '}' ; \
 		echo '' ; \
-		echo 'i\\' ; \
-		echo 'f true ; then exec sed -f '$$0' '$$@' ; fi' ; \
+		echo "i\\" ; \
+		echo 'f true ; then exec sed -f "$$0" "$$@" ; fi' ; \
 		echo '' ; \
 		echo ':()' ; \
 		echo '' ; \
@@ -46,7 +46,7 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 		echo '# vi: syntax=awk' ; \
 		echo '# POSIX sh / awk polyglot wrapper' ; \
 		echo '' ; \
-		echo 'true + /; exec awk -f '$$0' -- '$$@'; exit; / {}' ; \
+		echo 'true + /; exec awk -f "$$0" -- "$$@"; exit; / {}' ; \
 		echo '' ; \
 		echo '# pure awk from here' ; \
 		echo '' ; \
