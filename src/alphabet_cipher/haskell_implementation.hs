@@ -71,10 +71,10 @@ getActionFromOptions (x:xs) = x
 getActionFromOptions []     = ""
 
 getArgByNameFromOptions :: String -> [String] -> String
+getArgByNameFromOptions "" _ = ""
 getArgByNameFromOptions name (x:xs) = if (name ++ "=") `isPrefixOf` x
                                       then drop ((length name) + 1) x
                                       else getArgByNameFromOptions name xs
-getArgByNameFromOptions name _ = ""
 
 main :: IO ()
 main = do
