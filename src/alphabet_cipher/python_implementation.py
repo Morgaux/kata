@@ -48,13 +48,15 @@ def decode(key, msg):
     print("\n", end="")
 
 def decipher(plain, cipher):
-    print()
+    for i in range(len(cipher)):
+        print(reverseLookup(plain[i], cipher[i], letterMap), end="")
+    print("\n", end="")
 
 def usage():
     print("usage: " + __file__ + ": enter lines to stdin in any of the following formats")
     print("\tencode key=<keystring> message=<msgstring>")
     print("\tdecode key=<keystring> message=<msgstring>")
-    print("\tdeciph plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>")
+    print("\tdecipher plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>")
 
 def getArgByNameFromOptions(name, options):
     if len(options) == 0:
@@ -72,7 +74,7 @@ for line in sys.stdin:
         encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
     elif action == "decode":
         decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
-    elif action == "":
+    elif action == "decipher":
         decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options))
     else:
         usage()
