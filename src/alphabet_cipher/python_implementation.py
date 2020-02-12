@@ -32,7 +32,9 @@ letterMap = {
 }
 
 def encode(key, msg):
-    print()
+    for i in range(len(msg)):
+        print(letterMap[(key * (int(len(msg) / len(key)) + 1))[i]][msg[i]], end="")
+    print("\n", end="")
 
 def decode(key, msg):
     print()
@@ -44,10 +46,10 @@ def usage():
     print()
 
 def getArgByNameFromOptions(name, options):
-    if len(options) > 0:
+    if len(options) == 0:
         return ""
-    elif options[0].startsWith(name + "="):
-        return options[0][:len(name) + 1]
+    elif options[0].startswith(name + "="):
+        return options[0][len(name + "="):]
     else:
         return getArgByNameFromOptions(name, options[1:])
 
@@ -56,11 +58,11 @@ for line in sys.stdin:
     options = line.split()
     action = options[0] if len(options) > 0 else ""
     if action == "encode":
-        encode(getArgByNameFromOptions("key"), getArgByNameFromOptions("message"))
+        encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
     elif action == "decode":
-        decode(getArgByNameFromOptions("key"), getArgByNameFromOptions("message"))
+        decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
     elif action == "":
-        decipher(getArgByNameFromOptions("plaintext"), getArgByNameFromOptions("ciphertext"))
+        decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options))
     else:
         usage()
         exit(1)
