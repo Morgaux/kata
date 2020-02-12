@@ -51,7 +51,10 @@ def decipher(plain, cipher):
     print()
 
 def usage():
-    print()
+    print("usage: " + __file__ + ": enter lines to stdin in any of the following formats")
+    print("\tencode key=<keystring> message=<msgstring>")
+    print("\tdecode key=<keystring> message=<msgstring>")
+    print("\tdeciph plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>")
 
 def getArgByNameFromOptions(name, options):
     if len(options) == 0:
