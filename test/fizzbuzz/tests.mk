@@ -32,9 +32,7 @@ TEST_CASES = test_file_is_executable                                    \
              test_fizzbuzzes_are_only_at_every_fifteenth_position       \
              test_output_is_at_least_100_lines
 
-TEST_FILES = bin/fizzbuzz/python_implementation  \
-             bin/fizzbuzz/shell_implementation   \
-             bin/fizzbuzz/haskell_implementation
+TEST_FILES = bin/fizzbuzz/python_implementation
 
 all: ${TEST_CASES}
 
