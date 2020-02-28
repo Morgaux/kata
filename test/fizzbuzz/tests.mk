@@ -39,11 +39,11 @@ all: ${TEST_CASES}
 include test/tests.mk
 include builds.mk
 
-predicate_test_output_has_numbers = "$$FILE" | grep -Eq "[0123456789]*"
+predicate_test_program_has_output = [ "$$("$$FILE" | wc -c | awk '{print $$1}')" -gt 0 ]
+
+predicate_test_output_has_numbers = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "[0123456789]*"
 
 predicate_test_file_is_executable = [ -x  "$$FILE" ]
-
-predicate_test_program_has_output = [ "$$("$$FILE" | wc -c | awk '{print $$1}')" -gt 0 ]
 
 predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes = "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]*$$" && ! "$$FILE" | grep -Eq "^$$"
 
@@ -59,11 +59,11 @@ predicate_test_every_fifteenth_output_is_fizzbuzz = [ "$$("$$FILE" | wc -l)" -gt
 
 predicate_test_output_is_at_least_100_lines = [ "$$("$$FILE" | wc -l)" -gt 99 ]
 
-predicate_test_fizzes_are_only_at_every_third_position = ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
+predicate_test_fizzes_are_only_at_every_third_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
 
-predicate_test_buzzes_are_only_at_every_fifth_position = ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
+predicate_test_buzzes_are_only_at_every_fifth_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
 
-predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position = ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
+predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
 
 predicate_test_numbers_corespond_to_ordinal_position_counting_from_1 = ${predicate_test_output_has_numbers} && "$$FILE" | awk '/^[0-9]*$$/ {if (NR != $$0) exit 1}'
 
