@@ -14,7 +14,7 @@
 # - the decipher keyword will return the key used to encrypt the message
 #
 
-TEST_CASES = test_alphabet_cipher_file_is_executable                                                     \
+TEST_CASES = test_file_is_executable                                                                     \
              test_alphabet_cipher_can_encode_message_with_secret_keyword                                 \
              test_alphabet_cipher_can_decode_message_with_secret_keyword                                 \
              test_alphabet_cipher_can_extract_secret_keyword_from_encrypted_message_and_original_message
