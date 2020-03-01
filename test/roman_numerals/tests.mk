@@ -31,8 +31,6 @@ all: ${TEST_CASES}
 include test/tests.mk
 include builds.mk
 
-predicate_test_input_line_count_matches_output_line_count = _COUNT="$$((RANDOM / 100))" ; [ "$$(awk "BEGIN {for (j = 1; j <= $$_COUNT; j++) print j}" | "$$FILE" | wc -l)" -eq "$$_COUNT" ] >/dev/null 2>&1
-
 predicate_test_powers_of_10_are_correct = [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '100'   | "$$FILE")" = "C"          ] >/dev/null 2>&1 && \
