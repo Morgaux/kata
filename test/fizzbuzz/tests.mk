@@ -41,20 +41,6 @@ all: ${TEST_CASES}
 include test/tests.mk
 include builds.mk
 
-predicate_test_file_is_executable = [ -x  "$$FILE" ]
-
-predicate_test_program_has_output = [ "$$("$$FILE" | wc -c | awk '{print $$1}')" -gt 0 ]
-
-predicate_test_output_is_at_least_3_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 2 ]
-
-predicate_test_output_is_at_least_5_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 4 ]
-
-predicate_test_output_is_at_least_15_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 14 ]
-
-predicate_test_output_is_at_least_100_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 99 ]
-
-predicate_test_output_has_numbers = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "[0123456789]*"
-
 predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]*$$" && ! "$$FILE" | grep -Eq "^$$"
 
 predicate_test_numbers_are_positive = ${predicate_test_output_has_numbers} && ! "$$FILE" | grep -E "\-[0123456789]"

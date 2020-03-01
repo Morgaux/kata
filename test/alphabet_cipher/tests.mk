@@ -27,8 +27,6 @@ all: ${TEST_CASES}
 include test/tests.mk
 include builds.mk
 
-predicate_test_alphabet_cipher_file_is_executable = [ -x  $$FILE ]
-
 predicate_test_alphabet_cipher_can_encode_message_with_secret_keyword = [ "$$(echo 'encode key=vigilance message=meetmeontuesdayeveningatseven'     | $$FILE)" = "hmkbxebpxpmyllyrxiiqtoltfgzzv"     ] && \
                                                                         [ "$$(echo 'encode key=vigilance message=thequickbrownfoxjumpsoveralazydog' | $$FILE)" = "opkyfipmfmwcvqoklyhxywgeecpvhelzg" ] && \
                                                                         [ "$$(echo 'encode key=scones    message=meetmebythetree'                   | $$FILE)" = "egsgqwtahuiljgs"                   ] && \
