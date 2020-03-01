@@ -14,6 +14,8 @@
 # - the decipher keyword will return the key used to encrypt the message
 #
 
+KATA = "ALPHABET CIPHER"
+
 TEST_CASES = test_file_is_executable                                                                     \
              test_alphabet_cipher_can_encode_message_with_secret_keyword                                 \
              test_alphabet_cipher_can_decode_message_with_secret_keyword                                 \
@@ -22,7 +24,7 @@ TEST_CASES = test_file_is_executable                                            
 TEST_FILES = bin/alphabet_cipher/haskell_implementation \
              bin/alphabet_cipher/python_implementation
 
-all: ${TEST_CASES}
+all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk

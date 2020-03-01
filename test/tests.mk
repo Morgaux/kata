@@ -5,6 +5,13 @@
 include colors.mk
 
 #
+# This target allows the tests to be separated by sections
+#
+message_before:
+	@echo "${YELLOW}STARTING" ${KATA} "TESTS...${RESET}"
+	@echo ""
+
+#
 # These predicates are fairly common and are available to be used to construct
 # more strict test cases without repeating common predicates.
 #

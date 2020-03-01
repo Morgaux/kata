@@ -17,6 +17,8 @@
 # - All positions NOT divisible by any of 3, 5, or 15, should be numbers
 #
 
+KATA = "FIZZBUZZ"
+
 TEST_CASES = test_file_is_executable                                    \
              test_program_has_output                                    \
              test_output_has_numbers                                    \
@@ -36,7 +38,7 @@ TEST_FILES = bin/fizzbuzz/python_implementation  \
              bin/fizzbuzz/shell_implementation   \
              bin/fizzbuzz/haskell_implementation
 
-all: ${TEST_CASES}
+all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk

@@ -14,6 +14,8 @@
 #   - thousands over 3999 are repeated Ms
 #
 
+KATA = "ROMAN NUMERALS"
+
 TEST_CASES = test_file_is_executable                         \
              test_input_line_count_matches_output_line_count \
              test_powers_of_10_are_correct                   \
@@ -26,10 +28,11 @@ TEST_FILES = bin/roman_numerals/python_implementation  \
              bin/roman_numerals/haskell_implementation \
              bin/roman_numerals/sed_implementation
 
-all: ${TEST_CASES}
+all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk
+include colors.mk
 
 predicate_test_powers_of_10_are_correct = [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \

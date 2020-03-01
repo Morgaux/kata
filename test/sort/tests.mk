@@ -7,6 +7,7 @@
 # - STDIN is read
 # - lines are sorted ASCIIbetically, in Natural sort order
 
+KATA = "NATURAL SORT"
 
 TEST_CASES = test_file_is_executable                         \
              test_input_line_count_matches_output_line_count \
@@ -21,7 +22,7 @@ TEST_CASES = test_file_is_executable                         \
 
 TEST_FILES = bin/sort/python_implementation
 
-all: ${TEST_CASES}
+all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk
