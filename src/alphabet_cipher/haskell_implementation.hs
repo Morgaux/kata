@@ -53,7 +53,7 @@ encode :: String -> String -> String
 encode key msg = [ keyAlphabet !! (length $ takeWhile (/= msgLetter) alphabet) | (keyAlphabet, msgLetter) <- zip (cycle [ take (length letters) $ dropWhile (/= k) alphabet | k <- key ]) msg ]
 
 decode :: String -> String -> String
-decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
+decode key msg = [ alphabet !! (length $ takeWhile (/= msgLetter) keyAlphabet) | (keyAlphabet, msgLetter) <- zip (cycle [ take (length letters) $ dropWhile (/= k) alphabet | k <- key ]) msg ]
 
 decipher :: String -> String -> String
 decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
