@@ -15,7 +15,6 @@ import Prelude hiding (lookup)
 -- Data look up table for cipher
 --
 
-letters = ['a' .. 'z']
 keyMap = fromList [ (letter, fromList [ (key, value) | (key, value) <- zip letters $ take (length letters) $ dropWhile (/= letter) $ cycle letters ]) | letter <- letters ]
 
 
@@ -50,6 +49,7 @@ shiftAlphabetByKey key = [ take (length letters) $ dropWhile (/= k) alphabet | k
 -- Actual cipher logic (encode, decode, decipher)
 --
 
+letters = ['a' .. 'z']
 alphabet = cycle letters
 
 encode :: String -> String -> String
