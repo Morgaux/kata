@@ -47,8 +47,10 @@ uncycle x  = uncycle' 1 x
 -- Actual cipher logic (encode, decode, decipher)
 --
 
+alphabet = cycle letters
+
 encode :: String -> String -> String
-encode key msg = [ keyAlphabet !! (length $ takeWhile (/= msgLetter) $ cycle [ 'a' .. 'z' ]) | (keyAlphabet, msgLetter) <- zip (cycle [ take 26 $ dropWhile (/= k) $ cycle [ 'a' .. 'z' ] | k <- key ]) msg ]
+encode key msg = [ keyAlphabet !! (length $ takeWhile (/= msgLetter) alphabet) | (keyAlphabet, msgLetter) <- zip (cycle [ take (length letters) $ dropWhile (/= k) alphabet | k <- key ]) msg ]
 
 decode :: String -> String -> String
 decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
