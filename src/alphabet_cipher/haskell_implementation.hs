@@ -18,7 +18,7 @@ import Prelude hiding (lookup)
 uncycle' :: (Eq a) => Int -> [a] -> [a]
 uncycle' n x
        | n <= 0    = uncycle' 1 x
-       | otherwise = if all (== True) $ [ (take n x) == (take n $ drop n x) ] ++ [ ((drop i $ take (n + i) x) == (drop i $ take (n + i) $ drop n x)) | i <- [1]]
+       | otherwise = if (take n x) == (take n $ drop n x) && ((drop 1 $ take (n + 1) x) == (drop 1 $ take (n + 1) $ drop n x))
                      then take n x
                      else uncycle' (n + 1) x
 
