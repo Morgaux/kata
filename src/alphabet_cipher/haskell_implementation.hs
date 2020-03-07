@@ -59,7 +59,7 @@ decode :: String -> String -> String
 decode key msg = [ alphabet !! (length $ takeWhile (/= msgLetter) keyAlphabet) | (keyAlphabet, msgLetter) <- zip (cycle $ shiftAlphabetByKey key) msg ]
 
 decipher :: String -> String -> String
-decipher plain cipher =  uncycle [ head $ findInnerKeysByValue plainLetter cipherLetter keyMap | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
+decipher plain cipher =  uncycle [ head [ keyLetter | keyLetter <- letters, (encode [keyLetter] [plainLetter]) == [cipherLetter] ] | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
 
 
 --
