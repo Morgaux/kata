@@ -48,7 +48,7 @@ uncycle x  = uncycle' 1 x
 --
 
 encode :: String -> String -> String
-encode key msg = [ twoDimensionalLookup keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
+encode key msg = [ head $ take (length $ takeWhile (/= msgLetter) $ cycle [ 'a' .. 'z' ]) keyAlphabet | (keyAlphabet, msgLetter) <- zip (cycle [ take 26 $ dropWhile (/= k) $ cycle [ 'a' .. 'z' ] | k <- key ]) msg ]
 
 decode :: String -> String -> String
 decode key msg = [ head $ findInnerKeysByValue keyLetter msgLetter keyMap | (keyLetter, msgLetter) <- zip (cycle key) msg ]
