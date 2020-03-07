@@ -12,24 +12,8 @@ import Prelude hiding (lookup)
 
 
 --
--- Data look up table for cipher
---
-
-keyMap = fromList [ (letter, fromList [ (key, value) | (key, value) <- zip letters $ take (length letters) $ dropWhile (/= letter) $ cycle letters ]) | letter <- letters ]
-
-
---
 -- Helper functions for data look up and formatting
 --
-
-twoDimensionalLookup :: Char -> Char -> Map Char (Map Char Char) -> Char
-twoDimensionalLookup xKey yKey map = fromMaybe '_' $ lookup yKey $ fromMaybe (fromList [('_', '_')]) $ lookup xKey map
-
-findKeysByValue :: Char -> Map Char Char -> String
-findKeysByValue value map = [ key | key <- keys map, value == (fromMaybe '_' $ lookup key map) ]
-
-findInnerKeysByValue :: Char -> Char -> Map Char (Map Char Char) -> String
-findInnerKeysByValue key value map = findKeysByValue value $ fromMaybe (fromList [('_', '_')]) $ lookup key map
 
 uncycle' :: (Eq a) => Int -> [a] -> [a]
 uncycle' n x
