@@ -68,7 +68,9 @@ def decode(key, msg):
 def decipher(plain, cipher):
     key=[]
     for i in range(len(cipher)):
-        key.append(reverseLookup(plain[i], cipher[i], letterMap))
+        for letter in letters:
+            if encode(letter, plain[i]) == cipher[i]:
+                key.append(letter)
     print(uncycle("".join(key)))
 
 def usage():
