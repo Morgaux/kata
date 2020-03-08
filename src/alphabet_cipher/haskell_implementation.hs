@@ -4,11 +4,8 @@
 
 import Control.Monad
 import Data.Char
-import Data.List hiding (lookup)
-import Data.Map hiding (drop, take)
-import Data.Maybe
+import Data.List
 import Text.Read
-import Prelude hiding (lookup)
 
 
 --
