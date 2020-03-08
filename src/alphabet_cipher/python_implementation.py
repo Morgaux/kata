@@ -47,9 +47,14 @@ def uncycle(string, n = 1):
     else:
         return uncycle(string, n + 1)
 
+letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ]
+
 def encode(key, msg):
     for i in range(len(msg)):
-        print(letterMap[(key * (int(len(msg) / len(key)) + 1))[i]][msg[i]], end="")
+        keyLetter   = (key * (int(len(msg) / len(key)) + 1))[i]
+        msgLetter   = msg[i]
+        keyAlphabet = letters[letters.index(keyLetter):] + letters[:letters.index(keyLetter)]
+        print(keyAlphabet[letters.index(msgLetter)], end="")
     print("\n", end="")
 
 def decode(key, msg):
