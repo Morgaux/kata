@@ -59,7 +59,10 @@ def encode(key, msg):
 
 def decode(key, msg):
     for i in range(len(msg)):
-        print(reverseLookup((key * (int(len(msg) / len(key)) + 1))[i], msg[i], letterMap), end="")
+        keyLetter   = (key * (int(len(msg) / len(key)) + 1))[i]
+        msgLetter   = msg[i]
+        keyAlphabet = letters[letters.index(keyLetter):] + letters[:letters.index(keyLetter)]
+        print(letters[keyAlphabet.index(msgLetter)], end="")
     print("\n", end="")
 
 def decipher(plain, cipher):
