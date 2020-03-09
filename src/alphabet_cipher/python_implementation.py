@@ -50,20 +50,22 @@ def uncycle(string, n = 1):
 letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ]
 
 def encode(key, msg):
+    result = []
     for i in range(len(msg)):
         keyLetter   = (key * (int(len(msg) / len(key)) + 1))[i]
         msgLetter   = msg[i]
         keyAlphabet = letters[letters.index(keyLetter):] + letters[:letters.index(keyLetter)]
-        print(keyAlphabet[letters.index(msgLetter)], end="")
-    print("\n", end="")
+        result.append(keyAlphabet[letters.index(msgLetter)])
+    return "".join(result)
 
 def decode(key, msg):
+    result = []
     for i in range(len(msg)):
         keyLetter   = (key * (int(len(msg) / len(key)) + 1))[i]
         msgLetter   = msg[i]
         keyAlphabet = letters[letters.index(keyLetter):] + letters[:letters.index(keyLetter)]
-        print(letters[keyAlphabet.index(msgLetter)], end="")
-    print("\n", end="")
+        results.append(letters[keyAlphabet.index(msgLetter)])
+    return "".join(result)
 
 def decipher(plain, cipher):
     key=[]
@@ -71,7 +73,7 @@ def decipher(plain, cipher):
         for letter in letters:
             if encode(letter, plain[i]) == cipher[i]:
                 key.append(letter)
-    print(uncycle("".join(key)))
+    return uncycle("".join(key))
 
 def usage():
     print("usage: " + __file__ + ": enter lines to stdin in any of the following formats")
@@ -92,11 +94,11 @@ for line in sys.stdin:
     options = line.split()
     action = options[0] if len(options) > 0 else ""
     if action == "encode":
-        encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
+        print(encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
     elif action == "decode":
-        decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options))
+        print(decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
     elif action == "decipher":
-        decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options))
+        print(decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options)))
     else:
         usage()
         exit(1)
