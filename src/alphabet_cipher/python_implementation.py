@@ -25,7 +25,7 @@ def decode(key, msg):
         keyLetter   = (key * (int(len(msg) / len(key)) + 1))[i]
         msgLetter   = msg[i]
         keyAlphabet = letters[letters.index(keyLetter):] + letters[:letters.index(keyLetter)]
-        results.append(letters[keyAlphabet.index(msgLetter)])
+        result.append(letters[keyAlphabet.index(msgLetter)])
     return "".join(result)
 
 def decipher(plain, cipher):
