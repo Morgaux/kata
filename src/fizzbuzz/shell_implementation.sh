@@ -2,6 +2,8 @@
 
 # generate numbers
 awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
+	# add buzz after all multiples of 5
+	sed 's/^\([0-9]*[50]\)$/\1Buzz/g' | \
 
 	# sum up all digits
 	sed 's/0//g' | \
