@@ -55,11 +55,11 @@ predicate_test_every_fifth_output_is_buzz = ${predicate_test_output_is_at_least_
 
 predicate_test_every_fifteenth_output_is_fizzbuzz = ${predicate_test_output_is_at_least_15_lines} && [ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ]
 
-predicate_test_fizzes_are_only_at_every_third_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
+predicate_test_fizzes_are_only_at_every_third_position = ${predicate_test_every_third_output_is_fizz} && ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
 
-predicate_test_buzzes_are_only_at_every_fifth_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
+predicate_test_buzzes_are_only_at_every_fifth_position = ${predicate_test_every_fifth_output_is_buzz} && ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
 
-predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position = ${predicate_test_program_has_output} && ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
+predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position = ${predicate_test_every_fifteenth_output_is_fizzbuzz} && ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
 
 predicate_test_numbers_corespond_to_ordinal_position_counting_from_1 = ${predicate_test_output_has_numbers} && "$$FILE" | awk '/^[0-9]*$$/ {if (NR != $$0) exit 1}'
 
