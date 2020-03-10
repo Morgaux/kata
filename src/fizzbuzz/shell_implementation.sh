@@ -25,6 +25,9 @@ awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
 	# replace multiples of 3 with fizz
 	sed 's/^[369]/Fizz/g' | \
 
+	# strip underscores from fizzes and buzzes
+	sed 's/\(Fizz\|Buzz\)_*/\1/g' | \
+
 	# strip remaining numbers
 	sed 's/[0-9]//g'
 
