@@ -3,7 +3,7 @@
 # generate numbers
 awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
 	# add buzz after all multiples of 5
-	sed 's/^\([0-9]*[50]\)$/\1Buzz/g' | \
+	sed 's/^\([0-9]*[50]\)/\1Buzz/g' | \
 
 	# sum up all digits
 	sed 's/0//g' | \
@@ -18,5 +18,8 @@ awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
 	sed ':x ; s/^\([1-9]*\)91/\11/g ; s/^\([1-9]*\)92/\11/g ; s/^\([1-9]*\)93/\12/g ; s/^\([1-9]*\)94/\13/g ; s/^\([1-9]*\)95/\14/g ; s/^\([1-9]*\)96/\15/g ; s/^\([1-9]*\)97/\16/g ; s/^\([1-9]*\)98/\17/g ; s/^\([1-9]*\)99/\18/g ; tx' | \
 
 	# replace multiples of 3 with fizz
-	sed 's/^[369]/Fizz/g'
+	sed 's/^[369]/Fizz/g' | \
+
+	# strip remaining numbers
+	sed 's/[0-9]//g'
 
