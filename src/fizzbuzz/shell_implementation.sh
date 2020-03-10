@@ -2,6 +2,11 @@
 
 # generate numbers
 awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
+	# add unary count at the end of the line
+	while IFS='$\n' read -r LINE; do
+		echo "${LINE}$(yes "_" | head -n "${LINE}" | tr '\n' ' ' | sed 's/ //g')"
+	done | \
+
 	# add buzz after all multiples of 5
 	sed 's/^\([0-9]*[50]\)/\1Buzz/g' | \
 
