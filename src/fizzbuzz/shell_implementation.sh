@@ -29,5 +29,8 @@ awk 'BEGIN {for (j = 1; j <= 100; j++) print j}' | \
 	sed 's/\(Fizz\|Buzz\)_*/\1/g' | \
 
 	# strip remaining numbers
-	sed 's/[0-9]//g'
+	sed 's/[0-9]//g' | \
+
+	# reconvert numbers
+	awk '/_/ { print length } !/_/ { print $0 }'
 
