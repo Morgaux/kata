@@ -8,7 +8,8 @@
 
 KATA = "PALINDROME"
 
-TEST_CASES = test_file_is_executable
+TEST_CASES = test_file_is_executable                         \
+             test_input_line_count_matches_output_line_count
 
 TEST_FILES = bin/palindrome/python_implementation
 
