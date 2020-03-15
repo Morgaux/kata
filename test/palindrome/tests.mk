@@ -39,7 +39,7 @@ TEST_CASES = test_file_is_executable                                \
              test_multiple_words_step_on_no_pets                    \
              test_multiple_words_top_spot                           \
              test_multiple_words_was_it_a_cat_i_saw                 \
-             test_multiple_words_eva_can_i_bees_in_a_cave           \
+             test_multiple_words_eva_can_i_see_bees_in_a_cave           \
              test_multiple_words_no_lemon_no_melon                  \
              test_multiple_words_able_was_i_ere_i_saw_elba          \
              test_multiple_words_hip_hip_hooray                     \
@@ -98,16 +98,16 @@ predicate_test_single_word_information = [ "$$(echo "information" | $$FILE)" = "
 # single words, should return false }}}
 
 # multiple words, should return true {{{
-predicate_test_multiple_words_don_t_nod                 = [ "$$(echo "Don\'t nod"                  | $$FILE)" = "true" ]
-predicate_test_multiple_words_i_did_did_i               = [ "$$(echo "I did, did I?"              | $$FILE)" = "true" ]
-predicate_test_multiple_words_my_gym                    = [ "$$(echo "My gym"                     | $$FILE)" = "true" ]
-predicate_test_multiple_words_red_rum_sir_is_murder     = [ "$$(echo "Red rum, sir, is murder"    | $$FILE)" = "true" ]
-predicate_test_multiple_words_step_on_no_pets           = [ "$$(echo "Step on no pets"            | $$FILE)" = "true" ]
-predicate_test_multiple_words_top_spot                  = [ "$$(echo "Top spot"                   | $$FILE)" = "true" ]
-predicate_test_multiple_words_was_it_a_cat_i_saw        = [ "$$(echo "Was it a cat I saw?"        | $$FILE)" = "true" ]
-predicate_test_multiple_words_eva_can_i_bees_in_a_cave  = [ "$$(echo "Eva, can I bees in a cave"  | $$FILE)" = "true" ]
-predicate_test_multiple_words_no_lemon_no_melon         = [ "$$(echo "No lemon, no melon"         | $$FILE)" = "true" ]
-predicate_test_multiple_words_able_was_i_ere_i_saw_elba = [ "$$(echo "Able was I, ere I saw Elba" | $$FILE)" = "true" ]
+predicate_test_multiple_words_don_t_nod                     = [ "$$(echo "Don\'t nod"                    | $$FILE)" = "true" ]
+predicate_test_multiple_words_i_did_did_i                   = [ "$$(echo "I did, did I?"                 | $$FILE)" = "true" ]
+predicate_test_multiple_words_my_gym                        = [ "$$(echo "My gym"                        | $$FILE)" = "true" ]
+predicate_test_multiple_words_red_rum_sir_is_murder         = [ "$$(echo "Red rum, sir, is murder"       | $$FILE)" = "true" ]
+predicate_test_multiple_words_step_on_no_pets               = [ "$$(echo "Step on no pets"               | $$FILE)" = "true" ]
+predicate_test_multiple_words_top_spot                      = [ "$$(echo "Top spot"                      | $$FILE)" = "true" ]
+predicate_test_multiple_words_was_it_a_cat_i_saw            = [ "$$(echo "Was it a cat I saw?"           | $$FILE)" = "true" ]
+predicate_test_multiple_words_eva_can_i_see_bees_in_a_cave  = [ "$$(echo "Eva, can I see bees in a cave" | $$FILE)" = "true" ]
+predicate_test_multiple_words_no_lemon_no_melon             = [ "$$(echo "No lemon, no melon"            | $$FILE)" = "true" ]
+predicate_test_multiple_words_able_was_i_ere_i_saw_elba     = [ "$$(echo "Able was I, ere I saw Elba"    | $$FILE)" = "true" ]
 # multiple words, should return true }}}
 
 # multiple words, should return false {{{
@@ -151,48 +151,48 @@ predicate_test_single_words = ${predicate_test_single_word_anna}        && \
 # single words, tests for both true and false }}}
 
 # multiple words, tests for both true and false {{{
-predicate_test_multiple_words = ${predicate_test_multiple_words_don_t_nod}                          && \
-                                ${predicate_test_multiple_words_i_did_did_i}                        && \
-                                ${predicate_test_multiple_words_my_gym}                             && \
-                                ${predicate_test_multiple_words_red_rum_sir_is_murder}              && \
-                                ${predicate_test_multiple_words_step_on_no_pets}                    && \
-                                ${predicate_test_multiple_words_top_spot}                           && \
-                                ${predicate_test_multiple_words_was_it_a_cat_i_saw}                 && \
-                                ${predicate_test_multiple_words_eva_can_i_bees_in_a_cave}           && \
-                                ${predicate_test_multiple_words_no_lemon_no_melon}                  && \
-                                ${predicate_test_multiple_words_able_was_i_ere_i_saw_elba}          && \
-                                ${predicate_test_multiple_words_hip_hip_hooray}                     && \
-                                ${predicate_test_multiple_words_this_is_not_a_palindrome}           && \
-                                ${predicate_test_multiple_words_long_live_the_king}                 && \
-                                ${predicate_test_multiple_words_i_wonder_why}                       && \
-                                ${predicate_test_multiple_words_better_than_sliced_bread}           && \
-                                ${predicate_test_multiple_words_fish_market}                        && \
-                                ${predicate_test_multiple_words_pick_a_key}                         && \
-                                ${predicate_test_multiple_words_round_and_round_the_merry_go_round} && \
-                                ${predicate_test_multiple_words_that_s_the_way_the_money_goes}      && \
+predicate_test_multiple_words = ${predicate_test_multiple_words_don_t_nod}                              && \
+                                ${predicate_test_multiple_words_i_did_did_i}                            && \
+                                ${predicate_test_multiple_words_my_gym}                                 && \
+                                ${predicate_test_multiple_words_red_rum_sir_is_murder}                  && \
+                                ${predicate_test_multiple_words_step_on_no_pets}                        && \
+                                ${predicate_test_multiple_words_top_spot}                               && \
+                                ${predicate_test_multiple_words_was_it_a_cat_i_saw}                     && \
+                                ${predicate_test_multiple_words_eva_can_i_see_bees_in_a_cave}           && \
+                                ${predicate_test_multiple_words_no_lemon_no_melon}                      && \
+                                ${predicate_test_multiple_words_able_was_i_ere_i_saw_elba}              && \
+                                ${predicate_test_multiple_words_hip_hip_hooray}                         && \
+                                ${predicate_test_multiple_words_this_is_not_a_palindrome}               && \
+                                ${predicate_test_multiple_words_long_live_the_king}                     && \
+                                ${predicate_test_multiple_words_i_wonder_why}                           && \
+                                ${predicate_test_multiple_words_better_than_sliced_bread}               && \
+                                ${predicate_test_multiple_words_fish_market}                            && \
+                                ${predicate_test_multiple_words_pick_a_key}                             && \
+                                ${predicate_test_multiple_words_round_and_round_the_merry_go_round}     && \
+                                ${predicate_test_multiple_words_that_s_the_way_the_money_goes}          && \
                                 ${predicate_test_multiple_words_minor_be_splat}
 # multiple words, tests for both true and false }}}
 
 # correct palindromes {{{
-predicate_test_palindromes_return_true = ${predicate_test_single_word_anna}                         && \
-                                         ${predicate_test_single_word_civic}                        && \
-                                         ${predicate_test_single_word_kayak}                        && \
-                                         ${predicate_test_single_word_level}                        && \
-                                         ${predicate_test_single_word_madam}                        && \
-                                         ${predicate_test_single_word_mom}                          && \
-                                         ${predicate_test_single_word_noon}                         && \
-                                         ${predicate_test_single_word_rotator}                      && \
-                                         ${predicate_test_single_word_repaper}                      && \
-                                         ${predicate_test_single_word_racecar}                      && \
-                                         ${predicate_test_multiple_words_don_t_nod}                 && \
-                                         ${predicate_test_multiple_words_i_did_did_i}               && \
-                                         ${predicate_test_multiple_words_my_gym}                    && \
-                                         ${predicate_test_multiple_words_red_rum_sir_is_murder}     && \
-                                         ${predicate_test_multiple_words_step_on_no_pets}           && \
-                                         ${predicate_test_multiple_words_top_spot}                  && \
-                                         ${predicate_test_multiple_words_was_it_a_cat_i_saw}        && \
-                                         ${predicate_test_multiple_words_eva_can_i_bees_in_a_cave}  && \
-                                         ${predicate_test_multiple_words_no_lemon_no_melon}         && \
+predicate_test_palindromes_return_true = ${predicate_test_single_word_anna}                             && \
+                                         ${predicate_test_single_word_civic}                            && \
+                                         ${predicate_test_single_word_kayak}                            && \
+                                         ${predicate_test_single_word_level}                            && \
+                                         ${predicate_test_single_word_madam}                            && \
+                                         ${predicate_test_single_word_mom}                              && \
+                                         ${predicate_test_single_word_noon}                             && \
+                                         ${predicate_test_single_word_rotator}                          && \
+                                         ${predicate_test_single_word_repaper}                          && \
+                                         ${predicate_test_single_word_racecar}                          && \
+                                         ${predicate_test_multiple_words_don_t_nod}                     && \
+                                         ${predicate_test_multiple_words_i_did_did_i}                   && \
+                                         ${predicate_test_multiple_words_my_gym}                        && \
+                                         ${predicate_test_multiple_words_red_rum_sir_is_murder}         && \
+                                         ${predicate_test_multiple_words_step_on_no_pets}               && \
+                                         ${predicate_test_multiple_words_top_spot}                      && \
+                                         ${predicate_test_multiple_words_was_it_a_cat_i_saw}            && \
+                                         ${predicate_test_multiple_words_eva_can_i_see_bees_in_a_cave}  && \
+                                         ${predicate_test_multiple_words_no_lemon_no_melon}             && \
                                          ${predicate_test_multiple_words_able_was_i_ere_i_saw_elba}
 # correct palindromes }}}
 
