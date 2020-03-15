@@ -34,7 +34,7 @@ def isPalindrome(line: str) -> bool:
             "z",
         ]:
             letters.append(letter)
-    return letters == letters[::-1]
+    return letters == letters[::-1] and len(letters) > 0
 
 if __name__ == "__main__":
     for line in sys.stdin:
