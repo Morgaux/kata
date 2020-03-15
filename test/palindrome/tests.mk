@@ -12,46 +12,6 @@ KATA = "PALINDROME"
 TEST_CASES = test_file_is_executable                                \
              test_input_line_count_matches_output_line_count        \
              test_empty_line_fails                                  \
-             test_single_word_anna                                  \
-             test_single_word_civic                                 \
-             test_single_word_kayak                                 \
-             test_single_word_level                                 \
-             test_single_word_madam                                 \
-             test_single_word_mom                                   \
-             test_single_word_noon                                  \
-             test_single_word_rotator                               \
-             test_single_word_repaper                               \
-             test_single_word_racecar                               \
-             test_single_word_palindrome                            \
-             test_single_word_longest                               \
-             test_single_word_dictionary                            \
-             test_single_word_makefile                              \
-             test_single_word_number                                \
-             test_single_word_history                               \
-             test_single_word_common                                \
-             test_single_word_character                             \
-             test_single_word_test                                  \
-             test_single_word_information                           \
-             test_multiple_words_don_t_nod                          \
-             test_multiple_words_i_did_did_i                        \
-             test_multiple_words_my_gym                             \
-             test_multiple_words_red_rum_sir_is_murder              \
-             test_multiple_words_step_on_no_pets                    \
-             test_multiple_words_top_spot                           \
-             test_multiple_words_was_it_a_cat_i_saw                 \
-             test_multiple_words_eva_can_i_see_bees_in_a_cave           \
-             test_multiple_words_no_lemon_no_melon                  \
-             test_multiple_words_able_was_i_ere_i_saw_elba          \
-             test_multiple_words_hip_hip_hooray                     \
-             test_multiple_words_this_is_not_a_palindrome           \
-             test_multiple_words_long_live_the_king                 \
-             test_multiple_words_i_wonder_why                       \
-             test_multiple_words_better_than_sliced_bread           \
-             test_multiple_words_fish_market                        \
-             test_multiple_words_pick_a_key                         \
-             test_multiple_words_round_and_round_the_merry_go_round \
-             test_multiple_words_that_s_the_way_the_money_goes      \
-             test_multiple_words_minor_be_splat                     \
              test_single_words                                      \
              test_multiple_words                                    \
              test_non_palindromes_return_false                      \
