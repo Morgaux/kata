@@ -3,7 +3,38 @@
 import sys
 
 def isPalindrome(line: str) -> bool:
-    return False
+    letters = []
+    for letter in line.lower():
+        if letter in [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+        ]:
+            letters.append(letter)
+    return letters == letters[::-1]
 
 if __name__ == "__main__":
     for line in sys.stdin:
