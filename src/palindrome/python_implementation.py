@@ -2,7 +2,13 @@
 
 import sys
 
+def isPalindrome(line: str) -> bool:
+    return False
+
 if __name__ == "__main__":
     for line in sys.stdin:
-        print(line, end="")
+        if isPalindrome(line):
+            print("true")
+        else:
+            print("false")
 
