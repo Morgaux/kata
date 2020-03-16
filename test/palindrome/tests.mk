@@ -4,6 +4,11 @@
 
 #
 # The interface is as follows:
+# - for every line that is input either "true" or "false" is output
+# - "true" is output if the line, when striped of whitespace, is the same when
+#   reversed
+# - "false" is output if the line doesn't match the criteria for "true"
+# - empty lines are not considered palindromes
 #
 
 KATA = "PALINDROME"
