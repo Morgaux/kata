@@ -7,11 +7,7 @@ import Data.Char
 import Data.List
 import Text.Read
 
-
---
--- Helper functions for data look up and formatting
---
-
+-- Helper functions {{{
 uncycle' :: (Eq a) => Int -> [a] -> [a]
 uncycle' n x
        | n <= 0    = uncycle' 1 x
@@ -24,12 +20,9 @@ uncycle x  = uncycle' 1 x
 
 shiftAlphabetByKey :: String -> [String]
 shiftAlphabetByKey key = [ take (length letters) $ dropWhile (/= k) alphabet | k <- key ]
+-- Helper functions }}}
 
-
---
--- Actual cipher logic (encode, decode, decipher)
---
-
+-- Actual cipher logic {{{
 letters = ['a' .. 'z']
 alphabet = cycle letters
 
@@ -41,12 +34,9 @@ decode key msg = [ alphabet !! (length $ takeWhile (/= msgLetter) keyAlphabet) |
 
 decipher :: String -> String -> String
 decipher plain cipher =  uncycle [ head [ keyLetter | keyLetter <- letters, (encode [keyLetter] [plainLetter]) == [cipherLetter] ] | (plainLetter, cipherLetter) <- zip (cycle plain) (cycle cipher) ]
+-- Actual cipher logic }}}
 
-
---
--- Main IO and helper functions
---
-
+-- Main helper functions {{{
 usage = "usage: enter lines to stdin in any of the following formats\n" ++
         "\tencode key=<keystring> message=<msgstring>\n" ++
         "\tdecode key=<keystring> message=<msgstring>\n" ++
@@ -61,7 +51,9 @@ getArgByNameFromOptions "" _ = ""
 getArgByNameFromOptions name (x:xs) = if (name ++ "=") `isPrefixOf` x
                                       then drop ((length name) + 1) x
                                       else getArgByNameFromOptions name xs
+-- Main helper functions }}}
 
+-- Main function {{{
 main :: IO ()
 main = do
        contents <- getContents
@@ -77,4 +69,5 @@ main = do
                                 "decode"   -> decode key message
                                 "decipher" -> decipher plain cipher
                                 _          -> error $ "invalid input\n" ++ usage
+-- Main function }}}
 
