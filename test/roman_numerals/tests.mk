@@ -14,6 +14,7 @@
 #   - thousands over 3999 are repeated Ms
 #
 
+# Setup {{{
 KATA = "ROMAN NUMERALS"
 
 TEST_CASES = test_file_is_executable                         \
@@ -33,7 +34,9 @@ all: message_before ${TEST_CASES}
 include test/tests.mk
 include builds.mk
 include colors.mk
+# Setup }}}
 
+# Test case predicates {{{
 predicate_test_powers_of_10_are_correct = [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '100'   | "$$FILE")" = "C"          ] >/dev/null 2>&1 && \
@@ -78,4 +81,5 @@ predicate_test_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'BEGIN {
                                                         done)" ]
 
 predicate_test_correctly_converts_multiple_inputs = [ "$$({ echo "1" ; echo "2" ; echo "3" ; echo "4" ; } | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1
+# Test case predicates }}}
 

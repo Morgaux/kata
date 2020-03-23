@@ -11,9 +11,9 @@
 # - empty lines are not considered palindromes
 #
 
+# Setup {{{
 KATA = "PALINDROME"
 
-# test cases {{{
 TEST_CASES = test_file_is_executable                                \
              test_input_line_count_matches_output_line_count        \
              test_empty_line_fails                                  \
@@ -21,7 +21,6 @@ TEST_CASES = test_file_is_executable                                \
              test_multiple_words                                    \
              test_non_palindromes_return_false                      \
              test_palindromes_return_true
-# test cases }}}
 
 TEST_FILES = bin/palindrome/python_implementation
 
@@ -29,6 +28,9 @@ all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk
+# Setup }}}
+
+# Test case predicates {{{
 
 # individual predicate tests {{{
 
@@ -185,4 +187,6 @@ predicate_test_non_palindromes_return_false = ${predicate_test_single_word_palin
 # incorrect palindromes }}}
 
 # combined predicates }}}
+
+# Test case predicates }}}
 

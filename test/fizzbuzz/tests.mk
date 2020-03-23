@@ -17,6 +17,7 @@
 # - All positions NOT divisible by any of 3, 5, or 15, should be numbers
 #
 
+# Setup {{{
 KATA = "FIZZBUZZ"
 
 TEST_CASES = test_file_is_executable                                    \
@@ -42,24 +43,18 @@ all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk
+# Setup }}}
 
-predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]*$$" && ! "$$FILE" | grep -Eq "^$$"
-
-predicate_test_numbers_are_positive = ${predicate_test_output_has_numbers} && ! "$$FILE" | grep -E "\-[0123456789]"
-
-predicate_test_numbers_are_in_order = ${predicate_test_output_has_numbers} && "$$FILE" | grep -E "[0123456789]" | sort -n -c - 2>/dev/null
-
-predicate_test_every_third_output_is_fizz = ${predicate_test_output_is_at_least_3_lines} && [ "$$("$$FILE" | awk 'NR % 3 == 0' | grep -v "Fizz" | wc -l)" -eq 0 ]
-
-predicate_test_every_fifth_output_is_buzz = ${predicate_test_output_is_at_least_5_lines} && [ "$$("$$FILE" | awk 'NR % 5 == 0' | grep -v "Buzz" | wc -l)" -eq 0 ]
-
-predicate_test_every_fifteenth_output_is_fizzbuzz = ${predicate_test_output_is_at_least_15_lines} && [ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ]
-
-predicate_test_fizzes_are_only_at_every_third_position = ${predicate_test_every_third_output_is_fizz} && ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
-
-predicate_test_buzzes_are_only_at_every_fifth_position = ${predicate_test_every_fifth_output_is_buzz} && ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
-
-predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position = ${predicate_test_every_fifteenth_output_is_fizzbuzz} && ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
-
+# Test case predicates {{{
+predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes       = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]*$$" && ! "$$FILE" | grep -Eq "^$$"
+predicate_test_numbers_are_positive                                  = ${predicate_test_output_has_numbers} && ! "$$FILE" | grep -E "\-[0123456789]"
+predicate_test_numbers_are_in_order                                  = ${predicate_test_output_has_numbers} && "$$FILE" | grep -E "[0123456789]" | sort -n -c - 2>/dev/null
+predicate_test_every_third_output_is_fizz                            = ${predicate_test_output_is_at_least_3_lines} && [ "$$("$$FILE" | awk 'NR % 3 == 0' | grep -v "Fizz" | wc -l)" -eq 0 ]
+predicate_test_every_fifth_output_is_buzz                            = ${predicate_test_output_is_at_least_5_lines} && [ "$$("$$FILE" | awk 'NR % 5 == 0' | grep -v "Buzz" | wc -l)" -eq 0 ]
+predicate_test_every_fifteenth_output_is_fizzbuzz                    = ${predicate_test_output_is_at_least_15_lines} && [ "$$("$$FILE" | awk 'NR % 15 == 0' | grep -v "FizzBuzz" | wc -l)" -eq 0 ]
+predicate_test_fizzes_are_only_at_every_third_position               = ${predicate_test_every_third_output_is_fizz} && ! "$$FILE" | awk 'NR % 3 != 0' | grep -q "Fizz"
+predicate_test_buzzes_are_only_at_every_fifth_position               = ${predicate_test_every_fifth_output_is_buzz} && ! "$$FILE" | awk 'NR % 5 != 0' | grep -q "Buzz"
+predicate_test_fizzbuzzes_are_only_at_every_fifteenth_position       = ${predicate_test_every_fifteenth_output_is_fizzbuzz} && ! "$$FILE" | awk 'NR % 15 != 0' | grep -q "FizzBuzz"
 predicate_test_numbers_corespond_to_ordinal_position_counting_from_1 = ${predicate_test_output_has_numbers} && "$$FILE" | awk '/^[0-9]*$$/ {if (NR != $$0) exit 1}'
+# Test case predicates }}}
 

@@ -14,6 +14,7 @@
 # - the decipher keyword will return the key used to encrypt the message
 #
 
+# Setup {{{
 KATA = "ALPHABET CIPHER"
 
 TEST_CASES = test_file_is_executable                                                                     \
@@ -28,7 +29,9 @@ all: message_before ${TEST_CASES}
 
 include test/tests.mk
 include builds.mk
+# Setup }}}
 
+# Test case predicates {{{
 predicate_test_alphabet_cipher_can_encode_message_with_secret_keyword = [ "$$(echo 'encode key=vigilance message=meetmeontuesdayeveningatseven'     | $$FILE)" = "hmkbxebpxpmyllyrxiiqtoltfgzzv"     ] && \
                                                                         [ "$$(echo 'encode key=vigilance message=thequickbrownfoxjumpsoveralazydog' | $$FILE)" = "opkyfipmfmwcvqoklyhxywgeecpvhelzg" ] && \
                                                                         [ "$$(echo 'encode key=scones    message=meetmebythetree'                   | $$FILE)" = "egsgqwtahuiljgs"                   ] && \
@@ -46,4 +49,5 @@ predicate_test_alphabet_cipher_can_extract_secret_keyword_from_encrypted_message
                                                                                                         [ "$$(echo 'decipher plaintext=meetmebythetree                   ciphertext=egsgqwtahuiljgs'                   | $$FILE)" = "scones"    ] && \
                                                                                                         [ "$$(echo 'decipher plaintext=packmyboxwithfivedozenliquorjugs  ciphertext=hcqxqqtqljmlzhwiivgbsapaiwcenmyu'  | $$FILE)" = "scones"    ] && \
                                                                                                         [ "$$(echo 'decipher plaintext=hellofromrussia                   ciphertext=hfnlphoontutufa'                   | $$FILE)" = "abcabcx"   ]
+# Test case predicates }}}
 
