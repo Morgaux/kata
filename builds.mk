@@ -67,5 +67,18 @@ bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
 	@ghc -o $@ $< >/dev/null
 # Haskell Build }}}
 
+# Java Build {{{
+bin/%/java_implementation: src/%/java_implementation.java bin/%
+	@javac -d bin/$* $< # this generates a Kata.class file
+	@{ \
+		echo '#!/bin/sh' ; \
+		echo '# POSIX sh wrapper to call the Java class file' ; \
+		echo '' ; \
+		echo '[ -x "$$(command -v java)" ] && java Kata' ; \
+		echo '' ; \
+	} > $@
+	@chmod 755 $@
+# Java Build }}}
+
 .PHONY: clean
 

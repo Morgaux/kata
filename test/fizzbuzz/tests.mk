@@ -37,7 +37,8 @@ TEST_CASES = test_file_is_executable                                    \
 
 TEST_FILES = bin/fizzbuzz/python_implementation  \
              bin/fizzbuzz/shell_implementation   \
-             bin/fizzbuzz/haskell_implementation
+             bin/fizzbuzz/haskell_implementation \
+             bin/fizzbuzz/java_implementation
 
 all: message_before ${TEST_CASES}
 
