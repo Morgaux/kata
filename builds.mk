@@ -10,14 +10,19 @@ clean:
 ${KATAS:%=bin/%}:
 	@mkdir -p $@
 
+# Python Build {{{
 bin/%/python_implementation: src/%/python_implementation.py bin/%
 	@cp $< $@
 	@chmod 755 $@
+# Python Build }}}
 
+# Shell Build {{{
 bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
 	@cp $< $@
 	@chmod 755 $@
+# Shell Build }}}
 
+# SED Build {{{
 bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 	@{ \
 		echo '#!/bin/sh' ; \
@@ -39,7 +44,9 @@ bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
+# SED Build }}}
 
+# AWK Build {{{
 bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 	@{ \
 		echo '#!/bin/sh' ; \
@@ -53,9 +60,12 @@ bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
 	} > $@
 	@cat $< >> $@
 	@chmod 755 $@
+# AWK Build }}}
 
+# Haskell Build {{{
 bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
 	@ghc -o $@ $< >/dev/null
+# Haskell Build }}}
 
 .PHONY: clean
 
