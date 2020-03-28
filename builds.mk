@@ -72,9 +72,26 @@ bin/%/java_implementation: src/%/java_implementation.java bin/%
 	@javac -d bin/$* $< # this generates a Kata.class file
 	@{ \
 		echo '#!/bin/sh' ; \
-		echo '# POSIX sh wrapper to call the Java class file' ; \
+		echo '# POSIX sh wrapper to call the Java classfile' ; \
 		echo '' ; \
+		echo '# Setup' ; \
+		echo 'OLD_DIR="$$(pwd)"' ; \
+		echo 'EX_CODE="0"' ; \
+		echo '' ; \
+		echo '# Go to classfile location' ; \
+		echo 'cd bin/$*' ; \
+		echo '' ; \
+		echo '# Attempt to run classfile' ; \
 		echo '[ -x "$$(command -v java)" ] && java Kata' ; \
+		echo '' ; \
+		echo '# Determine success' ; \
+		echo 'EX_CODE="$$?"' ; \
+		echo '' ; \
+		echo '# Return to origin' ; \
+		echo 'cd "$$OLD_DIR"' ; \
+		echo '' ; \
+		echo '# Exit result' ; \
+		echo 'exit "$$EX_CODE"' ; \
 		echo '' ; \
 	} > $@
 	@chmod 755 $@
