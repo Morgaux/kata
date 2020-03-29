@@ -10,13 +10,13 @@ import Text.Read
 -- Helper functions {{{
 uncycle' :: (Eq a) => Int -> [a] -> [a]
 uncycle' n x
-       | n <= 0    = uncycle' 1 x
-       | otherwise = if (take n x) == (take n $ drop n x) && ((drop 1 $ take (n + 1) x) == (drop 1 $ take (n + 1) $ drop n x))
-                     then take n x
-                     else uncycle' (n + 1) x
+  | n <= 0    = uncycle' 1 x
+  | otherwise = if (take n x) == (take n $ drop n x) && ((drop 1 $ take (n + 1) x) == (drop 1 $ take (n +  1) $ drop n x))
+                   then take n x
+                   else uncycle' (n + 1) x
 
 uncycle :: (Eq a) => [a] -> [a]
-uncycle x  = uncycle' 1 x
+uncycle x = uncycle' 1 x
 
 shiftAlphabetByKey :: String -> [String]
 shiftAlphabetByKey key = [ take (length letters) $ dropWhile (/= k) alphabet | k <- key ]
@@ -49,25 +49,24 @@ getActionFromOptions []     = ""
 getArgByNameFromOptions :: String -> [String] -> String
 getArgByNameFromOptions "" _ = ""
 getArgByNameFromOptions name (x:xs) = if (name ++ "=") `isPrefixOf` x
-                                      then drop ((length name) + 1) x
-                                      else getArgByNameFromOptions name xs
+                                         then drop ((length name) + 1) x
+                                         else getArgByNameFromOptions name xs
 -- Main helper functions }}}
 
 -- Main function {{{
 main :: IO ()
-main = do
-       contents <- getContents
-       forM_ (lines contents) $ \ line -> do
-             putStrLn $ let options  = words [ toLower letter | letter <- line ]
-                            action   = getActionFromOptions                 options
-                            key      = getArgByNameFromOptions "key"        options
-                            message  = getArgByNameFromOptions "message"    options
-                            plain    = getArgByNameFromOptions "plaintext"  options
-                            cipher   = getArgByNameFromOptions "ciphertext" options
-                        in case action of
-                                "encode"   -> encode key message
-                                "decode"   -> decode key message
-                                "decipher" -> decipher plain cipher
-                                _          -> error $ "invalid input\n" ++ usage
+main = do contents <- getContents
+          forM_ (lines contents) $ \ line -> do
+              putStrLn $ let options = words [ toLower letter | letter <- line ]
+                             action  = getActionFromOptions options
+                             key     = getArgByNameFromOptions "key"        options
+                             message = getArgByNameFromOptions "message"    options
+                             plain   = getArgByNameFromOptions "plaintext"  options
+                             cipher  = getArgByNameFromOptions "ciphertext" options
+                         in case action of
+                                 "encode"   -> encode   key   message
+                                 "decode"   -> decode   key   message
+                                 "decipher" -> decipher plain cipher
+                                 _          -> error $ "invalid input\n" ++ usage
 -- Main function }}}
 
