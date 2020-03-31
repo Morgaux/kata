@@ -37,10 +37,10 @@ decipher plain cipher =  uncycle [ head [ keyLetter | keyLetter <- letters, (enc
 -- Actual cipher logic }}}
 
 -- Main helper functions {{{
-usage = "usage: enter lines to stdin in any of the following formats\n" ++
-        "\tencode key=<keystring> message=<msgstring>\n" ++
-        "\tdecode key=<keystring> message=<msgstring>\n" ++
-        "\tdeciph plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>"
+usage = "usage: enter lines to stdin in any of the following formats\n\t" ++
+        "encode key=<keystring> message=<msgstring>\n\t" ++
+        "decode key=<keystring> message=<msgstring>\n\t" ++
+        "decipher plaintext=<cleartxtmsg> ciphertext=<ciphertxtmsg>"
 
 getActionFromOptions :: [String] -> String
 getActionFromOptions (x:xs) = x
