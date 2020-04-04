@@ -7,14 +7,13 @@
 # - positive numbers are read on per line
 # - if the number represents a leap year, "true" is output
 # - else "false" is output
-#
-
-#
-# Leap years are defined as follows:
 # - Leap years can only be divisible by 4
 # - Years divisible by 100 can only be leap years if also divisible by 400
 # - Years divisible by 400 are leap years
 # - Years divisible by 4 but not divisible by 100 are leap years
+# - For  simplicity, assumed 4 AD as the first leap year
+# - There is no 0 AD and no 0 BC, the year before 1 AD was 1 BC
+# - Years BC are represented by a negative number, -1 and 0 both represent 1 BC
 #
 
 # Setup {{{
@@ -24,7 +23,8 @@ TEST_CASES = test_file_is_executable                 \
              test_years_divisible_by_4               \
              test_years_not_divisible_by_4           \
              test_years_divisible_by_100_but_not_400 \
-             test_years_divisible_by_400
+             test_years_divisible_by_400             \
+             test_years_BC
 TEST_FILES = bin/leap_year/haskell_implementation
 
 all: message_before ${TEST_CASES}
@@ -1286,6 +1286,73 @@ predicate_test_years_divisible_by_400 = ${predicate_test_400}                   
 # Combined predicate }}}
 
 # Test cases for years divisible by 400 }}}
+
+# Test cases for years BC {{{
+
+# BC to AD boundary {{{
+predicate_test_-8 = [ "$$(echo "-8" | $$FILE)" = "false" ]
+predicate_test_-7 = [ "$$(echo "-7" | $$FILE)" = "false" ]
+predicate_test_-6 = [ "$$(echo "-6" | $$FILE)" = "false" ]
+predicate_test_-4 = [ "$$(echo "-4" | $$FILE)" = "false" ]
+predicate_test_-3 = [ "$$(echo "-3" | $$FILE)" = "false" ]
+predicate_test_-2 = [ "$$(echo "-2" | $$FILE)" = "false" ]
+predicate_test_-1 = [ "$$(echo "-1" | $$FILE)" = "false" ]
+predicate_test_0  = [ "$$(echo "0"  | $$FILE)" = "false" ]
+predicate_test_1  = [ "$$(echo "1"  | $$FILE)" = "false" ]
+predicate_test_2  = [ "$$(echo "2"  | $$FILE)" = "false" ]
+predicate_test_3  = [ "$$(echo "3"  | $$FILE)" = "false" ]
+predicate_test_4  = [ "$$(echo "4"  | $$FILE)" = "true"  ]
+predicate_test_5  = [ "$$(echo "5"  | $$FILE)" = "false" ]
+predicate_test_6  = [ "$$(echo "6"  | $$FILE)" = "false" ]
+predicate_test_7  = [ "$$(echo "7"  | $$FILE)" = "false" ]
+predicate_test_8  = [ "$$(echo "8"  | $$FILE)" = "true"  ]
+# BC to AD boundary }}}
+
+# Random years BC {{{
+predicate_test_random_negative_value      = [ "$$(echo "-$${RANDOM}" | $$FILE)" = "false" ]
+predicate_test_10_random_negative_values  = ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value} && \
+                                            ${predicate_test_random_negative_value}
+predicate_test_100_random_negative_values = ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values} && \
+                                            ${predicate_test_10_random_negative_values}
+# Random years BC }}}
+
+# Combined predicates {{{
+predicate_test_years_BC = ${predicate_test_-8}                        && \
+                          ${predicate_test_-7}                        && \
+                          ${predicate_test_-6}                        && \
+                          ${predicate_test_-4}                        && \
+                          ${predicate_test_-3}                        && \
+                          ${predicate_test_-2}                        && \
+                          ${predicate_test_-1}                        && \
+                          ${predicate_test_0}                         && \
+                          ${predicate_test_1}                         && \
+                          ${predicate_test_2}                         && \
+                          ${predicate_test_3}                         && \
+                          ${predicate_test_4}                         && \
+                          ${predicate_test_5}                         && \
+                          ${predicate_test_6}                         && \
+                          ${predicate_test_7}                         && \
+                          ${predicate_test_8}                         && \
+                          ${predicate_test_100_random_negative_values}
+# Combined predicates }}}
+
+# Test cases for years BC }}}
 
 # Test case predicates }}}
 
