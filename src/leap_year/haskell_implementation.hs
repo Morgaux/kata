@@ -8,7 +8,7 @@ import Text.Read
 
 -- IsLeap function {{{
 isLeap :: Int -> String
-isLeap year = if (year > 0) && (year `mod` 4 == 0) && (not (year `mod` 100 == 0))
+isLeap year = if (year > 0) && (year `mod` 4 == 0) && (not (year `mod` 100 == 0) || (year `mod` 400 == 0))
                  then "true"
                  else "false"
 -- IsLeap function }}}
