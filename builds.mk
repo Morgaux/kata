@@ -97,5 +97,10 @@ bin/%/java_implementation: src/%/java_implementation.java bin/%
 	@chmod 755 $@
 # Java Build }}}
 
+# C Build {{{
+bin/%/c_implementation: src/%/c_implementation.c bin/%
+	@${CC} -o $@ $< >/dev/null
+# C Build }}}
+
 .PHONY: clean
 
