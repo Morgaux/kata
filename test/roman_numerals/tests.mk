@@ -38,12 +38,16 @@ include colors.mk
 # Setup }}}
 
 # Test case predicates {{{
+
+# Test powers of ten {{{
 predicate_test_powers_of_10_are_correct = [ "$$(echo '1'     | "$$FILE")" = "I"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '10'    | "$$FILE")" = "X"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '100'   | "$$FILE")" = "C"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '1000'  | "$$FILE")" = "M"          ] >/dev/null 2>&1 && \
                                           [ "$$(echo '10000' | "$$FILE")" = "MMMMMMMMMM" ] >/dev/null 2>&1
+# Test powers of ten }}}
 
+# Test values 1 to 20 {{{
 predicate_test_1_to_20_are_correct = [ "$$(echo '1'  | "$$FILE")" = "I"    ] >/dev/null 2>&1 && \
                                      [ "$$(echo '2'  | "$$FILE")" = "II"   ] >/dev/null 2>&1 && \
                                      [ "$$(echo '3'  | "$$FILE")" = "III"  ] >/dev/null 2>&1 && \
@@ -64,7 +68,9 @@ predicate_test_1_to_20_are_correct = [ "$$(echo '1'  | "$$FILE")" = "I"    ] >/d
                                      [ "$$(echo '18' | "$$FILE")" = "XIIX" ] >/dev/null 2>&1 && \
                                      [ "$$(echo '19' | "$$FILE")" = "XIX"  ] >/dev/null 2>&1 && \
                                      [ "$$(echo '20' | "$$FILE")" = "XX"   ] >/dev/null 2>&1
+# Test values 1 to 20 }}}
 
+# Test 100 random values {{{
 predicate_test_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
                                                         do \
                                                                 _NUM="$$RANDOM" ; \
@@ -80,7 +86,11 @@ predicate_test_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'BEGIN {
                                                                 else echo 'FAIL' ; \
                                                                 fi ; \
                                                         done)" ]
+# Test 100 random values }}}
 
+# Test that multiple inputs can be tested {{{
 predicate_test_correctly_converts_multiple_inputs = [ "$$({ echo "1" ; echo "2" ; echo "3" ; echo "4" ; } | "$$FILE" | tr '\n' ' ' | sed 's/ //g')" = "IIIIIIIV" ] >/dev/null 2>&1
+# Test that multiple inputs can be tested }}}
+
 # Test case predicates }}}
 
