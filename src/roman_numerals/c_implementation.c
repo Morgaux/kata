@@ -1,8 +1,35 @@
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define WORD_SIZE 512
 
 char * roman(int number) {
-	return "";
+	char * output = malloc(sizeof (char) * WORD_SIZE);
+	int i;
+
+	/* Add "M" to the output for every thousand */
+	for (i = 0; i < (number / 1000) % 10; i++) {
+		strcat(output, "M");
+	}
+
+	/* Add "C" to the output for every hundred */
+	for (i = 0; i < (number / 100) % 10; i++) {
+		strcat(output, "C");
+	}
+
+	/* Add "X" to the output for every ten */
+	for (i = 0; i < (number / 10) % 10; i++) {
+		strcat(output, "X");
+	}
+
+	/* Add "I" to the output for every digit */
+	for (i = 0; i < number % 10; i++) {
+		strcat(output, "I");
+	}
+
+	return output;
 }
 
 int main(char argv[], int argc) {
