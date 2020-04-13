@@ -37,7 +37,6 @@ int main(char argv[], int argc) {
 			free(output);
 		} else if (result == EOF && errno == 0) {
 			/* output empty line and return success */
-			printf("\n");
 			return 0;
 		} else if (result != 0) {
 			perror("scanf");
