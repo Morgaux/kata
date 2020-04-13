@@ -32,6 +32,7 @@ int main(char argv[], int argc) {
 		result = scanf("%d", &input);
 
 		if (result == 1) {
+			/* convert number to numeral and print */
 			output = roman(input);
 			printf("%s\n", output);
 			free(output);
@@ -39,10 +40,13 @@ int main(char argv[], int argc) {
 			/* output empty line and return success */
 			return 0;
 		} else if (result != 0) {
+			/* print error message and return >0 */
 			perror("scanf");
 			return errno == 0 ? 1 : errno;
 		} else {
+			/* fallback error message */
 			fprintf(stderr, "No matching characters.\n");
+			return errno == 0 ? 1 : errno;
 		}
 	}
 
