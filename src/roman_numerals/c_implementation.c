@@ -7,33 +7,22 @@
 
 char * roman(int number) {
 	char * output = malloc(sizeof (char) * WORD_SIZE);
-	int i;
+	char * thousands[10] = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
+	char * hundreds[10]  = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
+	char * tens[10]      = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" };
+	char * digits[10]    = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
 
-	/* Add "M" to the output for every thousand */
-	for (i = 0; i < (number / 1000) % 10; i++) {
-		strcat(output, "M");
-	}
-
-	/* Add "C" to the output for every hundred */
-	for (i = 0; i < (number / 100) % 10; i++) {
-		strcat(output, "C");
-	}
-
-	/* Add "X" to the output for every ten */
-	for (i = 0; i < (number / 10) % 10; i++) {
-		strcat(output, "X");
-	}
-
-	/* Add "I" to the output for every digit */
-	for (i = 0; i < number % 10; i++) {
-		strcat(output, "I");
-	}
+	strcat(output, thousands [(number / 1000) % 10]);
+	strcat(output, hundreds  [(number /  100) % 10]);
+	strcat(output, tens      [(number /   10) % 10]);
+	strcat(output, digits    [(number /    1) % 10]);
 
 	return output;
 }
 
 int main(char argv[], int argc) {
 	int input;
+	char * output; /* will need to be freed after use */
 
 	/* Infinitely read stdin */
 	while (1) {
@@ -48,7 +37,9 @@ int main(char argv[], int argc) {
 
 		default:
 			/* Print number back to stdout */
-			printf("%s\n", roman(input));
+			output = roman(input);
+			printf("%s\n", output);
+			free(output);
 		}
 	}
 
