@@ -7,12 +7,14 @@
 
 char * roman(int number) {
 	char * output = malloc(sizeof (char) * WORD_SIZE);
-	char * thousands[10] = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
-	char * hundreds[10]  = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
+	char * hundreds[10]  = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" };
 	char * tens[10]      = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" };
 	char * digits[10]    = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
 
-	strcat(output, thousands [(number / 1000) % 10]);
+	for (int i = 0; i < number / 1000; i++) {
+		strcat(output, "M");
+	}
+
 	strcat(output, hundreds  [(number /  100) % 10]);
 	strcat(output, tens      [(number /   10) % 10]);
 	strcat(output, digits    [(number /    1) % 10]);
