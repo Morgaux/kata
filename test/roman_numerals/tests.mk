@@ -1,5 +1,5 @@
 #
-# Tests for a fizz buzz implementation
+# Tests for a roman numeral implementation
 #
 
 #
