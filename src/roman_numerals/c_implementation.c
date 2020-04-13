@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main(char argv[], int argc) {
-	int input, error;
+	int input;
 
 	/* Infinitely read stdin */
 	while (1) {
