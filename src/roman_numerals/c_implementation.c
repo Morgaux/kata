@@ -23,29 +23,31 @@ char * roman(int number) {
 }
 
 int main(char argv[], int argc) {
-	int input;
+	int input, result = 1;
 	char * output; /* will need to be freed after use */
 
 	/* Infinitely read stdin */
-	while (1) {
+	while (result == 1) {
 		/* Read a number from stdin */
-		switch (scanf("%d", &input)) {
-		case 0:
-			/* if no numbers where read, set error code to 1 */
-			errno = 1;
-		case EOF:
-			/* EOF may indicate an error or end of input */
-			return errno;
+		result = scanf("%d", &input);
 
-		default:
-			/* Print number back to stdout */
+		if (result == 1) {
 			output = roman(input);
 			printf("%s\n", output);
 			free(output);
+		} else if (result == EOF && errno == 0) {
+			/* output empty line and return success */
+			printf("\n");
+			return 0;
+		} else if (result != 0) {
+			perror("scanf");
+			return errno == 0 ? 1 : errno;
+		} else {
+			fprintf(stderr, "No matching characters.\n");
 		}
 	}
 
-	/* unreachable generic error exit code */
+	/* generic error exit code */
 	return 1;
 }
 
