@@ -1,6 +1,10 @@
 #include <errno.h>
 #include <stdio.h>
 
+char * roman(int number) {
+	return "";
+}
+
 int main(char argv[], int argc) {
 	int input;
 
@@ -17,7 +21,7 @@ int main(char argv[], int argc) {
 
 		default:
 			/* Print number back to stdout */
-			printf("%d\n", input);
+			printf("%s\n", roman(input));
 		}
 	}
 
