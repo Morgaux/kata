@@ -5,5 +5,3 @@
 KATAS = alphabet_cipher fizzbuzz roman_numerals sort palindrome leap_year
 TESTS = ${KATAS:%=test_%}
 
-BIN = ${KATAS:%=bin/%/haskell_implementation}
-
