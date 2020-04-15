@@ -1,29 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define WORD_LENGTH 256
-#define LEN(x) (sizeof(x) / sizeof((x)[0]))
 
 int main(char argv[], int argc) {
-	char output[WORD_LENGTH], fizz[] = "Fizz", buzz[] = "Buzz";
+	char * output = malloc(sizeof (char) * WORD_LENGTH);
 	int i, j, k;
 
 	for (i = 1; i <= 100; i++) {
 		/* Reset output */
-		for (j = 0; j < WORD_LENGTH; j++) {
-			output[j] = 0x00;
-		}
-
-		/* Reset output index */
-		j = 0;
+		free(output);
+		output = malloc(sizeof (char) * WORD_LENGTH);
 
 		/* Add fizz to output */
-		for (k = 0; k < LEN(fizz) - 1 && i % 3 == 0; k++) {
-			output[j++] = fizz[k];
+		if (i % 3 == 0) {
+			strcat(output, "Fizz");
 		}
 
 		/* Add buzz to output */
-		for (k = 0; k < LEN(buzz) - 1 && i % 5 == 0; k++) {
-			output[j++] = buzz[k];
+		if (i % 5 == 0) {
+			strcat(output, "Buzz");
 		}
 
 		/* Print output unless it's empty, then just print the number */
