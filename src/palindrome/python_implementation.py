@@ -10,7 +10,12 @@ def isPalindrome(line: str) -> bool:
             "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
         ]:
             letters.append(letter)
-    return letters == letters[::-1] and len(letters) > 0
+
+    for i in range(len(letters)):
+        if (all([letters[i] == letters[-1-i] for i in range(len(letters))])):
+            return True
+
+    return False
 
 if __name__ == "__main__":
     for line in sys.stdin:
