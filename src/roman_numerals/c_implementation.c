@@ -1,41 +1,34 @@
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#define WORD_SIZE 512
-
-char * roman(int number) {
-	char * output = malloc(sizeof (char) * WORD_SIZE);
+void print_roman(long number) {
 	char * hundreds[10]  = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" };
 	char * tens[10]      = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" };
 	char * digits[10]    = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
 
-	for (int i = 0; i < number / 1000; i++) {
-		strcat(output, "M");
+	for (long i = 0; i < number / 1000; i++) {
+		printf("M");
 	}
 
-	strcat(output, hundreds  [(number /  100) % 10]);
-	strcat(output, tens      [(number /   10) % 10]);
-	strcat(output, digits    [(number /    1) % 10]);
+	printf(hundreds  [(number /  100) % 10]);
+	printf(tens      [(number /   10) % 10]);
+	printf(digits    [(number /    1) % 10]);
 
-	return output;
+	printf("\n");
 }
 
 int main(char argv[], int argc) {
-	int input, result = 1;
-	char * output; /* will need to be freed after use */
+	unsigned int input;
+	int result = 1;
 
 	/* Infinitely read stdin */
 	while (result == 1) {
 		/* Read a number from stdin */
-		result = scanf("%d", &input);
+		result = scanf("%u", &input);
 
 		if (result == 1) {
 			/* convert number to numeral and print */
-			output = roman(input);
-			printf("%s\n", output);
-			free(output);
+			print_roman(input);
 		} else if (result == EOF && errno == 0) {
 			/* output empty line and return success */
 			return 0;
