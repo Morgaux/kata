@@ -14,8 +14,5 @@ def isPalindrome(line: str) -> bool:
 
 if __name__ == "__main__":
     for line in sys.stdin:
-        if isPalindrome(line):
-            print("true")
-        else:
-            print("false")
+        print("true" if isPalindrome(line) else "false")
 
