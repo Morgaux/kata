@@ -4,6 +4,10 @@
 
 include colors.mk
 
+# Helper variables {{{
+RANDOM := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
+# Helper variables }}}
+
 # Helper targets {{{
 message_before: # This target allows the tests to be separated by sections
 	@echo "${YELLOW}STARTING" ${KATA} "TESTS...${RESET}"

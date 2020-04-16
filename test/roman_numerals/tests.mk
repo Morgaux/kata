@@ -73,7 +73,7 @@ predicate_test_1_to_20_are_correct = [ "$$(echo '1'  | "$$FILE")" = "I"    ] >/d
 # Test 100 random values {{{
 predicate_test_100_random_values_are_correct = [ -z "$$(for i in $$(awk 'BEGIN {for (j = 1; j <= 100; j++) print j}') ; \
                                                         do \
-                                                                _NUM="$$RANDOM" ; \
+                                                                _NUM="$$(echo ${RANDOM} | cut -c 2-4 | sed 's/^0/1/g')" ; \
                                                                 if [ "$$(echo "$$_NUM" | \
                                                                         "$$FILE" | \
                                                                         sed 's/CCCCM/DC/g; s/CCCM/DCC/g; s/CCM/DCCC/g; s/CM/DCCCC/g; s/M/DD/g;       \
