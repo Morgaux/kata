@@ -27,7 +27,6 @@ TEST_CASES = test_file_is_executable                         \
 TEST_FILES = bin/roman_numerals/python_implementation  \
              bin/roman_numerals/shell_implementation   \
              bin/roman_numerals/haskell_implementation \
-             bin/roman_numerals/sed_implementation     \
              bin/roman_numerals/c_implementation
 
 all: message_before ${TEST_CASES}
