@@ -18,7 +18,7 @@ ${KATAS:%=src/%}:
 # Target to create kata specific directories }}}
 
 # Source targets {{{
-# These targets create simple Hello World place holder programs, this allows a
+# These targets create simple Hello World placeholder programs, this allows a
 # new implementation for any kata to be started by simply adding it to the list
 # of file to test in test/<KATA>/tests.mk.
 
@@ -55,28 +55,64 @@ src/%/shell_implementation.sh: src/%
 # Create a AWK source file {{{
 src/%/awk_implementation.awk: src/%
 	@[ -f "$@" ] || { \
-		echo "#" ; \
+		echo "#!/usr/bin/awk -f" ; \
+		echo "# note, this shebang is reasonably portable, however," ; \
+		echo "# for best portability or to pass aditional arguments" ; \
+		echo "# to the interpreter a shell wrapper should be used." ; \
+		echo "" ; \
+		echo "# A POSIX AWK $$(basename $< implementation)" ; \
+		echo "" ; \
+		echo "BEGIN {print \"Hello World!\"}" ; \
+		echo "" ; \
 	} > $@
 # Create a AWK source file }}}
 
 # Create a haskell source file {{{
 src/%/haskell_implementation.hs: src/%
 	@[ -f "$@" ] || { \
-		echo "#" ; \
+		echo "--" ; \
+		echo "-- A Haskell $$(basename $<) implementation" ; \
+		echo "--" ; \
+		echo "" ; \
+		echo "main :: IO ()" ; \
+		echo "main = printStrLn \"Hello World\"" ; \
+		echo "" ; \
 	} > $@
 # Create a haskell source file }}}
 
 # Create a java source file {{{
 src/%/java_implementation.java: src/%
 	@[ -f "$@" ] || { \
-		echo "#" ; \
+		echo "/**" ; \
+		echo " *" ; \
+		echo " * A Java $$(basename $<) implementation" ; \
+		echo " *" ; \
+		echo " */" ; \
+		echo "" ; \
+		echo "public class Kata {" ; \
+		echo "	public static void main(String[] argv) {" ; \
+		echo "	System.out.println(\"Hello World!\");" ; \
+		echo "	}" ; \
+		echo "}" ; \
+		echo "" ; \
 	} > $@
 # Create a java source file }}}
 
 # Create a c source file {{{
 src/%/c_implementation.c: src/%
 	@[ -f "$@" ] || { \
-		echo "#" ; \
+		echo "/**" ; \
+		echo " * A C $$(basename $<) implementation" ; \
+		echo " */" ; \
+		echo "" ; \
+		echo "#include <stdio.h>" ; \
+		echo "" ; \
+		echo "int main(char argv[], int argc) {" ; \
+		echo "	printf(\"Hello World!\\n\");" ; \
+		echo "" ; \
+		echo "	return 0;" ; \
+		echo "}" ; \
+		echo "" ; \
 	} > $@
 # Create a c source file }}}
 
