@@ -62,7 +62,7 @@ src/%/awk_implementation.awk: src/%
 		echo "" ; \
 		echo "# A POSIX AWK $$(basename $< implementation)" ; \
 		echo "" ; \
-		echo "BEGIN {print \"Hello World!\"}" ; \
+		echo "BEGIN {print \"Hello World!\"; exit}" ; \
 		echo "" ; \
 	} > $@
 # Create a AWK source file }}}
@@ -75,7 +75,7 @@ src/%/haskell_implementation.hs: src/%
 		echo "--" ; \
 		echo "" ; \
 		echo "main :: IO ()" ; \
-		echo "main = printStrLn \"Hello World\"" ; \
+		echo "main = putStrLn \"Hello World\"" ; \
 		echo "" ; \
 	} > $@
 # Create a haskell source file }}}
