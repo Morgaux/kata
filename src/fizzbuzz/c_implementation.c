@@ -5,12 +5,11 @@
 #define WORD_LENGTH 256
 
 int main(char argv[], int argc) {
-	char * output = malloc(sizeof (char) * WORD_LENGTH);
+	char * output;
 	int i, j, k;
 
 	for (i = 1; i <= 100; i++) {
-		/* Reset output */
-		free(output);
+		/* Initialise output */
 		output = malloc(sizeof (char) * WORD_LENGTH);
 
 		/* Add fizz to output */
@@ -29,6 +28,9 @@ int main(char argv[], int argc) {
 		} else {
 			printf("%s\n", output);
 		}
+
+		/* Reset output */
+		free(output);
 	}
 
 	return 0;
