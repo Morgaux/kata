@@ -48,7 +48,7 @@ include builds.mk
 # Setup }}}
 
 # Test case predicates {{{
-predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes       = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]*$$" && ! "$$FILE" | grep -Eq "^$$"
+predicate_test_outputs_are_numbers_fizzes_buzzes_or_fizzbuzzes       = ${predicate_test_program_has_output} && "$$FILE" | grep -Eq "^Fizz$$|^Buzz$$|^FizzBuzz$$|^[0123456789]+$$"
 predicate_test_numbers_are_positive                                  = ${predicate_test_output_has_numbers} && ! "$$FILE" | grep -E "\-[0123456789]"
 predicate_test_numbers_are_in_order                                  = ${predicate_test_output_has_numbers} && "$$FILE" | grep -E "[0123456789]" | sort -n -c - 2>/dev/null
 predicate_test_every_third_output_is_fizz                            = ${predicate_test_output_is_at_least_3_lines} && [ "$$("$$FILE" | awk 'NR % 3 == 0' | grep -v "Fizz" | wc -l)" -eq 0 ]
