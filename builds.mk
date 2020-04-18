@@ -108,7 +108,7 @@ src/%/c_implementation.c: src/%
 		echo "#include <stdio.h>" ; \
 		echo "" ; \
 		echo "int main(char argv[], int argc) {" ; \
-		echo "	printf(\"Hello World!\\n\");" ; \
+		echo "	printf(\"Hello World!\\\\n\");" ; \
 		echo "" ; \
 		echo "	return 0;" ; \
 		echo "}" ; \
@@ -191,4 +191,6 @@ bin/%/c_implementation: src/%/c_implementation.c bin/%
 # Build targets }}}
 
 .PHONY: clean
+
+.SECONDARY:
 
