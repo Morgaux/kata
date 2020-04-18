@@ -4,11 +4,63 @@
 
 include config.mk
 
+# Helper targets {{{
 clean:
 	@rm -rf bin src/*/*.o src/*/*.hi
+# Helper targets }}}
 
+# Target to create kata specific bin directories {{{
 ${KATAS:%=bin/%}:
 	@mkdir -p $@
+# Target to create kata specific bin directories }}}
+
+# Source targets {{{
+
+# Create a python source file {{{
+src/*/python_implementation.py:
+	@#TODO
+	@touch $@
+# Create a python source file }}}
+
+# Create a shell source file {{{
+src/*/shell_implementation.sh:
+	@#TODO
+	@touch $@
+# Create a shell source file }}}
+
+# Create a SED source file {{{
+src/*/sed_implementation.sed:
+	@#TODO
+	@touch $@
+# Create a SED source file }}}
+
+# Create a AWK source file {{{
+src/*/awk_implementation.awk:
+	@#TODO
+	@touch $@
+# Create a AWK source file }}}
+
+# Create a haskell source file {{{
+src/*/haskell_implementation.hs:
+	@#TODO
+	@touch $@
+# Create a haskell source file }}}
+
+# Create a java source file {{{
+src/*/java_implementation.java:
+	@#TODO
+	@touch $@
+# Create a java source file }}}
+
+# Create a c source file {{{
+src/*/c_implementation.c:
+	@#TODO
+	@touch $@
+# Create a c source file }}}
+
+# Source targets }}}
+
+# Build targets {{{
 
 # Python Build {{{
 bin/%/python_implementation: src/%/python_implementation.py bin/%
@@ -101,6 +153,8 @@ bin/%/java_implementation: src/%/java_implementation.java bin/%
 bin/%/c_implementation: src/%/c_implementation.c bin/%
 	@${CC} -o $@ $< >/dev/null
 # C Build }}}
+
+# Build targets }}}
 
 .PHONY: clean
 
