@@ -9,53 +9,75 @@ clean:
 	@rm -rf bin src/*/*.o src/*/*.hi
 # Helper targets }}}
 
-# Target to create kata specific bin directories {{{
+# Target to create kata specific directories {{{
 ${KATAS:%=bin/%}:
 	@mkdir -p $@
-# Target to create kata specific bin directories }}}
+
+${KATAS:%=src/%}:
+	@mkdir -p $@
+# Target to create kata specific directories }}}
 
 # Source targets {{{
+# These targets create simple Hello World place holder programs, this allows a
+# new implementation for any kata to be started by simply adding it to the list
+# of file to test in test/<KATA>/tests.mk.
 
 # Create a python source file {{{
-src/*/python_implementation.py:
-	@#TODO
-	@touch $@
+src/%/python_implementation.py: src/%
+	@[ -f "$@" ] || { \
+		echo "#!/usr/bin/env python3" ; \
+		echo "" ; \
+		echo "# A python $$(basename $<) implementation" ; \
+		echo "" ; \
+		echo "import sys" ; \
+		echo "" ; \
+		echo "def main(argv):" ; \
+		echo "	print(\"Hello World!\")" ; \
+		echo "" ; \
+		echo "if __name__ == \"main\":" ; \
+		echo "	main(sys.argv)" ; \
+		echo "" ; \
+	} > $@ 
 # Create a python source file }}}
 
 # Create a shell source file {{{
-src/*/shell_implementation.sh:
-	@#TODO
-	@touch $@
+src/%/shell_implementation.sh: src/%
+	@[ -f "$@" ] || { \
+		echo "#!/bin/sh" ; \
+		echo "" ; \
+		echo "# A POSIX  $$(basename $<) implementation" ; \
+		echo "" ; \
+		echo "echo \"Hello World!\"" ; \
+		echo "" ; \
+	} > $@
 # Create a shell source file }}}
 
-# Create a SED source file {{{
-src/*/sed_implementation.sed:
-	@#TODO
-	@touch $@
-# Create a SED source file }}}
-
 # Create a AWK source file {{{
-src/*/awk_implementation.awk:
-	@#TODO
-	@touch $@
+src/%/awk_implementation.awk: src/%
+	@[ -f "$@" ] || { \
+		echo "#" ; \
+	} > $@
 # Create a AWK source file }}}
 
 # Create a haskell source file {{{
-src/*/haskell_implementation.hs:
-	@#TODO
-	@touch $@
+src/%/haskell_implementation.hs: src/%
+	@[ -f "$@" ] || { \
+		echo "#" ; \
+	} > $@
 # Create a haskell source file }}}
 
 # Create a java source file {{{
-src/*/java_implementation.java:
-	@#TODO
-	@touch $@
+src/%/java_implementation.java: src/%
+	@[ -f "$@" ] || { \
+		echo "#" ; \
+	} > $@
 # Create a java source file }}}
 
 # Create a c source file {{{
-src/*/c_implementation.c:
-	@#TODO
-	@touch $@
+src/%/c_implementation.c: src/%
+	@[ -f "$@" ] || { \
+		echo "#" ; \
+	} > $@
 # Create a c source file }}}
 
 # Source targets }}}
@@ -73,30 +95,6 @@ bin/%/shell_implementation: src/%/shell_implementation.sh bin/%
 	@cp $< $@
 	@chmod 755 $@
 # Shell Build }}}
-
-# SED Build {{{
-bin/%/sed_implementation: src/%/sed_implementation.sed bin/%
-	@{ \
-		echo '#!/bin/sh' ; \
-		echo '# vi:syntax=sed' ; \
-		echo '# POSIX sh / sed polyglot wrapper' ; \
-		echo '' ; \
-		echo 'b ()' ; \
-		echo '{' ; \
-		echo 'x' ; \
-		echo '}' ; \
-		echo '' ; \
-		echo "i\\" ; \
-		echo 'f true ; then exec sed -f "$$0" "$$@" ; fi' ; \
-		echo '' ; \
-		echo ':()' ; \
-		echo '' ; \
-		echo '# pure sed from here' ; \
-		echo '' ; \
-	} > $@
-	@cat $< >> $@
-	@chmod 755 $@
-# SED Build }}}
 
 # AWK Build {{{
 bin/%/awk_implementation: src/%/awk_implementation.awk bin/%
