@@ -89,7 +89,7 @@ src/%/java_implementation.java: src/%
 		echo " *" ; \
 		echo " */" ; \
 		echo "" ; \
-		echo "public class Kata {" ; \
+		echo "class Kata {" ; \
 		echo "	public static void main(String[] argv) {" ; \
 		echo "	System.out.println(\"Hello World!\");" ; \
 		echo "	}" ; \
