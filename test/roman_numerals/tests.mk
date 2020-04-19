@@ -15,7 +15,10 @@
 #
 
 # Setup {{{
-KATA = "ROMAN NUMERALS"
+include config.mk
+
+KATA     = "ROMAN NUMERALS"
+KATA_DIR = roman_numerals
 
 TEST_CASES = test_file_is_executable                         \
              test_input_line_count_matches_output_line_count \
@@ -24,10 +27,9 @@ TEST_CASES = test_file_is_executable                         \
              test_100_random_values_are_correct              \
              test_correctly_converts_multiple_inputs
 
-TEST_FILES = bin/roman_numerals/python_implementation  \
-             bin/roman_numerals/shell_implementation   \
-             bin/roman_numerals/haskell_implementation \
-             bin/roman_numerals/c_implementation
+TEST_LANGS = c haskell python shell
+
+TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 
 all: message_before ${TEST_CASES}
 

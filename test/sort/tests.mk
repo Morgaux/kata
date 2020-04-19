@@ -8,7 +8,10 @@
 # - lines are sorted ASCIIbetically, in Natural sort order
 
 # Setup {{{
-KATA = "NATURAL SORT"
+include config.mk
+
+KATA     = "NATURAL SORT"
+KATA_DIR = sort
 
 TEST_CASES = test_file_is_executable                         \
              test_input_line_count_matches_output_line_count \
@@ -21,7 +24,9 @@ TEST_CASES = test_file_is_executable                         \
              test_digits_before_letters                      \
              test_natural_order
 
-TEST_FILES = bin/sort/python_implementation
+TEST_LANGS = python
+
+TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 
 all: message_before ${TEST_CASES}
 

@@ -12,7 +12,10 @@
 #
 
 # Setup {{{
-KATA = "PALINDROME"
+include config.mk
+
+KATA     = "PALINDROME"
+KATA_DIR = palindrome
 
 TEST_CASES = test_file_is_executable                                \
              test_input_line_count_matches_output_line_count        \
@@ -22,7 +25,9 @@ TEST_CASES = test_file_is_executable                                \
              test_non_palindromes_return_false                      \
              test_palindromes_return_true
 
-TEST_FILES = bin/palindrome/python_implementation
+TEST_LANGS = python
+
+TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 
 all: message_before ${TEST_CASES}
 

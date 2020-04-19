@@ -18,7 +18,10 @@
 #
 
 # Setup {{{
-KATA = "FIZZBUZZ"
+include config.mk
+
+KATA     = "FIZZBUZZ"
+KATA_DIR = fizzbuzz
 
 TEST_CASES = test_file_is_executable                                    \
              test_program_has_output                                    \
@@ -35,11 +38,9 @@ TEST_CASES = test_file_is_executable                                    \
              test_fizzbuzzes_are_only_at_every_fifteenth_position       \
              test_output_is_at_least_100_lines
 
-TEST_FILES = bin/fizzbuzz/python_implementation  \
-             bin/fizzbuzz/shell_implementation   \
-             bin/fizzbuzz/haskell_implementation \
-             bin/fizzbuzz/java_implementation    \
-             bin/fizzbuzz/c_implementation
+TEST_LANGS = c haskell java python shell
+
+TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 
 all: message_before ${TEST_CASES}
 

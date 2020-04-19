@@ -17,7 +17,10 @@
 #
 
 # Setup {{{
-KATA = "LEAP_YEAR"
+include config.mk
+
+KATA     = "LEAP_YEAR"
+KATA_DIR = leap_year
 
 TEST_CASES = test_file_is_executable                 \
              test_years_divisible_by_4               \
@@ -25,7 +28,10 @@ TEST_CASES = test_file_is_executable                 \
              test_years_divisible_by_100_but_not_400 \
              test_years_divisible_by_400             \
              test_years_BC
-TEST_FILES = bin/leap_year/haskell_implementation
+
+TEST_LANGS = haskell
+
+TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 
 all: message_before ${TEST_CASES}
 

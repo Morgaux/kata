@@ -53,5 +53,5 @@ ${TEST_CASES}: ${TEST_FILES}
 	@echo " "
 # Main test loop target }}}
 
-.PHONY: ${TEST_CASES}
+.PHONY: ${TEST_CASES} message_before
 
