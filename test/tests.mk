@@ -10,17 +10,30 @@ TEST_FILES := ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 # Helper variables }}}
 
 # Helper targets {{{
-# This target allows the tests to be separated by sections
+# This target allows the tests to be separated into sections by headings
 message_before: start_kata_heading list_implementations
+
+# This target allows each section to be terminated by a message
+message_after: end_kata_heading show_test_results
 
 # This target shows a heading for each kata section
 start_kata_heading:
 	@echo "${YELLOW}STARTING" ${KATA} "TESTS...${RESET}"
 	@echo ""
 
+# This target shows a closing message for each section
+end_kata_heading:
+	@echo "${YELLOW}FINISHED" ${KATA} "TESTS${RESET}"
+	@echo ""
+
 # This target allows the files to be tested to be listed for viewing
 list_implementations:
 	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}${BOLD}${TEST_FILES:%=\n\t%}${RESET}"
+	@echo ""
+
+# This target shows a summary report of the tests
+show_test_results:
+	@echo "TODO"
 	@echo ""
 # Helper targets }}}
 
