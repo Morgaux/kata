@@ -29,7 +29,7 @@ predicate_test_input_line_count_matches_output_line_count = [ "$$(awk "BEGIN {fo
 
 # Main test loop target {{{
 # This target runs the test predicates defined in the kata's tests.mk file
-${TEST_CASES}: ${TEST_FILES}
+${TEST_CASES}: ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 	@echo "${BOLD}Starting:${RESET} $@..." | tr '_' ' '
 	@_RESULT="" ; \
 	for FILE in $^ ; \

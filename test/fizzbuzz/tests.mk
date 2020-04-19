@@ -40,8 +40,6 @@ TEST_CASES = test_file_is_executable                                    \
 
 TEST_LANGS = c haskell java python shell
 
-TEST_FILES = ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
-
 all: message_before ${TEST_CASES}
 
 include test/tests.mk
