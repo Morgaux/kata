@@ -15,19 +15,19 @@ static char letters[] = {
 	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 };
 
-static char * encode(char * key, char * msg) {
+static char * encode(char * key, char * msg) { /* {{{ */
 	return msg;
-}
+} /* }}} */
 
-static char * decode(char * key, char * msg) {
+static char * decode(char * key, char * msg) { /* {{{ */
 	return msg;
-}
+} /* }}} */
 
-static char * decipher(char * plain, char * cipher) {
+static char * decipher(char * plain, char * cipher) { /* {{{ */
 	return plain;
-}
+} /* }}} */
 
-static char * toLower(char * str) {
+static char * toLower(char * str) { /* {{{ */
 	int i, len = strlen(str);
 	char * out = malloc(sizeof (char) * (len + 1));
 
@@ -36,11 +36,11 @@ static char * toLower(char * str) {
 	}
 
 	return out;
-}
+} /* }}} */
 
-int main(char argv[], int argc) {
+int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
-	char * line_string = NULL, key, msg, plain, cipher;
+	char *line_string = NULL, *key, *msg, *plain, *cipher, *result;
 
 	while (1) {
 		switch (getline(&line_string, &line_length, stdin)) {
@@ -56,10 +56,12 @@ int main(char argv[], int argc) {
 
 		default:
 			/* line read of EOF reached */
-			printf(toLower(line_string));
+			result = toLower(line_string);
+			printf(result);
+			free(result);
 		}
 	}
 
 	return 1; /* unreachable */
-}
+} /* }}} */
 
