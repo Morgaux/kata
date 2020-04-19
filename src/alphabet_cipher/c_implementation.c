@@ -9,15 +9,22 @@
 #include <string.h>
 
 #define MAX_LINE_LENGTH 512
+#define NUM_OF_LETTERS 26
 
-static char letters[] = { /* {{{ */
+static const char letters[NUM_OF_LETTERS] = { /* {{{ */
 	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 }; /* }}} */
 
 static char * encode(char * key, char * msg) { /* {{{ */
-	int i, len = strlen(msg);
-	char * out = malloc(sizeof (char) * (len + 1));
+	int i, key_len = strlen(key), msg_len = strlen(msg);
+	char * out = malloc(sizeof (char) * (msg_len + 1));
+	char key_letter, msg_letter;
+
+	for (i = 0; i < msg_len; i++) {
+		key_letter = *(key + (i % key_len));
+		msg_letter = *(msg + i);
+	}
 
 	return out;
 } /* }}} */
