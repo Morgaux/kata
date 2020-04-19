@@ -5,12 +5,22 @@
 include colors.mk
 
 # Helper variables {{{
-RANDOM := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
+RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
+TEST_FILES := ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 # Helper variables }}}
 
 # Helper targets {{{
-message_before: # This target allows the tests to be separated by sections
+# This target allows the tests to be separated by sections
+message_before: start_kata_heading list_implementations
+
+# This target shows a heading for each kata section
+start_kata_heading:
 	@echo "${YELLOW}STARTING" ${KATA} "TESTS...${RESET}"
+	@echo ""
+
+# This target allows the files to be tested to be listed for viewing
+list_implementations:
+	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}${BOLD}${TEST_FILES:%=\n\t%}${RESET}"
 	@echo ""
 # Helper targets }}}
 
@@ -29,7 +39,7 @@ predicate_test_input_line_count_matches_output_line_count = [ "$$(awk "BEGIN {fo
 
 # Main test loop target {{{
 # This target runs the test predicates defined in the kata's tests.mk file
-${TEST_CASES}: ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
+${TEST_CASES}: ${TEST_FILES}
 	@echo "${BOLD}Starting:${RESET} $@..." | tr '_' ' '
 	@_RESULT="" ; \
 	for FILE in $^ ; \
@@ -53,5 +63,5 @@ ${TEST_CASES}: ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 	@echo " "
 # Main test loop target }}}
 
-.PHONY: ${TEST_CASES} message_before
+.PHONY: ${TEST_CASES} message_before start_kata_heading list_implementations
 
