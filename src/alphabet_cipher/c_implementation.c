@@ -49,7 +49,12 @@ static char * toLower(char * str) { /* {{{ */
 
 int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
-	char *line_string = NULL, *key, *msg, *plain, *cipher, *result;
+	char * line_string = NULL,
+	     * key         = NULL,
+	     * msg         = NULL,
+	     * plain       = NULL,
+	     * cipher      = NULL,
+	     * result      = NULL;
 
 	while (1) {
 		switch (getline(&line_string, &line_length, stdin)) {
