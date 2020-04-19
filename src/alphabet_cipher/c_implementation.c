@@ -10,21 +10,30 @@
 
 #define MAX_LINE_LENGTH 512
 
-static char letters[] = {
+static char letters[] = { /* {{{ */
 	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-};
+}; /* }}} */
 
 static char * encode(char * key, char * msg) { /* {{{ */
-	return msg;
+	int i, len = strlen(msg);
+	char * out = malloc(sizeof (char) * (len + 1));
+
+	return out;
 } /* }}} */
 
 static char * decode(char * key, char * msg) { /* {{{ */
-	return msg;
+	int i, len = strlen(msg);
+	char * out = malloc(sizeof (char) * (len + 1));
+
+	return out;
 } /* }}} */
 
 static char * decipher(char * plain, char * cipher) { /* {{{ */
-	return plain;
+	int i, len = strlen(plain);
+	char * out = malloc(sizeof (char) * (len + 1));
+
+	return out;
 } /* }}} */
 
 static char * toLower(char * str) { /* {{{ */
