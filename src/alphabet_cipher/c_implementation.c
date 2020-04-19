@@ -24,6 +24,8 @@ static char * encode(char * key, char * msg) { /* {{{ */
 	for (i = 0; i < msg_len; i++) {
 		key_letter = *(key + (i % key_len));
 		msg_letter = *(msg + i);
+
+		strcat(out, &msg_letter);
 	}
 
 	return out;
@@ -61,6 +63,7 @@ int main(char argv[], int argc) { /* {{{ */
 	     * msg         = NULL,
 	     * plain       = NULL,
 	     * cipher      = NULL,
+	     * lower       = NULL,
 	     * result      = NULL;
 
 	while (1) {
@@ -77,9 +80,14 @@ int main(char argv[], int argc) { /* {{{ */
 
 		default:
 			/* line read of EOF reached */
-			result = toLower(line_string);
+			lower  = toLower(line_string);
+			msg    = lower;
+			key    = "asdf";
+			result = encode(key, msg);
+
 			printf(result);
-			free(result);
+
+			free(lower);
 		}
 	}
 
