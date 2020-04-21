@@ -39,6 +39,12 @@ static void die(char * msg) { /* {{{ */
 	exit((errno == 0) ? -1 : errno);
 } /* }}} */
 
+static void freeIfNotNull(char * str) { /* {{{ */
+	if (str != NULL) {
+		free(str);
+	}
+} /* }}} */
+
 static int indexOfChar(char * str, char search) { /* {{{ */
 	int index = 0;
 
@@ -118,10 +124,10 @@ static char * parseArgByName(char * argStr, char * argName) { /* {{{ */
 int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
 	char * line_string = malloc(sizeof (char) * MAX_LINE_LENGTH),
-	     * key         = malloc(sizeof (char) * MAX_KEY_LENGTH),
-	     * msg         = malloc(sizeof (char) * MAX_MSG_LENGTH),
-	     * plain       = malloc(sizeof (char) * MAX_MSG_LENGTH),
-	     * cipher      = malloc(sizeof (char) * MAX_MSG_LENGTH),
+	     * key         = NULL,
+	     * msg         = NULL,
+	     * plain       = NULL,
+	     * cipher      = NULL,
 	     * lower       = NULL;
 
 	while (1) {
@@ -131,8 +137,7 @@ int main(char argv[], int argc) { /* {{{ */
 		case -1:
 			if (errno != 0) {
 				/* error due to actually error, not EOF */
-				err("getline() returned exited with code:");
-				die(errno);
+				die("getline() returned exited with error");
 			}
 
 			return 0; /* exit 0 on EOF */
@@ -160,12 +165,18 @@ int main(char argv[], int argc) { /* {{{ */
 			} else {
 			}
 
-			free(line_string);
-			free(key);
-			free(msg);
-			free(plain);
-			free(cipher);
-			free(lower);
+			/* memory management */
+			freeIfNotNull(key);
+			freeIfNotNull(msg);
+			freeIfNotNull(plain);
+			freeIfNotNull(cipher);
+			freeIfNotNull(lower);
+
+			key    = NULL;
+			msg    = NULL;
+			plain  = NULL;
+			cipher = NULL;
+			lower  = NULL;
 		}
 	}
 
