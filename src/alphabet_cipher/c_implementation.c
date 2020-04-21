@@ -66,9 +66,48 @@ static char * toLower(char * str) { /* {{{ */
 	return out;
 } /* }}} */
 
+static char * parseArgByName(char * argStr, char * argName) { /* {{{ */
+	int index = 0, i;
+	char * arg = malloc(sizeof (char) * MAX_LINE_LENGTH),
+	     * tmp = malloc(sizeof (char) * MAX_LINE_LENGTH);
+
+	index = indexOfWord(argStr, argName);
+
+	if (index > -1) {
+		/* add everything after marker to result */
+		strcat(tmp, argStr + index + strlen(argName) + 1);
+
+		/* find whitespace */
+		index = indexOfChar(tmp, ' ');
+		if (index == -1) {
+			index = indexOfChar(tmp, '\t');
+		}
+		if (index == -1) {
+			index = indexOfChar(tmp, '\n');
+		}
+		if (index == -1) {
+			index = indexOfChar(tmp, '\0');
+		}
+
+		/* strip the rest of line */
+		if (index > -1) {
+			for (i = 0; i < index; i ++) {
+				*(arg + i) = *(tmp + i);
+			}
+			*(arg + i) = '\0'; // null terminator
+		} else {
+			fprintf(stderr, "Couldn't parse %s.\n", argName);
+			exit(-1);
+		}
+	}
+
+	free(tmp);
+
+	return arg;
+} /* }}} */
+
 int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
-	int index = 0, i;
 	char * line_string = malloc(sizeof (char) * MAX_LINE_LENGTH),
 	     * key         = malloc(sizeof (char) * MAX_KEY_LENGTH),
 	     * key_arg     = "key",
@@ -78,8 +117,7 @@ int main(char argv[], int argc) { /* {{{ */
 	     * plain_arg   = "plain",
 	     * cipher      = malloc(sizeof (char) * MAX_MSG_LENGTH),
 	     * cipher_arg  = "cipher",
-	     * lower       = NULL,
-	     * result      = malloc(sizeof (char) * MAX_LINE_LENGTH);
+	     * lower       = NULL;
 
 	while (1) {
 		switch (getline(&line_string, &line_length, stdin)) {
@@ -98,36 +136,11 @@ int main(char argv[], int argc) { /* {{{ */
 			lower = toLower(line_string);
 
 			/* parse key */
-			index = indexOfWord(lower, key_arg);
-			if (index > -1) {
-				/* add everything after marker to result */
-				strcat(result, lower + index + strlen(key_arg) + 1);
-
-				/* find whitespace */
-				index = indexOfChar(result, ' ');
-				if (index == -1) {
-					index = indexOfChar(result, '\t');
-				}
-				if (index == -1) {
-					index = indexOfChar(result, '\n');
-				}
-				if (index == -1) {
-					index = indexOfChar(result, '\0');
-				}
-
-				/* strip the rest of line */
-				if (index > -1) {
-					for (i = 0; i < index; i ++) {
-						*(key + i) = *(result + i);
-					}
-				} else {
-					fprintf(stderr, "Couldn't parse key.\n");
-					return -1;
-				}
-			}
+			key = parseArgByName(line_string, "key");
 			printf("key: %s\n", key);
 
 			/* parse message */
+			msg = parseArgByName(line_string, "msg");
 			printf("msg: %s\n", msg);
 
 			/* parse plaintext */
