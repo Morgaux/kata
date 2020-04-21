@@ -128,7 +128,8 @@ int main(char argv[], int argc) { /* {{{ */
 	     * msg         = NULL,
 	     * plain       = NULL,
 	     * cipher      = NULL,
-	     * lower       = NULL;
+	     * lower       = NULL,
+	     * result      = NULL;
 
 	while (1) {
 		switch (getline(&line_string, &line_length, stdin)) {
@@ -160,9 +161,13 @@ int main(char argv[], int argc) { /* {{{ */
 
 			/* parse action */
 			if (indexOfWord(lower, "encode") == 0) {
+				result = encode(key, msg);
 			} else if (indexOfWord(lower, "decode") == 0) {
+				result = decode(key, msg);
 			} else if (indexOfWord(lower, "decipher") == 0) {
+				result = decipher(plain, cipher);
 			} else {
+				die("Couldn't parse action.");
 			}
 
 			/* memory management */
