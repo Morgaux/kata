@@ -8,7 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE_LENGTH 512
+#define MAX_MSG_LENGTH 128
+#define MAX_KEY_LENGTH 512
+#define MAX_LINE_LENGTH (MAX_MSG_LENGTH + MAX_KEY_LENGTH + 16)
 #define NUM_OF_LETTERS 26
 
 static const char letters[NUM_OF_LETTERS] = { /* {{{ */
@@ -17,32 +19,40 @@ static const char letters[NUM_OF_LETTERS] = { /* {{{ */
 }; /* }}} */
 
 static char * encode(char * key, char * msg) { /* {{{ */
-	int i, key_len = strlen(key), msg_len = strlen(msg);
-	char * out = malloc(sizeof (char) * (msg_len + 1));
-	char key_letter, msg_letter;
-
-	for (i = 0; i < msg_len; i++) {
-		key_letter = *(key + (i % key_len));
-		msg_letter = *(msg + i);
-
-		strcat(out, &msg_letter);
-	}
-
-	return out;
+	return "";
 } /* }}} */
 
 static char * decode(char * key, char * msg) { /* {{{ */
-	int i, len = strlen(msg);
-	char * out = malloc(sizeof (char) * (len + 1));
-
-	return out;
+	return "";
 } /* }}} */
 
 static char * decipher(char * plain, char * cipher) { /* {{{ */
-	int i, len = strlen(plain);
-	char * out = malloc(sizeof (char) * (len + 1));
+	return "";
+} /* }}} */
 
-	return out;
+static int indexOfChar(char * str, char search) { /* {{{ */
+	int index = 0;
+
+	while (*(str + index) != '\0') {
+		if (*(str + index) == search) {
+			return index;
+		}
+
+		index++;
+	}
+
+	return -1; /* -1 means not found */
+} /* }}} */
+
+static int indexOfWord(char * str, char * word) /* {{{ */ {
+	int index = 0;
+	char * substr = strstr(str, word);
+
+	if (substr != NULL) {
+		return substr - str; /* distance from str to substr */
+	}
+
+	return -1; /* -1 means not found */
 } /* }}} */
 
 static char * toLower(char * str) { /* {{{ */
@@ -58,13 +68,18 @@ static char * toLower(char * str) { /* {{{ */
 
 int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
-	char * line_string = NULL,
-	     * key         = NULL,
-	     * msg         = NULL,
-	     * plain       = NULL,
-	     * cipher      = NULL,
+	int index = 0, i;
+	char * line_string = malloc(sizeof (char) * MAX_LINE_LENGTH),
+	     * key         = malloc(sizeof (char) * MAX_KEY_LENGTH),
+	     * key_arg     = "key",
+	     * msg         = malloc(sizeof (char) * MAX_MSG_LENGTH),
+	     * msg_arg     = "msg",
+	     * plain       = malloc(sizeof (char) * MAX_MSG_LENGTH),
+	     * plain_arg   = "plain",
+	     * cipher      = malloc(sizeof (char) * MAX_MSG_LENGTH),
+	     * cipher_arg  = "cipher",
 	     * lower       = NULL,
-	     * result      = NULL;
+	     * result      = malloc(sizeof (char) * MAX_LINE_LENGTH);
 
 	while (1) {
 		switch (getline(&line_string, &line_length, stdin)) {
@@ -73,19 +88,53 @@ int main(char argv[], int argc) { /* {{{ */
 		case -1:
 			if (errno != 0) {
 				/* error due to actually error, not EOF */
-				fprintf(stderr, "getline() returned exited with code %d.");
+				fprintf(stderr, "getline() returned exited with code %d.\n", errno);
 			}
 
 			return errno; /* will be 0 on EOF */
 
 		default:
 			/* line read of EOF reached */
-			lower  = toLower(line_string);
-			msg    = lower;
-			key    = "asdf";
-			result = encode(key, msg);
+			lower = toLower(line_string);
 
-			printf(result);
+			/* parse key */
+			index = indexOfWord(lower, key_arg);
+			if (index > -1) {
+				/* add everything after marker to result */
+				strcat(result, lower + index + strlen(key_arg) + 1);
+
+				/* find whitespace */
+				index = indexOfChar(result, ' ');
+				if (index == -1) {
+					index = indexOfChar(result, '\t');
+				}
+				if (index == -1) {
+					index = indexOfChar(result, '\n');
+				}
+				if (index == -1) {
+					index = indexOfChar(result, '\0');
+				}
+
+				/* strip the rest of line */
+				if (index > -1) {
+					for (i = 0; i < index; i ++) {
+						*(key + i) = *(result + i);
+					}
+				} else {
+					fprintf(stderr, "Couldn't parse key.\n");
+					return -1;
+				}
+			}
+			printf("key: %s\n", key);
+
+			/* parse message */
+			printf("msg: %s\n", msg);
+
+			/* parse plaintext */
+			printf("plain: %s\n", plain);
+
+			/* parse ciphertext */
+			printf("cipher: %s\n", cipher);
 
 			free(lower);
 		}
