@@ -19,7 +19,27 @@ static const char letters[NUM_OF_LETTERS] = { /* {{{ */
 }; /* }}} */
 
 static char * encode(char * key, char * msg) { /* {{{ */
-	return "";
+	char * out = malloc(sizeof (char) * MAX_MSG_LENGTH);
+	int i, j, key_index, msg_index;
+
+	for (i = 0; i < strlen(msg); i++) {
+		for (j = 0; j < NUM_OF_LETTERS; j++) {
+			if (*(key + (i % strlen(key))) == letters[j]) {
+				key_index = j;
+				break;
+			}
+		}
+		for (j = 0; j < NUM_OF_LETTERS; j++) {
+			if (*(msg + i) == letters[j]) {
+				msg_index = j;
+				break;
+			}
+		}
+
+		*(out + i) = letters[(key_index + msg_index) % NUM_OF_LETTERS];
+	}
+
+	return out;
 } /* }}} */
 
 static char * decode(char * key, char * msg) { /* {{{ */
@@ -151,13 +171,13 @@ int main(char argv[], int argc) { /* {{{ */
 			key = parseArgByName(lower, "key");
 
 			/* parse message */
-			msg = parseArgByName(lower, "msg");
+			msg = parseArgByName(lower, "message");
 
 			/* parse plaintext */
-			plain = parseArgByName(lower, "plain");
+			plain = parseArgByName(lower, "plaintext");
 
 			/* parse ciphertext */
-			cipher = parseArgByName(lower, "cipher");
+			cipher = parseArgByName(lower, "ciphertext");
 
 			/* parse action */
 			if (indexOfWord(lower, "encode") == 0) {
@@ -170,18 +190,22 @@ int main(char argv[], int argc) { /* {{{ */
 				die("Couldn't parse action.");
 			}
 
+			printf("%s\n", result);
+
 			/* memory management */
 			freeIfNotNull(key);
 			freeIfNotNull(msg);
 			freeIfNotNull(plain);
 			freeIfNotNull(cipher);
 			freeIfNotNull(lower);
+			freeIfNotNull(result);
 
 			key    = NULL;
 			msg    = NULL;
 			plain  = NULL;
 			cipher = NULL;
 			lower  = NULL;
+			result = NULL;
 		}
 	}
 
