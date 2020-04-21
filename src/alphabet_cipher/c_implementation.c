@@ -30,6 +30,15 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 	return "";
 } /* }}} */
 
+static void err(char * msg) { /* {{{ */
+	fprintf(stderr, "%s\n", msg);
+} /* }}} */
+
+static void die(char * msg) { /* {{{ */
+	err(msg);
+	exit((errno == 0) ? -1 : errno);
+} /* }}} */
+
 static int indexOfChar(char * str, char search) { /* {{{ */
 	int index = 0;
 
@@ -96,8 +105,8 @@ static char * parseArgByName(char * argStr, char * argName) { /* {{{ */
 			}
 			*(arg + i) = '\0'; // null terminator
 		} else {
-			fprintf(stderr, "Couldn't parse %s.\n", argName);
-			exit(-1);
+			err("Error in parsing argument:");
+			die(argName);
 		}
 	}
 
@@ -110,13 +119,9 @@ int main(char argv[], int argc) { /* {{{ */
 	size_t line_length;
 	char * line_string = malloc(sizeof (char) * MAX_LINE_LENGTH),
 	     * key         = malloc(sizeof (char) * MAX_KEY_LENGTH),
-	     * key_arg     = "key",
 	     * msg         = malloc(sizeof (char) * MAX_MSG_LENGTH),
-	     * msg_arg     = "msg",
 	     * plain       = malloc(sizeof (char) * MAX_MSG_LENGTH),
-	     * plain_arg   = "plain",
 	     * cipher      = malloc(sizeof (char) * MAX_MSG_LENGTH),
-	     * cipher_arg  = "cipher",
 	     * lower       = NULL;
 
 	while (1) {
@@ -126,29 +131,40 @@ int main(char argv[], int argc) { /* {{{ */
 		case -1:
 			if (errno != 0) {
 				/* error due to actually error, not EOF */
-				fprintf(stderr, "getline() returned exited with code %d.\n", errno);
+				err("getline() returned exited with code:");
+				die(errno);
 			}
 
-			return errno; /* will be 0 on EOF */
+			return 0; /* exit 0 on EOF */
 
 		default:
 			/* line read of EOF reached */
 			lower = toLower(line_string);
 
 			/* parse key */
-			key = parseArgByName(line_string, "key");
-			printf("key: %s\n", key);
+			key = parseArgByName(lower, "key");
 
 			/* parse message */
-			msg = parseArgByName(line_string, "msg");
-			printf("msg: %s\n", msg);
+			msg = parseArgByName(lower, "msg");
 
 			/* parse plaintext */
-			printf("plain: %s\n", plain);
+			plain = parseArgByName(lower, "plain");
 
 			/* parse ciphertext */
-			printf("cipher: %s\n", cipher);
+			cipher = parseArgByName(lower, "cipher");
 
+			/* parse action */
+			if (indexOfWord(lower, "encode") == 0) {
+			} else if (indexOfWord(lower, "decode") == 0) {
+			} else if (indexOfWord(lower, "decipher") == 0) {
+			} else {
+			}
+
+			free(line_string);
+			free(key);
+			free(msg);
+			free(plain);
+			free(cipher);
 			free(lower);
 		}
 	}
