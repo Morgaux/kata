@@ -13,6 +13,57 @@
 #define MAX_LINE_LENGTH (MAX_MSG_LENGTH + MAX_KEY_LENGTH + 16)
 #define NUM_OF_LETTERS 26
 
+static void err(char * msg) { /* {{{ */
+	fprintf(stderr, "%s\n", msg);
+} /* }}} */
+
+static void die(char * msg) { /* {{{ */
+	err(msg);
+	exit((errno == 0) ? -1 : errno);
+} /* }}} */
+
+static void freeIfNotNull(char * str) { /* {{{ */
+	if (str != NULL) {
+		free(str);
+	}
+} /* }}} */
+
+static int indexOfChar(char * str, char search) { /* {{{ */
+	int index = 0;
+
+	while (*(str + index) != '\0') {
+		if (*(str + index) == search) {
+			return index;
+		}
+
+		index++;
+	}
+
+	return -1; /* -1 means not found */
+} /* }}} */
+
+static int indexOfWord(char * str, char * word) /* {{{ */ {
+	int index = 0;
+	char * substr = strstr(str, word);
+
+	if (substr != NULL) {
+		return substr - str; /* distance from str to substr */
+	}
+
+	return -1; /* -1 means not found */
+} /* }}} */
+
+static char * toLower(char * str) { /* {{{ */
+	int i, len = strlen(str);
+	char * out = malloc(sizeof (char) * (len + 1));
+
+	for (i = 0; i < len; i++) {
+		*(out + i) = tolower(*(str + i));
+	}
+
+	return out;
+} /* }}} */
+
 static const char letters[NUM_OF_LETTERS] = { /* {{{ */
 	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
@@ -67,55 +118,22 @@ static char * decode(char * key, char * msg) { /* {{{ */
 } /* }}} */
 
 static char * decipher(char * plain, char * cipher) { /* {{{ */
-	return "";
-} /* }}} */
+	char * out = malloc(sizeof (char) * MAX_KEY_LENGTH),
+	     * tmp = malloc(sizeof (char) * MAX_LINE_LENGTH);
+	int i, j, key_index, msg_index;
 
-static void err(char * msg) { /* {{{ */
-	fprintf(stderr, "%s\n", msg);
-} /* }}} */
+	for (i = 0; i < strlen(plain); i++) {
+		for (j = 0; j < NUM_OF_LETTERS; j++) {
+			*(out + i) = letters[j];
+			tmp = encode(out, plain);
 
-static void die(char * msg) { /* {{{ */
-	err(msg);
-	exit((errno == 0) ? -1 : errno);
-} /* }}} */
+			if (*(tmp + i) == *(cipher + i)) {
+				break;
+			}
 
-static void freeIfNotNull(char * str) { /* {{{ */
-	if (str != NULL) {
-		free(str);
-	}
-} /* }}} */
-
-static int indexOfChar(char * str, char search) { /* {{{ */
-	int index = 0;
-
-	while (*(str + index) != '\0') {
-		if (*(str + index) == search) {
-			return index;
+			freeIfNotNull(tmp);
+			tmp = NULL;
 		}
-
-		index++;
-	}
-
-	return -1; /* -1 means not found */
-} /* }}} */
-
-static int indexOfWord(char * str, char * word) /* {{{ */ {
-	int index = 0;
-	char * substr = strstr(str, word);
-
-	if (substr != NULL) {
-		return substr - str; /* distance from str to substr */
-	}
-
-	return -1; /* -1 means not found */
-} /* }}} */
-
-static char * toLower(char * str) { /* {{{ */
-	int i, len = strlen(str);
-	char * out = malloc(sizeof (char) * (len + 1));
-
-	for (i = 0; i < len; i++) {
-		*(out + i) = tolower(*(str + i));
 	}
 
 	return out;
