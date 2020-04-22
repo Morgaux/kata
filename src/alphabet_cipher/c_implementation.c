@@ -43,7 +43,27 @@ static char * encode(char * key, char * msg) { /* {{{ */
 } /* }}} */
 
 static char * decode(char * key, char * msg) { /* {{{ */
-	return "";
+	char * out = malloc(sizeof (char) * MAX_MSG_LENGTH);
+	int i, j, key_index, msg_index;
+
+	for (i = 0; i < strlen(msg); i++) {
+		for (j = 0; j < NUM_OF_LETTERS; j++) {
+			if (*(key + (i % strlen(key))) == letters[j]) {
+				key_index = j;
+				break;
+			}
+		}
+		for (j = 0; j < NUM_OF_LETTERS; j++) {
+			if (*(msg + i) == letters[(j + key_index) % NUM_OF_LETTERS]) {
+				msg_index = j;
+				break;
+			}
+		}
+
+		*(out + i) = letters[(msg_index) % NUM_OF_LETTERS];
+	}
+
+	return out;
 } /* }}} */
 
 static char * decipher(char * plain, char * cipher) { /* {{{ */
