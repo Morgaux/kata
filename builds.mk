@@ -57,7 +57,7 @@ src/%/awk_implementation.awk: src/%
 	@[ -f "$@" ] || { \
 		echo "#!/usr/bin/awk -f" ; \
 		echo "# note, this shebang is reasonably portable, however," ; \
-		echo "# for best portability or to pass aditional arguments" ; \
+		echo "# for best portability or to pass additional arguments" ; \
 		echo "# to the interpreter a shell wrapper should be used." ; \
 		echo "" ; \
 		echo "# A POSIX AWK $$(basename $< implementation)" ; \

@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 # note, this shebang is reasonably portable, however,
-# for best portability or to pass aditional arguments
+# for best portability or to pass additional arguments
 # to the interpreter a shell wrapper should be used.
 
 # A POSIX AWK alphabet_cipher
