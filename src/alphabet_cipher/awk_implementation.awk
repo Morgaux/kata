@@ -5,16 +5,18 @@
 
 # A POSIX AWK alphabet_cipher
 
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
 function encode(key, msg) { # {{{
-	return ""
+	return alphabet
 } # }}}
 
 function decode(key, msg) { # {{{
-	return ""
+	return alphabet
 } # }}}
 
 function decipher(plain, cipher) { # {{{
-	return ""
+	return alphabet
 } # }}}
 
 /^encode key=[a-z]+ message=[a-z]+$/ { # {{{
