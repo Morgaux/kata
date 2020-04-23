@@ -8,10 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_MSG_LENGTH 128
-#define MAX_KEY_LENGTH 512
-#define MAX_LINE_LENGTH (MAX_MSG_LENGTH + MAX_KEY_LENGTH + 16)
-#define NUM_OF_LETTERS 26
+#include "c_implementation.h"
 
 static void err(char * msg) { /* {{{ */
 	fprintf(stderr, "%s\n", msg);
@@ -42,7 +39,7 @@ static int indexOfChar(char * str, char search) { /* {{{ */
 	return -1; /* -1 means not found */
 } /* }}} */
 
-static int indexOfWord(char * str, char * word) /* {{{ */ {
+static int indexOfWord(char * str, char * word) { /* {{{ */
 	int index = 0;
 	char * substr = strstr(str, word);
 
@@ -63,11 +60,6 @@ static char * toLower(char * str) { /* {{{ */
 
 	return out;
 } /* }}} */
-
-static const char letters[NUM_OF_LETTERS] = { /* {{{ */
-	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-}; /* }}} */
 
 static char * encode(char * key, char * msg) { /* {{{ */
 	char * out = malloc(sizeof (char) * MAX_MSG_LENGTH);
