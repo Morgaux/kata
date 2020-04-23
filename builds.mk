@@ -99,13 +99,26 @@ src/%/java_implementation.java: src/%
 # Create a java source file }}}
 
 # Create a c source file {{{
-src/%/c_implementation.c: src/%
+# This consists of a foo.c and matching foo.h file
+src/%/c_implementation.h: src/%
+	@[ -f "$@" ] || { \
+		echo "/**" ; \
+		echo " * Header file for a C $$(basename $<) implementation" ; \
+		echo " */" ; \
+		echo "" ; \
+		echo "int main(char[], int);" ; \
+		echo "" ; \
+	} > $@
+
+src/%/c_implementation.c: src/% src/%/c_implementation.h
 	@[ -f "$@" ] || { \
 		echo "/**" ; \
 		echo " * A C $$(basename $<) implementation" ; \
 		echo " */" ; \
 		echo "" ; \
 		echo "#include <stdio.h>" ; \
+		echo "" ; \
+		echo "#include \"c_implementation.h\"" ; \
 		echo "" ; \
 		echo "int main(char argv[], int argc) {" ; \
 		echo "	printf(\"Hello World!\\\\n\");" ; \

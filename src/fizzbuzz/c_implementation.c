@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define WORD_LENGTH 256
+#include "c_implementation.h"
 
 int main(char argv[], int argc) {
 	char * output;

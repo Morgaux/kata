@@ -1,7 +1,9 @@
 #include <errno.h>
 #include <stdio.h>
 
-void print_roman(long number) {
+#include "c_implementation.h"
+
+static void print_roman(long number) {
 	char * hundreds[10]  = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "CCM", "CM" };
 	char * tens[10]      = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "XXC", "XC" };
 	char * digits[10]    = { "", "I", "II", "III", "IV", "V", "VI", "VII", "IIX", "IX" };
