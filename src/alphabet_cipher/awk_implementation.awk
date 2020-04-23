@@ -5,5 +5,18 @@
 
 # A POSIX AWK alphabet_cipher
 
-BEGIN {print "Hello World!"; exit}
+/^encode/ {
+	$1=""
+	print "encode" $0
+}
+
+/^decode/ {
+	$1=""
+	print "encode" $0
+}
+
+/^decipher/ {
+	$1=""
+	print "encode" $0
+}
 
