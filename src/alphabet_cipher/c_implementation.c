@@ -118,8 +118,7 @@ static char * decode(char * key, char * msg) { /* {{{ */
 } /* }}} */
 
 static char * decipher(char * plain, char * cipher) { /* {{{ */
-	char * out = malloc(sizeof (char) * MAX_KEY_LENGTH),
-	     * tmp = malloc(sizeof (char) * MAX_LINE_LENGTH);
+	char * out = malloc(sizeof (char) * MAX_KEY_LENGTH), * tmp;
 	int i, j, key_index, msg_index;
 
 	for (i = 0; i < strlen(plain); i++) {
@@ -134,7 +133,20 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 			freeIfNotNull(tmp);
 			tmp = NULL;
 		}
+
+		tmp = encode(out, plain);
+
+		if (strcmp(tmp, cipher) == 0) {
+			break;
+		}
+
+		freeIfNotNull(tmp);
+		tmp = NULL;
 	}
+
+	// Clean up final memory
+	freeIfNotNull(tmp);
+	tmp = NULL;
 
 	return out;
 } /* }}} */
