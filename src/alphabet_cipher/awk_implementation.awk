@@ -20,27 +20,27 @@ function decipher(plain, cipher) { # {{{
 # Helper functions }}}
 
 # Regex parsing {{{
-/^encode key=.* message=.*/ { # {{{
+/^encode key=[a-z]+ message=[a-z]+$/ { # {{{
 	print encode(substr($2, 5), substr($3, 9))
 } # }}}
 
-/^encode message=.* key=.*/ { # {{{
+/^encode message=[a-z]+ key=[a-z]+$/ { # {{{
 	print encode(substr($3, 5), substr($2, 9))
 } # }}}
 
-/^decode key=.* message=.*/ { # {{{
+/^decode key=[a-z]+ message=[a-z]+$/ { # {{{
 	print decode(substr($2, 5), substr($3, 9))
 } # }}}
 
-/^decode message=.* key=.*/ { # {{{
+/^decode message=[a-z]+ key=[a-z]+$/ { # {{{
 	print decode(substr($3, 5), substr($2, 9))
 } # }}}
 
-/^decipher plaintext=.* ciphertext=.*/ { # {{{
+/^decipher plaintext=[a-z]+ ciphertext=[a-z]+$/ { # {{{
 	print decipher(substr($2, 11), substr($3, 12))
 } # }}}
 
-/^decipher ciphertext=.* plaintext=.*/ { # {{{
+/^decipher ciphertext=[a-z]+ plaintext=[a-z]+$/ { # {{{
 	print decipher(substr($3, 11), substr($2, 12))
 } # }}}
 # Regex parsing }}}
