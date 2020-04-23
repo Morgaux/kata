@@ -7,44 +7,41 @@
 
 # Helper functions {{{
 function encode(key, msg) { # {{{
-	print "key: " key
-	print "msg: " msg
+	return ""
 } # }}}
 
 function decode(key, msg) { # {{{
-	print "key: " key
-	print "msg: " msg
+	return ""
 } # }}}
 
 function decipher(plain, cipher) { # {{{
-	print "plain: "  plain
-	print "cipher: " cipher
+	return ""
 } # }}}
 # Helper functions }}}
 
 # Regex parsing {{{
 /^encode key=.* message=.*/ { # {{{
-	encode(substr($2, 5), substr($3, 9))
+	print encode(substr($2, 5), substr($3, 9))
 } # }}}
 
 /^encode message=.* key=.*/ { # {{{
-	encode(substr($3, 5), substr($2, 9))
+	print encode(substr($3, 5), substr($2, 9))
 } # }}}
 
 /^decode key=.* message=.*/ { # {{{
-	decode(substr($2, 5), substr($3, 9))
+	print decode(substr($2, 5), substr($3, 9))
 } # }}}
 
 /^decode message=.* key=.*/ { # {{{
-	decode(substr($3, 5), substr($2, 9))
+	print decode(substr($3, 5), substr($2, 9))
 } # }}}
 
 /^decipher plaintext=.* ciphertext=.*/ { # {{{
-	decipher(substr($2, 11), substr($3, 12))
+	print decipher(substr($2, 11), substr($3, 12))
 } # }}}
 
 /^decipher ciphertext=.* plaintext=.*/ { # {{{
-	decipher(substr($3, 11), substr($2, 12))
+	print decipher(substr($3, 11), substr($2, 12))
 } # }}}
 # Regex parsing }}}
 
