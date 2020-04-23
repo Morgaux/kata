@@ -5,7 +5,6 @@
 
 # A POSIX AWK alphabet_cipher
 
-# Helper functions {{{
 function encode(key, msg) { # {{{
 	return ""
 } # }}}
@@ -17,9 +16,7 @@ function decode(key, msg) { # {{{
 function decipher(plain, cipher) { # {{{
 	return ""
 } # }}}
-# Helper functions }}}
 
-# Regex parsing {{{
 /^encode key=[a-z]+ message=[a-z]+$/ { # {{{
 	print encode(substr($2, 5), substr($3, 9))
 } # }}}
@@ -43,5 +40,4 @@ function decipher(plain, cipher) { # {{{
 /^decipher ciphertext=[a-z]+ plaintext=[a-z]+$/ { # {{{
 	print decipher(substr($3, 11), substr($2, 12))
 } # }}}
-# Regex parsing }}}
 
