@@ -10,9 +10,10 @@ alphabet = "abcdefghijklmnopqrstuvwxyz"
 function encode(key, msg) { # {{{
 	out = ""
 	for (i = 1; i < length(msg) + 1; i++) {
-		key_index = index(alphabet, substr(key, (i % length(msg)), 1))
-		msg_index = index(alphabet, substr(msg, i,                 1))
-		out = out substr(alphabet, (key_index + msg_index), 1)
+		key_index = index(alphabet, substr(key, (i % 26), 1))
+		msg_index = index(alphabet, substr(msg, i,        1))
+		out_index = key_index + msg_index - 1
+		out = out substr(alphabet, out_index % 26, 1)
 	}
 	return out
 } # }}}
