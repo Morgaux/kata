@@ -34,27 +34,42 @@ BEGIN { # {{{
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
 } #}}}
 
-/^encode key=[a-z]+ message=[a-z]+/ { # {{{
-	encode(substr($2, 5), substr($3, 9))
+/^encode/ { # {{{
+	split($0, args)
+
+	for (i in args) {
+		if (match(args[i], /key=[a-z]+/))
+			key = args[i]
+		else if (match(args[i], /message=[a-z]+/))
+			msg = args[i]
+	}
+
+	encode(substr(key, 5), substr(msg, 9))
 } # }}}
 
-/^encode message=[a-z]+ key=[a-z]+/ { # {{{
-	encode(substr($3, 5), substr($2, 9))
+/^decode/ { # {{{
+	split($0, args)
+
+	for (i in args) {
+		if (match(args[i], /key=[a-z]+/))
+			key = args[i]
+		else if (match(args[i], /message=[a-z]+/))
+			msg = args[i]
+	}
+
+	decode(substr(key, 5), substr(msg, 9))
 } # }}}
 
-/^decode key=[a-z]+ message=[a-z]+/ { # {{{
-	decode(substr($2, 5), substr($3, 9))
-} # }}}
+/^decipher/ { # {{{
+	split($0, args)
 
-/^decode message=[a-z]+ key=[a-z]+/ { # {{{
-	decode(substr($3, 5), substr($2, 9))
-} # }}}
+	for (i in args) {
+		if (match(args[i], /plaintext=[a-z]+/))
+			plaintext = args[i]
+		else if (match(args[i], /ciphertext=[a-z]+/))
+			ciphertext = args[i]
+	}
 
-/^decipher plaintext=[a-z]+ ciphertext=[a-z]+/ { # {{{
-	decipher(substr($2, 11), substr($3, 12))
-} # }}}
-
-/^decipher ciphertext=[a-z]+ plaintext=[a-z]+/ { # {{{
-	decipher(substr($3, 11), substr($2, 12))
+	decipher(substr(plaintext, 11), substr(ciphertext, 12))
 } # }}}
 
