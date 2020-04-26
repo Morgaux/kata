@@ -12,7 +12,7 @@ function char_at(str, i) { # {{{
 function encode(key, msg) { # {{{
 	for (i = 0; i < length(msg); i++) {
 		for (j = 0; j < length(alphabet); j++) {
-			if (char_at(alphabet, j) == char_at(key, i))
+			if (char_at(alphabet, j) == char_at(key, i % length(msg)))
 				key_index = j
 			if (char_at(alphabet, j) == char_at(msg, i))
 				msg_index = j
