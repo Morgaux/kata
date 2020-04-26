@@ -26,8 +26,10 @@ function encode(key, msg) { # {{{
 function decode(key, msg) { # {{{
 	for (i = 0; i < length(msg); i++) {
 		for (j = 0; j < length(alphabet); j++) {
-			if (char_at(alphabet, j) == char_at(key, i % length(msg)))
+			if (char_at(alphabet, j) == char_at(key, i % length(msg))) {
 				key_index = j
+				break;
+			}
 		}
 		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j + key_index) == char_at(msg, i))
