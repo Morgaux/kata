@@ -6,7 +6,7 @@
 # A POSIX AWK alphabet_cipher
 
 function char_at(str, i) { # {{{
-	return substr(str, (i + 1) % length(str), 1)
+	return substr(str, (i % length(str)) + 1, 1)
 } # }}}
 
 function encode(key, msg) { # {{{
