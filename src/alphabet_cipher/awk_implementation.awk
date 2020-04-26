@@ -5,43 +5,43 @@
 
 # A POSIX AWK alphabet_cipher
 
+function encode(key, msg) { # {{{
+	printf "key: %s\nmsg: %s\n", key, msg
+} # }}}
+
+function decode(key, msg) { # {{{
+	printf "key: %s\nmsg: %s\n", key, msg
+} # }}}
+
+function decipher(plaintext, cipher) { # {{{
+	printf "plaintext:  %s\nciphertext: %s\n", plaintext, ciphertext
+} # }}}
+
 BEGIN { # {{{
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
 } #}}}
 
 /^encode key=[a-z]+ message=[a-z]+/ { # {{{
-	key = substr($2, 5)
-	msg = substr($3, 9)
-	printf "key: %s\nmsg: %s\n", key, msg
+	encode(substr($2, 5), substr($3, 9))
 } # }}}
 
 /^encode message=[a-z]+ key=[a-z]+/ { # {{{
-	key = substr($3, 5)
-	msg = substr($2, 9)
-	printf "key: %s\nmsg: %s\n", key, msg
+	encode(substr($3, 5), substr($2, 9))
 } # }}}
 
 /^decode key=[a-z]+ message=[a-z]+/ { # {{{
-	key = substr($2, 5)
-	msg = substr($3, 9)
-	printf "key: %s\nmsg: %s\n", key, msg
+	decode(substr($2, 5), substr($3, 9))
 } # }}}
 
 /^decode message=[a-z]+ key=[a-z]+/ { # {{{
-	key = substr($3, 5)
-	msg = substr($2, 9)
-	printf "key: %s\nmsg: %s\n", key, msg
+	decode(substr($3, 5), substr($2, 9))
 } # }}}
 
 /^decipher plaintext=[a-z]+ ciphertext=[a-z]+/ { # {{{
-	plaintext  = substr($2, 11)
-	ciphertext = substr($3, 12)
-	printf "plaintext:  %s\nciphertext: %s\n", plaintext, ciphertext
+	decipher(substr($2, 11), substr($3, 12))
 } # }}}
 
 /^decipher ciphertext=[a-z]+ plaintext=[a-z]+/ { # {{{
-	plaintext  = substr($3, 11)
-	ciphertext = substr($2, 12)
-	printf "plaintext:  %s\nciphertext: %s\n", plaintext, ciphertext
+	decipher(substr($3, 11), substr($2, 12))
 } # }}}
 
