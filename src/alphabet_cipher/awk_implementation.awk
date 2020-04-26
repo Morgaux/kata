@@ -28,6 +28,8 @@ function decode(key, msg) { # {{{
 		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j) == char_at(key, i % length(msg)))
 				key_index = j
+		}
+		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j + key_index) == char_at(msg, i))
 				msg_index = j
 		}
