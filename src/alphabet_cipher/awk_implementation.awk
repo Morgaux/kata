@@ -5,8 +5,21 @@
 
 # A POSIX AWK alphabet_cipher
 
+function char_at(str, i) { # {{{
+	return substr(str, (i + 1) % length(str), 1)
+} # }}}
+
 function encode(key, msg) { # {{{
-	printf "key: %s\nmsg: %s\n", key, msg
+	for (i = 0; i < length(msg); i++) {
+		for (j = 0; j < length(alphabet); j++) {
+			if (char_at(alphabet, j) == char_at(key, i))
+				key_index = j
+			if (char_at(alphabet, j) == char_at(msg, i))
+				msg_index = j
+		}
+		printf "%s", char_at(alphabet, key_index + msg_index)
+	}
+	printf "\n"
 } # }}}
 
 function decode(key, msg) { # {{{
