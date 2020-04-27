@@ -54,24 +54,20 @@ predicate_test_input_line_count_matches_output_line_count = [ "$$(awk "BEGIN {fo
 # This target runs the test predicates defined in the kata's tests.mk file
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "${BOLD}Starting:${RESET} $@..." | tr '_' ' '
-	@_RESULT="" ; \
+	@ERRORS="" ; \
 	for FILE in $^ ; \
 	do \
-		if ${predicate_${@}} ; \
+		if ${predicate_${@}} 1>/dev/null 2>&1 ; \
 		then \
-			continue ; \
+			continue; \
 		else \
-			_RESULT="$${_RESULT} $${FILE}" ; \
+			ERRORS="TRUE" ; \
+			echo "${BOLD}${RED}FAIL${RESET}: ${BOLD}$${FILE}${RESET}" ; \
 		fi ; \
-	done 1>/dev/null 2>&1 ; \
-	if [ -z "$$_RESULT" ] ; \
+	done ; \
+	if [ -z "$$ERRORS" ] ; \
 	then \
 		echo "${BOLD}${GREEN}PASS${RESET}" ; \
-	else \
-		for FILE in $$_RESULT ; \
-		do \
-			echo "${BOLD}${RED}FAIL${RESET}: ${BOLD}$$FILE${RESET}" ; \
-		done ; \
 	fi
 	@echo " "
 # Main test loop target }}}
