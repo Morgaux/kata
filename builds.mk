@@ -90,9 +90,9 @@ src/%/java_implementation.java: src/%
 		echo " */" ; \
 		echo "" ; \
 		echo "class Kata {" ; \
-		echo "	public static void main(String[] argv) {" ; \
-		echo "	System.out.println(\"Hello World!\");" ; \
-		echo "	}" ; \
+		echo "    public static void main(String[] argv) {" ; \
+		echo "        System.out.println(\"Hello World!\");" ; \
+		echo "    }" ; \
 		echo "}" ; \
 		echo "" ; \
 	} > $@
