@@ -3,6 +3,7 @@
 #
 
 include colors.mk
+include config.mk
 
 # Helper variables {{{
 RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
@@ -57,9 +58,9 @@ ${TEST_CASES}: ${TEST_FILES}
 	@ERRORS="" ; \
 	for FILE in $^ ; \
 	do \
-		if ${predicate_${@}} 1>/dev/null 2>&1 ; \
+		if timeout --preserve-status ${TMOUT} ${predicate_${@}} 1>/dev/null 2>&1 ; \
 		then \
-			continue; \
+			continue ; \
 		else \
 			ERRORS="TRUE" ; \
 			echo "${BOLD}${RED}FAIL${RESET}: ${BOLD}$${FILE}${RESET}" ; \
