@@ -16,6 +16,7 @@ function encode(key, msg) { # {{{
 		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j) == char_at(key, i % length(msg)))
 				key_index = j
+
 			if (char_at(alphabet, j) == char_at(msg, i))
 				msg_index = j
 		}
@@ -27,6 +28,8 @@ function encode(key, msg) { # {{{
 } # }}}
 
 function decode(key, msg) { # {{{
+	out = ""
+
 	for (i = 0; i < length(msg); i++) {
 		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j) == char_at(key, i % length(msg))) {
@@ -34,6 +37,7 @@ function decode(key, msg) { # {{{
 				break;
 			}
 		}
+
 		for (j = 0; j < length(alphabet); j++) {
 			if (char_at(alphabet, j + key_index) == char_at(msg, i))
 				msg_index = j
@@ -45,8 +49,11 @@ function decode(key, msg) { # {{{
 	return out
 } # }}}
 
-function decipher(plaintext, cipher) { # {{{
-	printf "plaintext:  %s\nciphertext: %s\n", plaintext, ciphertext
+function decipher(plain, cipher) { # {{{
+	out = ""
+
+
+	return out
 } # }}}
 
 BEGIN { # {{{
@@ -89,6 +96,6 @@ BEGIN { # {{{
 			ciphertext = args[i]
 	}
 
-	decipher(substr(plaintext, 11), substr(ciphertext, 12))
+	print decipher(substr(plaintext, 11), substr(ciphertext, 12))
 } # }}}
 
