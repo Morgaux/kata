@@ -9,7 +9,7 @@ function char_at(str, i) { # {{{
 	return substr(str, (i % length(str)) + 1, 1)
 } # }}}
 
-function encode(key, msg) { # {{{
+function encode(key, msg,   out, i, j, key_index, msg_index) { # {{{
 	out = ""
 
 	for (i = 0; i < length(msg); i++) {
@@ -27,7 +27,7 @@ function encode(key, msg) { # {{{
 	return out
 } # }}}
 
-function decode(key, msg) { # {{{
+function decode(key, msg,   out, i, j, key_index, msg_index) { # {{{
 	out = ""
 
 	for (i = 0; i < length(msg); i++) {
@@ -49,11 +49,26 @@ function decode(key, msg) { # {{{
 	return out
 } # }}}
 
-function decipher(plain, cipher) { # {{{
-	out = ""
+function decipher(plain, cipher,   out, i, j) { # {{{
+	out = "";
 
+	for (i = 0; i < length(plain); i++) {
+		for (j = 0; j < length(alphabet); j++) {
+			out = substr(out, 1, i) char_at(alphabet, j);
 
-	return out
+			if (char_at(encode(out, plain), i) == char_at(cipher, i)) {
+				break;
+			}
+		}
+
+		tmp = encode(out, plain);
+
+		if (tmp == cipher) {
+			break;
+		}
+	}
+
+	return out;
 } # }}}
 
 BEGIN { # {{{
