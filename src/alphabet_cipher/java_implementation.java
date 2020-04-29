@@ -27,10 +27,27 @@ class Kata {
     public static void main(String[] argv) { // {{{
         Scanner in = new Scanner(System.in);
         String line;
+        String key;
+        String msg;
+        String plain;
+        String cipher;
 
         while (in.hasNext()) {
             line = in.nextLine();
-            line.split("/\\s+/");
+            String[] arguments = line.split("/\\s+/");
+
+            for (String argument : arguments) {
+                if (argument.startsWith("key=")) {
+                    key = argument.substring(4);
+                } else if (argument.startsWith("message=")) {
+                    msg = argument.substring(8);
+                } else if (argument.startsWith("plaintext")) {
+                    plain = argument.substring(9);
+                } else if (argument.startsWith("ciphertext")) {
+                    cipher = argument.substring(10);
+                }
+            }
+
             System.out.println(line);
         }
     } // }}}
