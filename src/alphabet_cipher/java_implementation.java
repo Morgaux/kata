@@ -7,13 +7,38 @@
 import java.util.*;
 
 class Kata {
-    private String[] alphabet = { // {{{
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-        "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    private static char[] alphabet = { // {{{
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     }; // }}}
 
     private static String encode(String key, String msg) { // {{{
-        return "";
+        String out = "";
+        int key_index;
+        int msg_index;
+
+        for (int i = 0; i < msg.length(); i++) {
+            key_index = -1;
+            msg_index = -1;
+
+            for (int j = 0; j < alphabet.length; j++) {
+                if (key.charAt(i % key.length()) == alphabet[j]) {
+                    key_index = j;
+                }
+
+                if (msg.charAt(i) == alphabet[j]) {
+                    msg_index = j;
+                }
+
+                if (key_index > -1 && msg_index > -1) {
+                    break;
+                }
+            }
+
+            out = out + alphabet[(key_index + msg_index) % alphabet.length];
+        }
+
+        return out;
     } // }}}
 
     private static String decode(String key, String msg) { // {{{
@@ -34,7 +59,7 @@ class Kata {
 
         while (in.hasNext()) { // {{{
             line = in.nextLine();
-            String[] arguments = line.split("/\\s+/");
+            String[] arguments = line.split("\\s+");
 
             for (String argument : arguments) { // {{{
                 if (argument.startsWith("key=")) {
@@ -48,15 +73,12 @@ class Kata {
                 }
             } // }}}
 
-            switch (arguments[0]) { // {{{
-                case "encode":
-                    line = encode(key, msg);
-
-                case "decode":
-                    line = decode(key, msg);
-
-                case "decipher":
-                    line = decipher(key, msg);
+            if (line.startsWith("encode")) { // {{{
+                line = encode(key, msg);
+            } else if (line.startsWith("decode")) {
+                line = decode(key, msg);
+            } else if (line.startsWith("decipher")) {
+                line = decipher(key, msg);
             } // }}}
 
             System.out.println(line);
