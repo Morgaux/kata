@@ -42,7 +42,27 @@ class Kata {
     } // }}}
 
     private static String decode(String key, String msg) { // {{{
-        return "";
+        String out = "";
+        int key_index = -1;
+        int msg_index = -1;
+
+        for (int i = 0; i < msg.length(); i++) {
+            for (int j = 0; j < alphabet.length; j++) {
+                if (key.charAt(i % key.length()) == alphabet[j]) {
+                    key_index = j;
+                }
+            }
+
+            for (int j = 0; j < alphabet.length; j++) {
+                if (msg.charAt(i) == alphabet[(j + key_index) % alphabet.length]) {
+                    msg_index = j;
+                }
+            }
+
+            out = out + alphabet[msg_index % alphabet.length];
+        }
+
+        return out;
     } // }}}
 
     private static String decipher(String plain, String cipher) { // {{{
