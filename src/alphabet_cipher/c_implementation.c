@@ -16,7 +16,7 @@ static void err(char * msg) { /* {{{ */
 
 static void die(char * msg) { /* {{{ */
 	err(msg);
-	exit((errno == 0) ? -1 : errno);
+	exit((errno == 0) ? 1 : errno);
 } /* }}} */
 
 static void freeIfNotNull(char * str) { /* {{{ */
