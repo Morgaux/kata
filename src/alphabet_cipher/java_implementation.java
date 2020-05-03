@@ -6,7 +6,7 @@
 
 import java.util.*;
 
-class Kata { // {{{
+class Kata {
     private static char[] alphabet = { // {{{
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
         'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
@@ -77,32 +77,32 @@ class Kata { // {{{
         String  plain  = "";
         String  cipher = "";
 
-        while (in.hasNext()) { // {{{
+        while (in.hasNext()) {
             line = in.nextLine();
             String[] arguments = line.split("\\s+");
 
-            for (String argument : arguments) { // {{{
+            for (String argument : arguments) {
                 if (argument.startsWith("key=")) {
                     key = argument.substring(4);
                 } else if (argument.startsWith("message=")) {
                     msg = argument.substring(8);
                 } else if (argument.startsWith("plaintext")) {
-                    plain = argument.substring(9);
+                    plain = argument.substring(11);
                 } else if (argument.startsWith("ciphertext")) {
                     cipher = argument.substring(10);
                 }
-            } // }}}
+            }
 
-            if (line.startsWith("encode")) { // {{{
+            if (line.startsWith("encode")) {
                 line = encode(key, msg);
             } else if (line.startsWith("decode")) {
                 line = decode(key, msg);
             } else if (line.startsWith("decipher")) {
-                line = decipher(key, msg);
-            } // }}}
+                line = decipher(plain, cipher);
+            }
 
             System.out.println(line);
-        } // }}}
+        }
     } // }}}
-} // }}}
+}
 
