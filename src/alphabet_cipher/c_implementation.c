@@ -123,7 +123,7 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 				break;
 			}
 
-			freeIfNotNull(&tmp);
+			freeIfNotNull((void **)&tmp);
 		}
 
 		tmp = encode(out, plain);
@@ -132,11 +132,11 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 			break;
 		}
 
-		freeIfNotNull(&tmp);
+		freeIfNotNull((void **)&tmp);
 	}
 
 	// Clean up final memory
-	freeIfNotNull(&tmp);
+	freeIfNotNull((void **)&tmp);
 
 	return out;
 } /* }}} */
@@ -233,12 +233,12 @@ int main(char argv[], int argc) { /* {{{ */
 			printf("%s\n", result);
 
 			/* memory management */
-			freeIfNotNull(&key);
-			freeIfNotNull(&msg);
-			freeIfNotNull(&plain);
-			freeIfNotNull(&cipher);
-			freeIfNotNull(&lower);
-			freeIfNotNull(&result);
+			freeIfNotNull((void **)&key);
+			freeIfNotNull((void **)&msg);
+			freeIfNotNull((void **)&plain);
+			freeIfNotNull((void **)&cipher);
+			freeIfNotNull((void **)&lower);
+			freeIfNotNull((void **)&result);
 		}
 	}
 
