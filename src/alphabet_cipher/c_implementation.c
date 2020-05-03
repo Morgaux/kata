@@ -19,9 +19,10 @@ static void die(char * msg) { /* {{{ */
 	exit((errno == 0) ? 1 : errno);
 } /* }}} */
 
-static void freeIfNotNull(char * str) { /* {{{ */
-	if (str != NULL) {
-		free(str);
+static void freeIfNotNull(char ** ptr) { /* {{{ */
+	if (ptr != NULL && *ptr != NULL) {
+		free(*ptr);
+		*ptr = NULL;
 	}
 } /* }}} */
 
@@ -122,8 +123,7 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 				break;
 			}
 
-			freeIfNotNull(tmp);
-			tmp = NULL;
+			freeIfNotNull(&tmp);
 		}
 
 		tmp = encode(out, plain);
@@ -132,13 +132,11 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 			break;
 		}
 
-		freeIfNotNull(tmp);
-		tmp = NULL;
+		freeIfNotNull(&tmp);
 	}
 
 	// Clean up final memory
-	freeIfNotNull(tmp);
-	tmp = NULL;
+	freeIfNotNull(&tmp);
 
 	return out;
 } /* }}} */
@@ -235,19 +233,12 @@ int main(char argv[], int argc) { /* {{{ */
 			printf("%s\n", result);
 
 			/* memory management */
-			freeIfNotNull(key);
-			freeIfNotNull(msg);
-			freeIfNotNull(plain);
-			freeIfNotNull(cipher);
-			freeIfNotNull(lower);
-			freeIfNotNull(result);
-
-			key    = NULL;
-			msg    = NULL;
-			plain  = NULL;
-			cipher = NULL;
-			lower  = NULL;
-			result = NULL;
+			freeIfNotNull(&key);
+			freeIfNotNull(&msg);
+			freeIfNotNull(&plain);
+			freeIfNotNull(&cipher);
+			freeIfNotNull(&lower);
+			freeIfNotNull(&result);
 		}
 	}
 
