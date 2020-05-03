@@ -5,32 +5,31 @@
 #include "c_implementation.h"
 
 int main(char argv[], int argc) {
-	char * output;
-	int i, j, k;
+	int i, printed = 0;
 
 	for (i = 1; i <= 100; i++) {
-		/* Initialise output */
-		output = malloc(sizeof (char) * WORD_LENGTH);
-
 		/* Add fizz to output */
 		if (i % 3 == 0) {
-			strcat(output, "Fizz");
+			printed = 1;
+			printf("Fizz");
 		}
 
 		/* Add buzz to output */
 		if (i % 5 == 0) {
-			strcat(output, "Buzz");
+			printed = 1;
+			printf("Buzz");
 		}
 
-		/* Print output unless it's empty, then just print the number */
-		if (output[0] == 0x00) {
-			printf("%d\n", i);
-		} else {
-			printf("%s\n", output);
+		/* Print the number */
+		if (!printed) {
+			printf("%d", i);
 		}
 
-		/* Reset output */
-		free(output);
+		/* Print line feed */
+		printf("\n");
+
+		/* Reset printed */
+		printed = 0;
 	}
 
 	return 0;
