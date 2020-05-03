@@ -35,7 +35,7 @@ class Kata {
                 }
             }
 
-            out = out + alphabet[(key_index + msg_index) % alphabet.length];
+            out += alphabet[(key_index + msg_index) % alphabet.length];
         }
 
         return out;
@@ -59,14 +59,39 @@ class Kata {
                 }
             }
 
-            out = out + alphabet[msg_index % alphabet.length];
+            out += alphabet[msg_index % alphabet.length];
         }
 
         return out;
     } // }}}
 
     private static String decipher(String plain, String cipher) { // {{{
-        return "";
+        StringBuffer out = new StringBuffer();
+        String tmp = "";
+
+        for (int i = 0; i < plain.length(); i++) {
+            for (int j = 0; j < alphabet.length; j++) {
+                if (i == out.length()) {
+                    out.append(alphabet[j]);
+                } else {
+                    out.setCharAt(i, alphabet[j]);
+                }
+
+                tmp = encode(out.toString(), plain);
+
+                if (Character.compare(tmp.charAt(i), cipher.charAt(i)) == 0) {
+                    break;
+                }
+            }
+
+            tmp = encode(out.toString(), plain);
+
+            if (tmp.equals(cipher)) {
+                break;
+            }
+        }
+
+        return out.toString();
     } // }}}
 
     public static void main(String[] argv) { // {{{
@@ -86,10 +111,10 @@ class Kata {
                     key = argument.substring(4);
                 } else if (argument.startsWith("message=")) {
                     msg = argument.substring(8);
-                } else if (argument.startsWith("plaintext")) {
-                    plain = argument.substring(11);
-                } else if (argument.startsWith("ciphertext")) {
-                    cipher = argument.substring(10);
+                } else if (argument.startsWith("plaintext=")) {
+                    plain = argument.substring(10);
+                } else if (argument.startsWith("ciphertext=")) {
+                    cipher = argument.substring(11);
                 }
             }
 
