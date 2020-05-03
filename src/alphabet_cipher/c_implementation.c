@@ -19,7 +19,7 @@ static void die(char * msg) { /* {{{ */
 	exit((errno == 0) ? 1 : errno);
 } /* }}} */
 
-static void freeIfNotNull(char ** ptr) { /* {{{ */
+static void freeIfNotNull(void ** ptr) { /* {{{ */
 	if (ptr != NULL && *ptr != NULL) {
 		free(*ptr);
 		*ptr = NULL;
