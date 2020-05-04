@@ -50,17 +50,19 @@ def getArgByNameFromOptions(name, options):
     else:
         return getArgByNameFromOptions(name, options[1:])
 
-for line in sys.stdin:
-    line = line.strip()
-    options = line.split()
-    action = options[0] if len(options) > 0 else ""
-    if action == "encode":
-        print(encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
-    elif action == "decode":
-        print(decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
-    elif action == "decipher":
-        print(decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options)))
-    else:
-        usage()
-        exit(1)
+if __name__ == "__main__":
+    for line in sys.stdin:
+        line = line.strip()
+        options = line.split()
+        action = options[0] if len(options) > 0 else ""
+
+        if action == "encode":
+            print(encode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
+        elif action == "decode":
+            print(decode(getArgByNameFromOptions("key", options), getArgByNameFromOptions("message", options)))
+        elif action == "decipher":
+            print(decipher(getArgByNameFromOptions("plaintext", options), getArgByNameFromOptions("ciphertext", options)))
+        else:
+            usage()
+            exit(1)
 
