@@ -58,18 +58,22 @@ ${TEST_CASES}: ${TEST_FILES}
 	@ERRORS="" ; \
 	for FILE in $^ ; \
 	do \
-		if timeout --preserve-status ${TMOUT} ${predicate_${@}} 1>/dev/null 2>&1 ; \
-		then \
-			continue ; \
-		else \
-			ERRORS="TRUE" ; \
-			echo "${BOLD}${RED}FAIL${RESET}: ${BOLD}$${FILE}${RESET}" ; \
-		fi ; \
+		timeout ${TMOUT} ${predicate_${@}} ; \
+		case "$$?" in \
+			0)   continue ;; \
+			124) ERROR_TYPE="TIMEOUT" ;; \
+			*)   ERROR_TYPE="FAIL" ;; \
+		esac ; \
+		ERRORS="$${ERROR_TYPE}:$${FILE}" ; \
+	done 1>/dev/null 2>&1 ; \
+	for ERROR in $$ERRORS ; \
+	do \
+		ERROR_TYPE="$$(echo "$$ERROR" | sed 's/:.*$$//g')" ; \
+		ERROR_FILE="$$(echo "$$ERROR" | sed 's/^.*://g')" ; \
+		printf "%s: " "${BOLD}${RED}$${ERROR_TYPE}${RESET}" ; \
+		printf "%s\n" "${BOLD}$${ERROR_FILE}${RESET}" ; \
 	done ; \
-	if [ -z "$$ERRORS" ] ; \
-	then \
-		echo "${BOLD}${GREEN}PASS${RESET}" ; \
-	fi
+	[ -n "$$ERRORS" ] || echo "${BOLD}${GREEN}PASS${RESET}"
 	@echo " "
 # Main test loop target }}}
 
