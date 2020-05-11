@@ -17,9 +17,11 @@ decipher() { # {{{ TODO
 	exit 1
 } # }}}
 
-parse() { # {{{ TODO
-	echo "ERROR: Not yet implemented." 1>&2
-	exit 1
+parse() { # {{{ $1:arg_name
+	echo "$LINE" | \
+		tr '[:space:]' '\n' | \
+		grep "$1" | \
+		sed "s/$1=//g"
 } # }}}
 
 main() { # {{{ $@:unused
