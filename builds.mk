@@ -168,7 +168,7 @@ bin/%/haskell_implementation: src/%/haskell_implementation.hs bin/%
 
 # Java Build {{{
 bin/%/java_implementation: src/%/java_implementation.java bin/%
-	@javac -d bin/$* $< # this generates a Kata.class file
+	@javac -d bin/$* $< ${_JAVAC_FLAGS} # this generates a Kata.class file
 	@{ \
 		echo '#!/bin/sh' ; \
 		echo '# POSIX sh wrapper to call the Java classfile' ; \
@@ -181,7 +181,10 @@ bin/%/java_implementation: src/%/java_implementation.java bin/%
 		echo 'cd bin/$*' ; \
 		echo '' ; \
 		echo '# Attempt to run classfile' ; \
-		echo '[ -x "$$(command -v java)" ] && java Kata' ; \
+		echo 'if [ -x "$$(command -v java)" ]' ; \
+		echo 'then' ; \
+		echo '	java Kata' ; \
+		echo 'fi' ; \
 		echo '' ; \
 		echo '# Determine success' ; \
 		echo 'EX_CODE="$$?"' ; \
