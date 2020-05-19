@@ -29,7 +29,10 @@ end_kata_heading:
 
 # This target allows the files to be tested to be listed for viewing
 list_implementations:
-	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}${BOLD}${TEST_FILES:%=\n\t%}${RESET}"
+	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}"
+	@for FILE in ${TEST_FILES} ; \
+		do printf "${BOLD}\t%s\n${RESET}" "$$FILE" ; \
+	done
 	@echo ""
 
 # This target shows a summary report of the tests
