@@ -34,6 +34,9 @@ index_of() { # {{{ $1:str $2:char
 } # }}}
 
 encode() { # {{{ $1:key $2:message
+	echo "ERROR: Not yet implemented." 1>&2
+	exit 1
+
 	out=""
 
 	for i in $(gen_seq "$(length "$2")")
