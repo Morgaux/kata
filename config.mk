@@ -7,12 +7,6 @@ LANGS = awk c haskell java python shell
 TMOUT = 30s
 TESTS = ${KATAS:%=test_%}
 
-_JAVA_FLAGS  = -enablesystemassertions          \
-               -XX:MaxRAM=2048m                 \
-               -XX:+UnlockExperimentalVMOptions \
-               -XX:+UseSerialGC                 \
-               -XX:+TieredCompilation           \
-               -XX:TieredStopAtLevel=1          \
-               -XX:ActiveProcessorCount=1
+_JAVA_FLAGS  = -enablesystemassertions
 _JAVAC_FLAGS = -Xlint:all -Werror ${_JAVA_FLAGS:%=-J%}
 
