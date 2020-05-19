@@ -12,9 +12,9 @@ static void print_roman(long number) {
 		printf("M");
 	}
 
-	printf(hundreds  [(number /  100) % 10]);
-	printf(tens      [(number /   10) % 10]);
-	printf(digits    [(number /    1) % 10]);
+	printf("%s", hundreds  [(number /  100) % 10]);
+	printf("%s", tens      [(number /   10) % 10]);
+	printf("%s", digits    [(number /    1) % 10]);
 
 	printf("\n");
 }
