@@ -14,7 +14,9 @@ length() { # {{{ $@:str
 } # }}}
 
 char_at() { # {{{ $1:str $2:index
-	echo "$(echo "$1" | head -c "$(expr "$2" + 1)" | tail -c 1)"
+	echo "$(echo "$1" | \
+		head -c "$(expr "$(expr "$2" + 1)" % "$(length "$1")")" | \
+		tail -c 1)"
 } # }}}
 
 index_of() { # {{{ $1:str $2:char
@@ -31,10 +33,9 @@ index_of() { # {{{ $1:str $2:char
 } # }}}
 
 encode() { # {{{ $1:key $2:message
-	echo "ERROR: Not yet implemented." 1>&2
-	exit 1
-
 	out=""
+	key_index=""
+	msg_index=""
 
 	for i in $(gen_seq "$(length "$2")")
 	do
