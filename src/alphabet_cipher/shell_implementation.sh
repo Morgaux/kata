@@ -66,7 +66,7 @@ encode() { # {{{ $1:key $2:message
 	do
 		for j in $(gen_seq "$(length "$LETTERS")")
 		do
-			if [ "$(char_at "$alphabet" "$j")" = "$(char_at "$1" "$(expr "$i" % "$(length "$2")")")" ]
+			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$(expr "$i" % "$(length "$2")")")" ]
 			then
 				key_index="$j"
 			fi
