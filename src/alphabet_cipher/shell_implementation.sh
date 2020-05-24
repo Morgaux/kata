@@ -71,7 +71,7 @@ encode() { # {{{ $1:key $2:message
 				key_index="$j"
 			fi
 
-			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$i")" ]
+			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$2" "$i")" ]
 			then
 				msg_index="$j"
 			fi
