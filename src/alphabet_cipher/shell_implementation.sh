@@ -10,24 +10,21 @@ gen_seq() { # {{{ $1:n
 } # }}}
 
 length() { # {{{ $@:str
-	echo "$@" | wc -c
+	expr "$(echo "$@" | wc -c)" - 1
 } # }}}
 
 char_at() { # {{{ $1:str $2:index
-	echo "$1" | head -c "$(expr "$2" + 1)" | tail -c 1
+	echo "$(echo "$1" | head -c "$(expr "$2" + 1)" | tail -c 1)"
 } # }}}
 
 index_of() { # {{{ $1:str $2:char
-	index="0"
-
-	for char in $(echo "$1" | sed 's/\(.\)/\1\n/g')
+	for index in $(gen_seq "$(length "$1")")
 	do
-		if [ "$(char_at "$char" 0)" = "$(char_at "$2" 0)" ]
+		if [ "$(char_at "$1" $index)" = "$(char_at "$2" 0)" ]
 		then
 			echo "$index"
+			return 0
 		fi
-
-		index="$(expr "$index" + 1)"
 	done
 
 	echo "-1"
