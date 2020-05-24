@@ -4,19 +4,42 @@
 
 LETTERS="abcdefghijklmnopqrstuvwxyz"
 LETTER_COUNT="26"
+SELF="$(basename "$0")"
+ERR_FILE="./.${SELF}.err"
+
+err() { # {{{ $@:msg
+	echo "${SELF}: $@" | tee "$ERR_FILE" 1>&2
+	return 1
+} # }}}
+
+die() { # {{{ $@:msg
+	err "$@"
+	exit 1
+} #}}}
+
+handle_err() { # {{{ $1:func_name
+	if [ -s "$ERR_FILE" ]
+	then
+		die "An error occurred in ${1:-"$SELF"}: $(cat "$ERR_FILE")"
+		rm -f "$ERR_FILE"
+	fi
+} # }}}
 
 gen_seq() { # {{{ $1:n
-	awk 'BEGIN {for (i = 0; i < '"$1"'; i++) print i}'
+	awk 'BEGIN {for (i = 0; i < '"$1"'; i++) print i}' 2>"$ERR_FILE"
+	handle_err "gen_seq()"
 } # }}}
 
 length() { # {{{ $@:str
-	expr "$(echo "$@" | wc -c)" - 1
+	expr "$(echo "$@" | wc -c)" - 1 2>"$ERR_FILE"
+	handle_err "length()"
 } # }}}
 
 char_at() { # {{{ $1:str $2:index
 	echo "$(echo "$1" | \
 		head -c "$(expr "$(expr "$2" + 1)" % "$(length "$1")")" | \
-		tail -c 1)"
+		tail -c 1)" 2>"$ERR_FILE"
+	handle_err "char_at()"
 } # }}}
 
 index_of() { # {{{ $1:str $2:char
@@ -26,8 +49,10 @@ index_of() { # {{{ $1:str $2:char
 		then
 			echo "$index"
 			return 0
-		fi
-	done
+		fi 2>"$ERR_FILE"
+		handle_err "index_of()"
+	done 2>"$ERR_FILE"
+	handle_err "index_of()"
 
 	echo "-1"
 } # }}}
@@ -59,20 +84,21 @@ encode() { # {{{ $1:key $2:message
 } # }}}
 
 decode() { # {{{ TODO
-	echo "ERROR: Not yet implemented." 1>&2
-	exit 1
+	err "ERROR: Not yet implemented."
+	handle_err "decode()"
 } # }}}
 
 decipher() { # {{{ TODO
-	echo "ERROR: Not yet implemented." 1>&2
-	exit 1
+	err "ERROR: Not yet implemented."
+	handle_err "decipher()"
 } # }}}
 
 parse() { # {{{ $1:arg_name
 	echo "$LINE" | \
 		tr '[:space:]' '\n' | \
 		grep "$1" | \
-		sed "s/$1=//g"
+		sed "s/$1=//g" 2>"$ERR_FILE"
+	handle_err "parse()"
 } # }}}
 
 main() { # {{{ $@:unused
