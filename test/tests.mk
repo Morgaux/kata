@@ -6,7 +6,7 @@ include colors.mk
 include config.mk
 
 # Helper variables {{{
-RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
+RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *0*//g')"
 TEST_FILES := ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 # Helper variables }}}
 
