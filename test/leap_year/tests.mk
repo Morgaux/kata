@@ -1212,8 +1212,8 @@ predicate_test_9600 = [ "$$(echo "9600" | $$FILE)" = "true" ]
 # Multiples of 4 under 10000 }}}
 
 # Random multiples of 4 {{{
-predicate_test_RANDOM_ending_in_400  = [ "$$(echo "$${RANDOM}400"  | $$FILE)" = "true" ]
-predicate_test_RANDOM_ending_in_800  = [ "$$(echo "$${RANDOM}800"  | $$FILE)" = "true" ]
+predicate_test_RANDOM_ending_in_400  = [ "$$(echo "$${RANDOM}0400" | $$FILE)" = "true" ]
+predicate_test_RANDOM_ending_in_800  = [ "$$(echo "$${RANDOM}0800" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_1200 = [ "$$(echo "$${RANDOM}1200" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_1600 = [ "$$(echo "$${RANDOM}1600" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_2000 = [ "$$(echo "$${RANDOM}2000" | $$FILE)" = "true" ]
