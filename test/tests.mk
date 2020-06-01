@@ -31,7 +31,9 @@ end_kata_heading:
 list_implementations:
 	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}"
 	@for FILE in ${TEST_FILES} ; \
-		do printf "${BOLD}\t%s\n${RESET}" "$$FILE" ; \
+	do \
+		FILE="$$(basename "$$FILE" | tr '_' ' ')" ; \
+		printf "\t${BOLD}%s${RESET}\n" "$$FILE" ; \
 	done
 	@echo ""
 
