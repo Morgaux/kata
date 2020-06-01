@@ -67,12 +67,12 @@ ${TEST_CASES}: ${TEST_FILES}
 			124) ERROR_TYPE="TIMEOUT" ;; \
 			*)   ERROR_TYPE="FAIL" ;; \
 		esac ; \
-		ERRORS="$${ERROR_TYPE}:$${FILE}" ; \
+		ERRORS="$${ERRORS} $${ERROR_TYPE}:$$(basename "$${FILE}")" ; \
 	done 1>/dev/null 2>&1 ; \
 	for ERROR in $$ERRORS ; \
 	do \
 		ERROR_TYPE="$$(echo "$$ERROR" | sed 's/:.*$$//g')" ; \
-		ERROR_FILE="$$(echo "$$ERROR" | sed 's/^.*://g')" ; \
+		ERROR_FILE="$$(echo "$$ERROR" | sed 's/^.*://g; s/_/ /g')" ; \
 		printf "%s: " "${BOLD}${RED}$${ERROR_TYPE}${RESET}" ; \
 		printf "%s\n" "${BOLD}$${ERROR_FILE}${RESET}" ; \
 	done ; \
