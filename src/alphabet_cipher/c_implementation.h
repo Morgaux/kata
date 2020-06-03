@@ -15,6 +15,7 @@ static const char letters[NUM_OF_LETTERS] = {
 static void err(char*);
 static void die(char*);
 static void freeIfNotNull(void**);
+static int isCharValid(char c);
 static int indexOfChar(char*, char);
 static int indexOfWord(char*, char*);
 static char* toLower(char*);

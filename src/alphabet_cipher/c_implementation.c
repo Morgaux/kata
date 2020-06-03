@@ -26,6 +26,19 @@ static void freeIfNotNull(void ** ptr) {
 	}
 }
 
+static int isCharValid(char c) {
+	int found = 0, i;
+
+	for (i = 0; i < NUM_OF_LETTERS; i++) {
+		if (letters[i] == c) {
+			found = 1;
+			break;
+		}
+	}
+
+	return found;
+}
+
 static int indexOfChar(char * str, char search) {
 	int index = 0;
 
@@ -142,41 +155,25 @@ static char * decipher(char * plain, char * cipher) {
 }
 
 static char * parseArgByName(char * argStr, char * argName) {
-	int index = 0, i;
-	char * arg = malloc(sizeof (char) * MAX_LINE_LENGTH),
-	     * tmp = malloc(sizeof (char) * MAX_LINE_LENGTH);
+	int index = 0, i, offset;
+	char * arg = malloc(sizeof (char) * MAX_LINE_LENGTH);
 
-	index = indexOfWord(argStr, argName);
+	/* find arg name marker */
+	offset =  indexOfWord(argStr, argName);
+	offset += strlen(argName) + 1;
 
-	if (index > -1) {
-		/* add everything after marker to result */
-		strcat(tmp, argStr + index + strlen(argName) + 1);
-
-		/* find whitespace */
-		index = indexOfChar(tmp, ' ');
-		if (index == -1) {
-			index = indexOfChar(tmp, '\t');
-		}
-		if (index == -1) {
-			index = indexOfChar(tmp, '\n');
-		}
-		if (index == -1) {
-			index = indexOfChar(tmp, '\0');
-		}
-
-		/* strip the rest of line */
-		if (index > -1) {
-			for (i = 0; i < index; i ++) {
-				*(arg + i) = *(tmp + i);
-			}
-			*(arg + i) = '\0'; // null terminator
+	/* take chars while they are valid */
+	while (1) {
+		if (isCharValid(*(argStr + offset + index))) {
+			*(arg + index) = *(argStr + offset + index);
 		} else {
-			err("Error in parsing argument:");
-			die(argName);
+			break;
 		}
+
+		index++;
 	}
 
-	free(tmp);
+	*(arg + index) = '\0'; // null terminator
 
 	return arg;
 }
