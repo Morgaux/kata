@@ -950,13 +950,13 @@ predicate_test_9900 = [ "$$(echo "9900" | $$FILE)" = "false" ]
 # Multiples of 100 but not 400 under 10000 }}}
 
 # Random multiples of 100 by not 400 {{{
-predicate_test_RANDOM_ending_in_100  = [ "$$(echo "$${RANDOM}100"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_200  = [ "$$(echo "$${RANDOM}200"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_300  = [ "$$(echo "$${RANDOM}300"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_500  = [ "$$(echo "$${RANDOM}500"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_600  = [ "$$(echo "$${RANDOM}600"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_700  = [ "$$(echo "$${RANDOM}700"  | $$FILE)" = "false" ]
-predicate_test_RANDOM_ending_in_900  = [ "$$(echo "$${RANDOM}900"  | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_100  = [ "$$(echo "$${RANDOM}0100" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_200  = [ "$$(echo "$${RANDOM}0200" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_300  = [ "$$(echo "$${RANDOM}0300" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_500  = [ "$$(echo "$${RANDOM}0500" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_600  = [ "$$(echo "$${RANDOM}0600" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_700  = [ "$$(echo "$${RANDOM}0700" | $$FILE)" = "false" ]
+predicate_test_RANDOM_ending_in_900  = [ "$$(echo "$${RANDOM}0900" | $$FILE)" = "false" ]
 predicate_test_RANDOM_ending_in_1000 = [ "$$(echo "$${RANDOM}1000" | $$FILE)" = "false" ]
 predicate_test_RANDOM_ending_in_1100 = [ "$$(echo "$${RANDOM}1100" | $$FILE)" = "false" ]
 predicate_test_RANDOM_ending_in_1300 = [ "$$(echo "$${RANDOM}1300" | $$FILE)" = "false" ]
@@ -1212,8 +1212,8 @@ predicate_test_9600 = [ "$$(echo "9600" | $$FILE)" = "true" ]
 # Multiples of 4 under 10000 }}}
 
 # Random multiples of 4 {{{
-predicate_test_RANDOM_ending_in_400  = [ "$$(echo "$${RANDOM}400"  | $$FILE)" = "true" ]
-predicate_test_RANDOM_ending_in_800  = [ "$$(echo "$${RANDOM}800"  | $$FILE)" = "true" ]
+predicate_test_RANDOM_ending_in_400  = [ "$$(echo "$${RANDOM}0400" | $$FILE)" = "true" ]
+predicate_test_RANDOM_ending_in_800  = [ "$$(echo "$${RANDOM}0800" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_1200 = [ "$$(echo "$${RANDOM}1200" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_1600 = [ "$$(echo "$${RANDOM}1600" | $$FILE)" = "true" ]
 predicate_test_RANDOM_ending_in_2000 = [ "$$(echo "$${RANDOM}2000" | $$FILE)" = "true" ]

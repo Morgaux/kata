@@ -6,7 +6,7 @@ include colors.mk
 include config.mk
 
 # Helper variables {{{
-RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *//g')"
+RANDOM     := "$$(od -vAn -N4 -tu4 < /dev/urandom | sed 's/^ *0*//g')"
 TEST_FILES := ${TEST_LANGS:%=bin/${KATA_DIR}/%_implementation}
 # Helper variables }}}
 
@@ -31,7 +31,9 @@ end_kata_heading:
 list_implementations:
 	@echo "${YELLOW}IMPLEMENTATIONS:${RESET}"
 	@for FILE in ${TEST_FILES} ; \
-		do printf "${BOLD}\t%s\n${RESET}" "$$FILE" ; \
+	do \
+		FILE="$$(basename "$$FILE" | tr '_' ' ')" ; \
+		printf "\t${BOLD}%s${RESET}\n" "$$FILE" ; \
 	done
 	@echo ""
 
@@ -67,12 +69,12 @@ ${TEST_CASES}: ${TEST_FILES}
 			124) ERROR_TYPE="TIMEOUT" ;; \
 			*)   ERROR_TYPE="FAIL" ;; \
 		esac ; \
-		ERRORS="$${ERROR_TYPE}:$${FILE}" ; \
+		ERRORS="$${ERRORS} $${ERROR_TYPE}:$$(basename "$${FILE}")" ; \
 	done 1>/dev/null 2>&1 ; \
 	for ERROR in $$ERRORS ; \
 	do \
 		ERROR_TYPE="$$(echo "$$ERROR" | sed 's/:.*$$//g')" ; \
-		ERROR_FILE="$$(echo "$$ERROR" | sed 's/^.*://g')" ; \
+		ERROR_FILE="$$(echo "$$ERROR" | sed 's/^.*://g; s/_/ /g')" ; \
 		printf "%s: " "${BOLD}${RED}$${ERROR_TYPE}${RESET}" ; \
 		printf "%s\n" "${BOLD}$${ERROR_FILE}${RESET}" ; \
 	done ; \

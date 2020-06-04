@@ -10,23 +10,36 @@
 
 #include "c_implementation.h"
 
-static void err(char * msg) { /* {{{ */
+static void err(char * msg) {
 	fprintf(stderr, "%s\n", msg);
-} /* }}} */
+}
 
-static void die(char * msg) { /* {{{ */
+static void die(char * msg) {
 	err(msg);
 	exit((errno == 0) ? 1 : errno);
-} /* }}} */
+}
 
-static void freeIfNotNull(void ** ptr) { /* {{{ */
+static void freeIfNotNull(void ** ptr) {
 	if (ptr != NULL && *ptr != NULL) {
 		free(*ptr);
 		*ptr = NULL;
 	}
-} /* }}} */
+}
 
-static int indexOfChar(char * str, char search) { /* {{{ */
+static int isCharValid(char c) {
+	int found = 0, i;
+
+	for (i = 0; i < NUM_OF_LETTERS; i++) {
+		if (letters[i] == c) {
+			found = 1;
+			break;
+		}
+	}
+
+	return found;
+}
+
+static int indexOfChar(char * str, char search) {
 	int index = 0;
 
 	while (*(str + index) != '\0') {
@@ -38,9 +51,9 @@ static int indexOfChar(char * str, char search) { /* {{{ */
 	}
 
 	return -1; /* -1 means not found */
-} /* }}} */
+}
 
-static int indexOfWord(char * str, char * word) { /* {{{ */
+static int indexOfWord(char * str, char * word) {
 	int index = 0;
 	char * substr = strstr(str, word);
 
@@ -49,9 +62,9 @@ static int indexOfWord(char * str, char * word) { /* {{{ */
 	}
 
 	return -1; /* -1 means not found */
-} /* }}} */
+}
 
-static char * toLower(char * str) { /* {{{ */
+static char * toLower(char * str) {
 	int i, len = strlen(str);
 	char * out = malloc(sizeof (char) * (len + 1));
 
@@ -60,9 +73,9 @@ static char * toLower(char * str) { /* {{{ */
 	}
 
 	return out;
-} /* }}} */
+}
 
-static char * encode(char * key, char * msg) { /* {{{ */
+static char * encode(char * key, char * msg) {
 	char * out = malloc(sizeof (char) * MAX_MSG_LENGTH);
 	int i, j, key_index, msg_index;
 
@@ -84,9 +97,9 @@ static char * encode(char * key, char * msg) { /* {{{ */
 	}
 
 	return out;
-} /* }}} */
+}
 
-static char * decode(char * key, char * msg) { /* {{{ */
+static char * decode(char * key, char * msg) {
 	char * out = malloc(sizeof (char) * MAX_MSG_LENGTH);
 	int i, j, key_index, msg_index;
 
@@ -108,9 +121,9 @@ static char * decode(char * key, char * msg) { /* {{{ */
 	}
 
 	return out;
-} /* }}} */
+}
 
-static char * decipher(char * plain, char * cipher) { /* {{{ */
+static char * decipher(char * plain, char * cipher) {
 	char * out = malloc(sizeof (char) * MAX_KEY_LENGTH), * tmp;
 	int i, j, key_index, msg_index;
 
@@ -139,49 +152,33 @@ static char * decipher(char * plain, char * cipher) { /* {{{ */
 	freeIfNotNull((void **)&tmp);
 
 	return out;
-} /* }}} */
+}
 
-static char * parseArgByName(char * argStr, char * argName) { /* {{{ */
-	int index = 0, i;
-	char * arg = malloc(sizeof (char) * MAX_LINE_LENGTH),
-	     * tmp = malloc(sizeof (char) * MAX_LINE_LENGTH);
+static char * parseArgByName(char * argStr, char * argName) {
+	int index = 0, i, offset;
+	char * arg = malloc(sizeof (char) * MAX_LINE_LENGTH);
 
-	index = indexOfWord(argStr, argName);
+	/* find arg name marker */
+	offset =  indexOfWord(argStr, argName);
+	offset += strlen(argName) + 1;
 
-	if (index > -1) {
-		/* add everything after marker to result */
-		strcat(tmp, argStr + index + strlen(argName) + 1);
-
-		/* find whitespace */
-		index = indexOfChar(tmp, ' ');
-		if (index == -1) {
-			index = indexOfChar(tmp, '\t');
-		}
-		if (index == -1) {
-			index = indexOfChar(tmp, '\n');
-		}
-		if (index == -1) {
-			index = indexOfChar(tmp, '\0');
-		}
-
-		/* strip the rest of line */
-		if (index > -1) {
-			for (i = 0; i < index; i ++) {
-				*(arg + i) = *(tmp + i);
-			}
-			*(arg + i) = '\0'; // null terminator
+	/* take chars while they are valid */
+	while (1) {
+		if (isCharValid(*(argStr + offset + index))) {
+			*(arg + index) = *(argStr + offset + index);
 		} else {
-			err("Error in parsing argument:");
-			die(argName);
+			break;
 		}
+
+		index++;
 	}
 
-	free(tmp);
+	*(arg + index) = '\0'; // null terminator
 
 	return arg;
-} /* }}} */
+}
 
-int main(char argv[], int argc) { /* {{{ */
+int main(char argv[], int argc) {
 	size_t line_length;
 	char * line_string = malloc(sizeof (char) * MAX_LINE_LENGTH),
 	     * key         = NULL,
@@ -243,5 +240,5 @@ int main(char argv[], int argc) { /* {{{ */
 	}
 
 	return 1; /* unreachable */
-} /* }}} */
+}
 
