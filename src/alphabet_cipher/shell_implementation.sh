@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# A POSIX  alphabet_cipher implementation
+# A POSIX sh alphabet_cipher implementation
 
 LETTERS="abcdefghijklmnopqrstuvwxyz"
 LETTER_COUNT="26"

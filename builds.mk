@@ -45,7 +45,7 @@ src/%/shell_implementation.sh: src/%
 	@[ -f "$@" ] || { \
 		echo "#!/bin/sh" ; \
 		echo "" ; \
-		echo "# A POSIX  $$(basename $<) implementation" ; \
+		echo "# A POSIX sh $$(basename $<) implementation" ; \
 		echo "" ; \
 		echo "echo \"Hello World!\"" ; \
 		echo "" ; \
