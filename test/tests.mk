@@ -63,13 +63,8 @@ ${TEST_CASES}: ${TEST_FILES}
 	@ERRORS="" ; \
 	for FILE in $^ ; \
 	do \
-		${predicate_${@}} ; \
-		case "$$?" in \
-			0)   continue ;; \
-			124) ERROR_TYPE="TIMEOUT" ;; \
-			*)   ERROR_TYPE="FAIL" ;; \
-		esac ; \
-		ERRORS="$${ERRORS} $${ERROR_TYPE}:$$(basename "$${FILE}")" ; \
+		${predicate_${@}} && continue ; \
+		ERRORS="$${ERRORS} FAIL:$$(basename "$${FILE}")" ; \
 	done 1>/dev/null 2>&1 ; \
 	for ERROR in $$ERRORS ; \
 	do \
