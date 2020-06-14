@@ -63,7 +63,7 @@ ${TEST_CASES}: ${TEST_FILES}
 	@ERRORS="" ; \
 	for FILE in $^ ; \
 	do \
-		timeout ${TMOUT} ${predicate_${@}} ; \
+		timeout ${TFLAG} ${TMOUT} ${predicate_${@}} ; \
 		case "$$?" in \
 			0)   continue ;; \
 			124) ERROR_TYPE="TIMEOUT" ;; \
