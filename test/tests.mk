@@ -45,8 +45,10 @@ show_test_results:
 
 # Common predicates {{{
 # These predicates are fairly common and are available to be used to construct
-# more strict test cases without repeating common predicates.
-predicate_test_file_is_executable = [ -x  "$$FILE" ]
+# more strict test cases without repeating common predicates. Note, FILE is
+# replaced with the command to run the current implementation, whereas _FILE is
+# replaced with the relative path to the implementation file.
+predicate_test_file_is_executable = [ -x  "$$_FILE" ]
 predicate_test_program_has_output = [ "$$("$$FILE" | wc -c | awk '{print $$1}')" -gt 0 ]
 predicate_test_output_is_at_least_3_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 2 ]
 predicate_test_output_is_at_least_5_lines = ${predicate_test_program_has_output} && [ "$$("$$FILE" | wc -l)" -gt 4 ]
@@ -61,15 +63,16 @@ predicate_test_input_line_count_matches_output_line_count = [ "$$(awk "BEGIN {fo
 ${TEST_CASES}: ${TEST_FILES}
 	@echo "${BOLD}Starting:${RESET} $@..." | tr '_' ' '
 	@ERRORS="" ; \
-	for FILE in $^ ; \
+	for _FILE in $^ ; \
 	do \
-		timeout ${TFLAG} ${TMOUT} ${predicate_${@}} ; \
+		FILE="timeout ${TFLAG} ${TMOUT} $${_FILE}" ; \
+		${predicate_${@}} ; \
 		case "$$?" in \
 			0)   continue ;; \
 			124) ERROR_TYPE="TIMEOUT" ;; \
 			*)   ERROR_TYPE="FAIL" ;; \
 		esac ; \
-		ERRORS="$${ERRORS} $${ERROR_TYPE}:$$(basename "$${FILE}")" ; \
+		ERRORS="$${ERRORS} $${ERROR_TYPE}:$$(basename "$${_FILE}")" ; \
 	done 1>/dev/null 2>&1 ; \
 	for ERROR in $$ERRORS ; \
 	do \
