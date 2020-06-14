@@ -10,7 +10,7 @@ gen_seq() { # {{{ $1:n
 } # }}}
 
 length() { # {{{ $@:str
-	echo "$@" | wc -c
+	printf "%s" "$@" | wc -c
 } # }}}
 
 char_at() { # {{{ $1:str $2:index
@@ -34,21 +34,18 @@ index_of() { # {{{ $1:str $2:char
 } # }}}
 
 encode() { # {{{ $1:key $2:message
-	echo "ERROR: Not yet implemented." 1>&2
-	exit 1
-
 	out=""
 
 	for i in $(gen_seq "$(length "$2")")
 	do
 		for j in $(gen_seq "$(length "$LETTERS")")
 		do
-			if [ "$(char_at "$alphabet" "$j")" = "$(char_at "$1" "$(expr "$i" % "$(length "$2")")")" ]
+			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$(expr "$i" % "$(length "$2")")")" ]
 			then
 				key_index="$j"
 			fi
 
-			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$i")" ]
+			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$2" "$i")" ]
 			then
 				msg_index="$j"
 			fi
