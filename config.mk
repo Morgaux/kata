@@ -4,7 +4,7 @@
 
 KATAS = alphabet_cipher fizzbuzz roman_numerals sort palindrome leap_year
 LANGS = awk c haskell java python shell
-TFLAG = -s 9 -k 1 --foreground -v
+TFLAG = -s 9 -k 1 --foreground
 TMOUT = 5s
 TESTS = ${KATAS:%=test_%}
 
