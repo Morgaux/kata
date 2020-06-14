@@ -101,6 +101,11 @@ parse() { # {{{ $1:arg_name
 } # }}}
 
 main() { # {{{ $@:unused
+	if [ -f "$ERR_FILE" ]
+	then
+		rm "$ERR_FILE"
+	fi
+
 	while read LINE
 	do
 		ACTION="$(echo "$LINE" | awk '{print $1}')"
