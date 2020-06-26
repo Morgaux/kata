@@ -8,7 +8,7 @@ SELF="$(basename "$0")"
 ERR_FILE="./.${SELF}.err"
 
 err() { # {{{ $@:msg
-	echo "${SELF}: $@" | tee "$ERR_FILE" 1>&2
+	echo "${SELF}: $*" | tee -a "$ERR_FILE" 1>&2
 	return 1
 } # }}}
 
@@ -21,36 +21,36 @@ handle_err() { # {{{ $1:func_name
 	if [ -s "$ERR_FILE" ]
 	then
 		die "An error occurred in ${1:-"$SELF"}: $(cat "$ERR_FILE")"
-		rm -f "$ERR_FILE"
 	fi
 } # }}}
 
 gen_seq() { # {{{ $1:n
-	awk 'BEGIN {for (i = 0; i < '"$1"'; i++) print i}' 2>"$ERR_FILE"
+	awk 'BEGIN {for (i = 0; i < '"${1:-0}"'; i++) print i}' 2>>"$ERR_FILE"
 	handle_err "gen_seq()"
 } # }}}
 
 length() { # {{{ $@:str
-	printf "%s" "$@" | wc -c 2>"$ERR_FILE"
+	printf "%s" "$@" | wc -c 2>>"$ERR_FILE"
+	handle_err "length()"
 } # }}}
 
 char_at() { # {{{ $1:str $2:index
-	echo "$(echo "$1" | \
-		head -c "$(expr "$(expr "$2" + 1)" % "$(length "$1")")" | \
-		tail -c 1)" 2>"$ERR_FILE"
+	printf "%s\n" "$(echo "$1" | \
+		head -c "$(("$(("$2" % "$(length "$1")"))" + 1))" | \
+		tail -c 1)" 2>>"$ERR_FILE"
 	handle_err "char_at()"
 } # }}}
 
 index_of() { # {{{ $1:str $2:char
 	for index in $(gen_seq "$(length "$1")")
 	do
-		if [ "$(char_at "$1" $index)" = "$(char_at "$2" 0)" ]
+		if [ "$(char_at "$1" "$index")" = "$(char_at "$2" 0)" ]
 		then
 			echo "$index"
 			return 0
-		fi 2>"$ERR_FILE"
+		fi 2>>"$ERR_FILE"
 		handle_err "index_of()"
-	done 2>"$ERR_FILE"
+	done 2>>"$ERR_FILE"
 	handle_err "index_of()"
 
 	echo "-1"
@@ -65,7 +65,7 @@ encode() { # {{{ $1:key $2:message
 	do
 		for j in $(gen_seq "$(length "$LETTERS")")
 		do
-			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$(expr "$i" % "$(length "$2")")")" ]
+			if [ "$(char_at "$LETTERS" "$j")" = "$(char_at "$1" "$(("$i" % "$LETTER_COUNT"))")" ]
 			then
 				key_index="$j"
 			fi
@@ -76,8 +76,9 @@ encode() { # {{{ $1:key $2:message
 			fi
 		done
 
-		out="${out}$(char_at "$LETTERS" "$(expr "$key_index" + "$msg_index")")"
-	done
+		out="${out}$(char_at "$LETTERS" "$(("$key_index" + "$msg_index"))")"
+	done 2>>"$ERR_FILE"
+	handle_err "encode()"
 
 	echo "$out"
 } # }}}
@@ -96,7 +97,7 @@ parse() { # {{{ $1:arg_name
 	echo "$LINE" | \
 		tr '[:space:]' '\n' | \
 		grep "$1" | \
-		sed "s/$1=//g" 2>"$ERR_FILE"
+		sed "s/$1=//g" 2>>"$ERR_FILE"
 	handle_err "parse()"
 } # }}}
 
@@ -106,7 +107,7 @@ main() { # {{{ $@:unused
 		rm "$ERR_FILE"
 	fi
 
-	while read LINE
+	while read -r LINE
 	do
 		ACTION="$(echo "$LINE" | awk '{print $1}')"
 		KEY="$(parse "key")"
@@ -131,5 +132,6 @@ main() { # {{{ $@:unused
 	done
 } # }}}
 
+# shellcheck disable=SC2068
 main $@
 

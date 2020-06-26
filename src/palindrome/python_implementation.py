@@ -2,7 +2,7 @@
 
 import sys
 
-def isPalindrome(line: str) -> bool:
+def isPalindrome(line):
     letters = []
     for letter in line.lower():
         if letter in [
